@@ -7,31 +7,35 @@ title: bopi research
 {% assign latest = sorted.first %}
 
 {% if latest %}
-  <p class="text-xs text-black/40 mb-1">{{ latest.date | date: '%Y-%m-%d' }}</p>
   <h1 class="text-2xl font-normal lowercase tracking-tight mb-8">latest digest</h1>
 
-  {% for paper in latest.papers %}
-  <article class="py-6 border-b border-black/10 first:pt-0 last:border-b-0">
-    <h2 class="text-lg font-normal lowercase tracking-tight leading-snug mb-1.5">{{ paper.title }}</h2>
+  <a href="{{ latest.url | relative_url }}" class="block py-6 border-b border-black/10 hover:text-bolt transition-colors">
+    <p class="text-xs text-black/40 mb-1">{{ latest.date | date: '%Y-%m-%d' }}</p>
+    <h2 class="text-lg font-normal lowercase tracking-tight leading-snug mb-1.5">{{ latest.title }}</h2>
     <div class="flex flex-wrap gap-1.5 mb-1.5">
-      {% for cat in paper.categories %}
+      {% for cat in latest.categories %}
         <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
       {% endfor %}
     </div>
-    <p class="text-xs text-black/40 mb-3">
-      <a href="{{ paper.abs }}" class="text-bolt hover:opacity-70 transition-opacity">[{{ paper.arxiv_id }}]</a>
+    <p class="text-xs text-black/40 mb-2">
+      <a href="{{ latest.abs }}" class="text-bolt hover:opacity-70 transition-opacity">[{{ latest.arxiv_id }}]</a>
       <span class="mx-1">/</span>
-      {{ paper.authors | limit: 3 | join: ', ' }}{% if paper.authors.size > 3 %} et al.{% endif %}
+      {{ latest.authors | limit: 3 | join: ', ' }}{% if latest.authors.size > 3 %} et al.{% endif %}
     </p>
-    <p class="text-sm text-black/50 leading-relaxed mb-3">{{ paper.problem }}</p>
-    <div class="flex gap-3 mb-2">
-      <a href="{{ paper.abs }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">paper</a>
-      <a href="{{ paper.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
-      {% if paper.code %}<a href="{{ paper.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
-    </div>
-  </article>
+    <p class="text-sm text-black/50 leading-relaxed">{{ latest.problem }}</p>
+  </a>
+
+  {% assign older = sorted | shift %}
+  {% if older.size > 0 %}
+  <h2 class="text-lg font-normal lowercase tracking-tight mt-8 mb-4">earlier</h2>
+  {% for paper in older %}
+  <a href="{{ paper.url | relative_url }}" class="block py-3 border-b border-black/10 hover:text-bolt transition-colors">
+    <p class="text-xs text-black/40 mb-0.5">{{ paper.date | date: '%Y-%m-%d' }} / {{ paper.arxiv_id }}</p>
+    <p class="text-base font-normal lowercase tracking-tight leading-snug">{{ paper.title }}</p>
+  </a>
   {% endfor %}
-  <a href="{{ latest.url | relative_url }}" class="inline-block mt-4 text-sm text-bolt hover:opacity-70 transition-opacity">read full digest with notes</a>
+  {% endif %}
+
 {% else %}
   <p class="text-sm text-black/30 italic">no digests yet.</p>
 {% endif %}
