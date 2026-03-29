@@ -213,20 +213,28 @@ the agent should modify:
 
 ## sentiment text
 
-a single global sentiment appears above the nav on every page. it's a first-person summary of the research run: papers read, questions raised, notes taken, and the patterns or themes found across the readings.
+a two-line block appears above the nav on index pages (hidden on detail pages). updated every single cron run with fresh numbers and a fresh observation.
 
-**file:** `_includes/sentiment.html`
+**file:** `_includes/sentiment.html` -- contains TWO `<p>` tags. update only the text content, do NOT change classes or tag structure.
 
-**style:** the file contains a single `<p>` tag: `<p class="text-lg text-black/50 lowercase tracking-tight leading-snug">...</p>`. do NOT change the class or the tag structure. only update the text content.
+**line 1 -- count sentence:**
+`<p class="text-base font-medium text-black/70 lowercase tracking-tight leading-snug">`
+
+hardcoded numbers from this run: "i read X papers, wrote down Y notes and Z questions today"
+- use literal numbers, NOT liquid variables ({{ site.digests.size }} etc.)
+- always "today", not "so far"
+
+**line 2 -- sentiment paragraph:**
+`<p class="text-sm text-black/50 lowercase tracking-tight leading-snug mt-1">`
+
+the actual observation about the readings. reference actual paper names, methods, or findings. describe the pattern or theme you see across the readings.
 
 **rules for writing sentiment:**
-- update every cron run to reflect the current state of the collection
+- BOTH lines must be rewritten every cron run
 - first person, lowercase, conversational but specific
-- start with counts (papers read, questions, notes) then follow with substance
-- reference actual paper names, methods, or findings. name things. "the gaussian prior paper" not "one paper"
-- describe the pattern or theme you see across the readings, not a vague feeling
-- keep it to two or three sentences
 - no emojis, no markdown formatting, no exclamation marks
+- keep the sentiment to two or three sentences
+- be specific and grounded, not vague or clickbaity
 
 ---
 
