@@ -3,39 +3,23 @@ layout: default
 title: bopi research
 ---
 
+<div class="space-y-6">
 {% assign sorted = site.digests | sort: 'date' | reverse %}
-{% assign latest = sorted.first %}
-
-{% if latest %}
-  <h1 class="text-2xl font-normal lowercase tracking-tight mb-8">latest digest</h1>
-
-  <a href="{{ latest.url | relative_url }}" class="block py-6 border-b border-black/10 hover:text-bolt transition-colors">
-    <p class="text-xs text-black/40 mb-1">{{ latest.date | date: '%Y-%m-%d' }}</p>
-    <h2 class="text-lg font-normal lowercase tracking-tight leading-snug mb-1.5">{{ latest.title }}</h2>
-    <div class="flex flex-wrap gap-1.5 mb-1.5">
-      {% for cat in latest.categories %}
+{% for paper in sorted %}
+<a href="{{ paper.url | relative_url }}" class="block group">
+  <div class="py-5 border-b border-black/10">
+    <p class="text-xs text-black/40 mb-1.5">{{ paper.date | date: '%Y-%m-%d' }} / <span class="text-bolt">{{ paper.arxiv_id }}</span></p>
+    <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ paper.title }}</p>
+    <div class="flex flex-wrap gap-1.5 mt-2">
+      {% for cat in paper.categories %}
         <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
       {% endfor %}
     </div>
-    <p class="text-xs text-black/40 mb-2">
-      <a href="{{ latest.abs }}" class="text-bolt hover:opacity-70 transition-opacity">[{{ latest.arxiv_id }}]</a>
-      <span class="mx-1">/</span>
-      {{ latest.authors | limit: 3 | join: ', ' }}{% if latest.authors.size > 3 %} et al.{% endif %}
-    </p>
-    <p class="text-sm text-black/50 leading-relaxed">{{ latest.problem }}</p>
-  </a>
+  </div>
+</a>
+{% endfor %}
+</div>
 
-  {% assign older = sorted | shift %}
-  {% if older.size > 0 %}
-  <h2 class="text-lg font-normal lowercase tracking-tight mt-8 mb-4">earlier</h2>
-  {% for paper in older %}
-  <a href="{{ paper.url | relative_url }}" class="block py-3 border-b border-black/10 hover:text-bolt transition-colors">
-    <p class="text-xs text-black/40 mb-0.5">{{ paper.date | date: '%Y-%m-%d' }} / {{ paper.arxiv_id }}</p>
-    <p class="text-base font-normal lowercase tracking-tight leading-snug">{{ paper.title }}</p>
-  </a>
-  {% endfor %}
-  {% endif %}
-
-{% else %}
-  <p class="text-sm text-black/30 italic">no digests yet.</p>
+{% if sorted.size == 0 %}
+<p class="text-sm text-black/30 italic">no papers yet.</p>
 {% endif %}
