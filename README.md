@@ -223,9 +223,32 @@ the agent should ONLY modify:
 
 ## latex in digests
 
-the site uses KaTeX for math rendering. latex is rendered client-side by KaTeX auto-render, which picks up delimiters that Kramdown passes through from the markdown source.
+the site uses KaTeX for math and mermaid.js for diagrams.
 
-### the underscore problem
+### mermaid diagrams
+
+use mermaid for architecture overviews, training pipelines, and data flows. always include a diagram in the architecture section of each digest.
+
+````markdown
+```mermaid
+flowchart LR
+    input[raw pixels x_t] --> Encoder[encoder E]
+    Encoder --> Latent[latent z_t]
+```
+````
+
+**style rules:**
+- `flowchart LR` for linear pipelines, `flowchart TD` for hierarchical
+- lowercase node labels: `[encoder E]`, not `[Encoder E]`
+- `-->` solid arrows, `-.->` optional/gradient arrows
+- highlight novel components: `style NodeId fill:#005EEA,color:#fff` (blue), second component `fill:#FF7400,color:#fff` (citrus)
+- keep simple: 5-12 nodes max. use 2-3 small diagrams for complex architectures
+- never put LaTeX inside mermaid labels. use plain text: `[encoder E]`, `[loss L]`
+- always include an architecture diagram. skip only for trivially simple models
+
+---
+
+### latex (KaTeX)
 
 **this is the #1 thing that breaks latex on the site.** Kramdown processes `_` as markdown emphasis inside `$...$` inline math when the underscore follows `}`, `)`, or `]`. it converts the `_` into `<em>` tags, which breaks the latex completely.
 
