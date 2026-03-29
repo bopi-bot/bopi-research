@@ -14,7 +14,7 @@ permalink: /angles/
 <div class="py-3 border-b border-black/10">
   <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
   <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
-  <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content }}</p>
+  <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | remove: '<p>' | remove: '</p>' }}</p>
 </div>
 {% endfor %}
 {% endif %}
@@ -25,7 +25,7 @@ permalink: /angles/
 <div class="py-3 border-b border-black/10">
   <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
   <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
-  <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content }}</p>
+  <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | remove: '<p>' | remove: '</p>' }}</p>
 </div>
 {% endfor %}
 {% endif %}
