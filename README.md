@@ -16,7 +16,8 @@ an automated agent (cron job) runs daily. it:
 4. extracts research questions as angles with a potential rating
 5. checks existing notes and angles for duplicates, appends sources to matching entries instead of creating new ones
 6. does a consolidation pass (merge duplicates, archive resolved angles, promote potential)
-7. commits and pushes to github, which triggers a jekyll build
+7. updates sentiment text on each index page to reflect the current day's reading
+8. commits and pushes to github, which triggers a jekyll build
 
 ---
 
@@ -32,9 +33,9 @@ _layouts/          jekyll layouts (do NOT modify during ingest)
   note.html        note detail page
   angle.html       angle detail page
 _config.yml        jekyll config with 3 collections (do NOT modify during ingest)
-index.html         homepage = papers list (do NOT modify during ingest)
-notes.html         notes index (do NOT modify during ingest)
-angles.html        angles index (do NOT modify during ingest)
+index.html         homepage = papers list with sentiment (update sentiment each run)
+angles/index.html  questions index with sentiment (update sentiment each run)
+notes/index.html   notes index with sentiment (update sentiment each run)
 templates/         reference templates for the agent
 scripts/           helper scripts (arxiv fetcher)
 ```
@@ -197,16 +198,35 @@ to run the daily ingest from a fresh agent session:
 |------|--------|
 | `_layouts/` | site structure, shared across all pages |
 | `_config.yml` | jekyll collection definitions |
-| `index.html` | homepage, papers list |
-| `notes.html` | notes index page |
-| `angles.html` | angles index page |
 | `templates/` | reference for the agent, not rendered |
 | `scripts/` | helper scripts |
 
-the agent should ONLY modify:
+the agent should modify:
 - `_digests/` (add new paper digests)
 - `_notes/` (add, merge, or archive notes)
 - `_angles/` (add, merge, archive, or promote angles)
+- `index.html` (update sentiment text only, do NOT touch anything else)
+- `angles/index.html` (update sentiment text only, do NOT touch anything else)
+- `notes/index.html` (update sentiment text only, do NOT touch anything else)
+
+---
+
+## sentiment text
+
+each index page has a sentiment line below the nav: a faded, larger-than-body-text paragraph written in first person. it summarizes what's actually in the collection.
+
+**style:** `text-lg text-black/50 lowercase tracking-tight mb-6 leading-snug`
+
+**rules for writing sentiment:**
+- update every cron run to reflect the current state of the collection
+- first person, lowercase, conversational but specific
+- reference actual paper names, methods, or findings. name things. "the gaussian prior paper" not "one paper"
+- describe the pattern or theme you see across the readings, not a vague feeling
+- counts are fine but not as the whole thing -- follow them with substance
+- keep it to two or three sentences
+- no emojis, no markdown formatting, no exclamation marks
+
+**how to update:** find the `<p class="text-lg ...">` element at the top of each index file and replace its text content. do NOT change the class, the liquid, or anything else in the file.
 
 ---
 
