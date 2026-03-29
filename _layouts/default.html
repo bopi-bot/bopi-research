@@ -1,70 +1,67 @@
-     1|<!DOCTYPE html>
-     2|<html lang="en">
-     3|<head>
-     4|  <meta charset="utf-8">
-     5|  <meta name="viewport" content="width=device-width, initial-scale=1">
-     6|  <title>{% if page.title != "bopi research" %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-     7|  <link rel="preconnect" href="https://fonts.googleapis.com">
-     8|  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     9|  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    10|  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-    11|  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-    12|  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
-    13|    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
-    14|  <script src="https://cdn.tailwindcss.com"></script>
-    15|  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
-    16|  <script>mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{primaryColor:'#005EEA',primaryTextColor:'#111',primaryBorderColor:'rgba(0,94,234,0.15)',lineColor:'rgba(0,0,0,0.12)',secondaryColor:'#FFFBF0',tertiaryColor:'#f5f5f4',fontFamily:'Inter,system-ui,sans-serif',fontSize:'12px'}});</script>
-    17|  <script>
-    18|    tailwind.config = {
-    19|      theme: {
-    20|        extend: {
-    21|          colors: {
-    22|            cream: '#FFFBF0',
-    23|            bolt: '#005EEA',
-    24|            flower: '#FFD500',
-    25|            citrus: '#FF7400',
-    26|          },
-    27|          fontFamily: {
-    28|            sans: ['Inter', 'system-ui', 'sans-serif'],
-    29|          },
-    30|        },
-    31|      },
-    32|    }
-    33|  </script>
-    34|  <style>
-    35|    body { -webkit-font-smoothing: antialiased; }
-    36|    ::selection { background: rgba(0,94,234,0.15); }
-    37|
-    38|    /* prose: rich text inside .prose */
-    39|    .prose { color: rgba(0,0,0,0.5); line-height: 1.7; font-size: 0.9375rem; }
-    40|    .prose p { margin-bottom: 1rem; }
-    41|    .prose p:last-child { margin-bottom: 0; }
-    42|    .prose h2 { color: #111; font-size: 0.875rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.75rem; margin-bottom: 0.625rem; }
-    43|    .prose h3 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.375rem; margin-bottom: 0.5rem; }
-    44|    .prose h4 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; margin-top: 1.25rem; margin-bottom: 0.375rem; }
-    45|    .prose strong { color: rgba(0,0,0,0.75); font-weight: 500; }
-    46|    .prose a { color: #005EEA; text-decoration: none; transition: opacity 0.15s; }
-    47|    .prose a:hover { opacity: 0.7; }
-    48|    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
-    49|    .prose ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 1rem; }
-    50|    .prose li { margin-bottom: 0.25rem; }
-    51|    .prose li > ul, .prose li > ol { margin-bottom: 0; margin-top: 0.25rem; }
-    52|    .prose code { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace; font-size: 0.8125em; background: rgba(0,0,0,0.04); padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: rgba(0,0,0,0.65); }
-    53|    .prose pre { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin-bottom: 1rem; -webkit-overflow-scrolling: touch; }
-    54|    .prose pre code { background: none; padding: 0; border-radius: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(0,0,0,0.55); }
-    55|    .prose blockquote { border-left: 2px solid rgba(0,0,0,0.08); padding-left: 1rem; color: rgba(0,0,0,0.4); font-style: italic; margin-bottom: 1rem; }
-    56|    .prose table { width: 100%; font-size: 0.8125rem; margin-bottom: 1rem; }
-    57|    .prose th { text-align: left; font-weight: 500; color: rgba(0,0,0,0.65); padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    58|    .prose td { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
-    59|    .prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1.5rem 0; }
-    60|    .prose img { border-radius: 0.5rem; max-width: 100%; height: auto; }
-    61|
-    62|    /* highlighter-rouge (Jekyll code blocks) */
-    63|    .prose .highlighter-rouge { margin-bottom: 1rem; }
-    64|    .prose .highlighter-rouge .highlight { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    65|    .prose .highlighter-rouge pre { background: none; padding: 0; margin: 0; }
-    66|    .prose .highlighter-rouge pre code { background: none; padding: 0; }
-    67|
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title != "bopi research" %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FFFBF0',
+            bolt: '#005EEA',
+            flower: '#FFD500',
+            citrus: '#FF7400',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { -webkit-font-smoothing: antialiased; }
+    ::selection { background: rgba(0,94,234,0.15); }
+
+    /* prose: rich text inside .prose */
+    .prose { color: rgba(0,0,0,0.5); line-height: 1.7; font-size: 0.9375rem; }
+    .prose p { margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose h2 { color: #111; font-size: 0.875rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.75rem; margin-bottom: 0.625rem; }
+    .prose h3 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.375rem; margin-bottom: 0.5rem; }
+    .prose h4 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; margin-top: 1.25rem; margin-bottom: 0.375rem; }
+    .prose strong { color: rgba(0,0,0,0.75); font-weight: 500; }
+    .prose a { color: #005EEA; text-decoration: none; transition: opacity 0.15s; }
+    .prose a:hover { opacity: 0.7; }
+    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
+    .prose ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 1rem; }
+    .prose li { margin-bottom: 0.25rem; }
+    .prose li > ul, .prose li > ol { margin-bottom: 0; margin-top: 0.25rem; }
+    .prose code { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace; font-size: 0.8125em; background: rgba(0,0,0,0.04); padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: rgba(0,0,0,0.65); }
+    .prose pre { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin-bottom: 1rem; -webkit-overflow-scrolling: touch; }
+    .prose pre code { background: none; padding: 0; border-radius: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(0,0,0,0.55); }
+    .prose blockquote { border-left: 2px solid rgba(0,0,0,0.08); padding-left: 1rem; color: rgba(0,0,0,0.4); font-style: italic; margin-bottom: 1rem; }
+    .prose table { width: 100%; font-size: 0.8125rem; margin-bottom: 1rem; }
+    .prose th { text-align: left; font-weight: 500; color: rgba(0,0,0,0.65); padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .prose td { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+    .prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1.5rem 0; }
+    .prose img { border-radius: 0.5rem; max-width: 100%; height: auto; }
+
+    /* highlighter-rouge (Jekyll code blocks) */
+    .prose .highlighter-rouge { margin-bottom: 1rem; }
+    .prose .highlighter-rouge .highlight { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .prose .highlighter-rouge pre { background: none; padding: 0; margin: 0; }
+    .prose .highlighter-rouge pre code { background: none; padding: 0; }
+
     /* kaTeX: block math spacing */
     .prose .katex-display { margin: 1rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .prose .katex { font-size: 1em; }
@@ -74,23 +71,49 @@
     .prose .mermaid { margin: 1.25rem 0; text-align: center; }
     .prose .mermaid svg { max-width: 100%; height: auto; }
   </style>
-    73|</head>
-    74|<body class="bg-cream text-gray-900 font-sans">
-    75|
-    76|  <header class="py-3">
-    77|    <div class="max-w-2xl mx-auto px-6">
-    78|      <nav class="flex gap-4">
-    79|        <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url == '/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">papers</a>
-    80|        <a href="{{ '/angles/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/angles/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">questions</a>
-    81|        <a href="{{ '/notes/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/notes/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">notes</a>
-    82|      </nav>
-    83|    </div>
-    84|  </header>
-    85|
-    86|  <main class="max-w-2xl mx-auto px-6 py-6">
-    87|    {{ content }}
-    88|  </main>
-    89|
-    90|</body>
-    91|</html>
-    92|
+</head>
+<body class="bg-cream text-gray-900 font-sans">
+
+  <header class="py-3">
+    <div class="max-w-2xl mx-auto px-6">
+      <nav class="flex gap-4">
+        <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url == '/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">papers</a>
+        <a href="{{ '/angles/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/angles/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">questions</a>
+        <a href="{{ '/notes/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/notes/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6 py-6">
+    {{ content }}
+  </main>
+
+  <script>
+    // convert kramdown code blocks with language-mermaid into mermaid divs
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el) {
+      var pre = el.parentElement;
+      var div = document.createElement('pre');
+      div.className = 'mermaid';
+      div.textContent = el.textContent;
+      pre.replaceWith(div);
+    });
+
+    // render katex after DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.9.0/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{primaryColor:'#005EEA',primaryTextColor:'#111',primaryBorderColor:'rgba(0,94,234,0.15)',lineColor:'rgba(0,0,0,0.12)',secondaryColor:'#FFFBF0',tertiaryColor:'#f5f5f4',fontFamily:'Inter,system-ui,sans-serif',fontSize:'12px'}});</script>
+</body>
+</html>
