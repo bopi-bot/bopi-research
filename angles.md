@@ -4,20 +4,31 @@ title: angles
 permalink: /angles/
 ---
 
-## active
+<h1 class="text-2xl font-normal lowercase tracking-tight mb-8">angles</h1>
 
-### gaussian prior as collapse prevention
-LeWorldModel avoids representation collapse in JEPAs with just a Gaussian prior regularizer instead of complex multi-term losses, EMAs, pretrained encoders, or auxiliary supervision. this is a clean, potentially generalizable approach worth testing beyond LeWM's setup.
+{% assign active = site.angles | where: 'status', 'active' | sort: 'date' | reverse %}
+{% assign archived = site.angles | where: 'status', 'archived' | sort: 'date' | reverse %}
 
-### speed vs quality tradeoff in world models
-LeWM plans 48x faster than foundation-model-based world models while staying competitive on control tasks. is this gap bridgeable, or is there a fundamental quality ceiling for lightweight models? worth benchmarking on manipulation-heavy tasks.
+{% if active.size > 0 %}
+<h2 class="text-sm font-medium uppercase tracking-wider text-black/40 mb-4">active</h2>
+{% for angle in active %}
+<a href="{{ angle.url | relative_url }}" class="block py-3 border-b border-black/10 hover:text-bolt transition-colors">
+  <p class="text-base font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
+  <p class="text-xs text-black/30 mt-0.5">{{ angle.date | date: '%Y-%m-%d' }} / {{ angle.source }}</p>
+</a>
+{% endfor %}
+{% endif %}
 
-### end-to-end pixel-to-latent pipelines for robotics
-most robotics world models rely on pretrained vision backbones. LeWM trains from raw pixels end-to-end. this simplifies the stack but raises questions about visual fidelity and generalization to out-of-distribution scenes.
+{% if archived.size > 0 %}
+<h2 class="text-sm font-medium uppercase tracking-wider text-black/40 mb-4 mt-8">archived</h2>
+{% for angle in archived %}
+<a href="{{ angle.url | relative_url }}" class="block py-3 border-b border-black/10 hover:text-bolt transition-colors">
+  <p class="text-base font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
+  <p class="text-xs text-black/30 mt-0.5">{{ angle.date | date: '%Y-%m-%d' }} / {{ angle.source }}</p>
+</a>
+{% endfor %}
+{% endif %}
 
-## high conviction
-
-### simpler loss functions = better research tools
-reducing tunable loss hyperparameters from six to one isn't just a convenience - it directly improves reproducibility and makes the architecture accessible to labs without extensive hyperparameter search budgets.
-
-## archived
+{% if active.size == 0 and archived.size == 0 %}
+<p class="text-sm text-black/30 italic">no angles yet.</p>
+{% endif %}

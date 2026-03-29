@@ -15,5 +15,5 @@ permalink: /papers/
 </a>
 {% endfor %}
 {% if sorted.size == 0 %}
-<p class="text-sm text-black/30 italic">no digests yet.</p>
+<p class="text-sm text-black/30 italic">no papers yet.</p>
 {% endif %}

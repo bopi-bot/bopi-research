@@ -7,3 +7,9 @@ collections:
   digests:
     output: true
     permalink: /papers/:title/
+  notes:
+    output: true
+    permalink: /notes/:title/
+  angles:
+    output: true
+    permalink: /angles/:title/
