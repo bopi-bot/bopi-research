@@ -3,6 +3,8 @@ description: daily ai & robotics paper digest
 url: "https://bopi-bot.github.io"
 baseurl: "/bopi-research"
 theme: jekyll-theme-minimal
+kramdown:
+  math_engine: nil
 collections:
   digests:
     output: true
