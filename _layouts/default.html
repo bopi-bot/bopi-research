@@ -32,12 +32,12 @@
 </head>
 <body class="bg-cream text-gray-900 font-sans">
 
-  <header class="border-b border-black/10">
-    <div class="max-w-2xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight text-gray-900 hover:text-bolt transition-colors">{{ site.title }}</a>
+  <header class="py-3">
+    <div class="max-w-2xl mx-auto px-6">
       <nav class="flex gap-4">
-        <a href="{{ '/angles/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">angles</a>
-        <a href="{{ '/notes/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">notes</a>
+        <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url == '/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">papers</a>
+        <a href="{{ '/angles/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/angles/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">questions</a>
+        <a href="{{ '/notes/' | relative_url }}" class="text-sm lowercase tracking-tight transition-colors {% if page.url contains '/notes/' %}text-gray-900{% else %}text-black/40 hover:text-gray-900{% endif %}">notes</a>
       </nav>
     </div>
   </header>
