@@ -76,20 +76,28 @@
 
   <header class="py-3">
     <div class="max-w-2xl mx-auto px-6">
+      {% if page.layout == 'digest' or page.layout == 'note' or page.layout == 'angle' %}
+      <nav>
+        <a href="{{ '/' | relative_url }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/5 text-sm lowercase tracking-tight text-gray-900 hover:bg-black/8 transition-colors">
+          &larr; all papers
+        </a>
+      </nav>
+      {% else %}
       <nav class="flex gap-2">
-        <a href="{{ '/' | relative_url }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs lowercase tracking-tight transition-colors {% if page.url == '/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
+        <a href="{{ '/' | relative_url }}" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm lowercase tracking-tight transition-colors {% if page.url == '/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
           <span>{{ site.digests.size }}</span>
           <span>papers</span>
         </a>
-        <a href="{{ '/angles/' | relative_url }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs lowercase tracking-tight transition-colors {% if page.url contains '/angles/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
+        <a href="{{ '/angles/' | relative_url }}" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm lowercase tracking-tight transition-colors {% if page.url contains '/angles/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
           <span>{{ site.angles.size }}</span>
           <span>questions</span>
         </a>
-        <a href="{{ '/notes/' | relative_url }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs lowercase tracking-tight transition-colors {% if page.url contains '/notes/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
+        <a href="{{ '/notes/' | relative_url }}" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm lowercase tracking-tight transition-colors {% if page.url contains '/notes/' %}bg-black/5 text-gray-900{% else %}text-black/40 hover:text-gray-900 hover:bg-black/5{% endif %}">
           <span>{{ site.notes.size }}</span>
           <span>notes</span>
         </a>
       </nav>
+      {% endif %}
     </div>
   </header>
 
