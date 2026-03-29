@@ -90,7 +90,10 @@ takeaways, connections, next-step ideas. weakest assumption?
 - `categories` should be descriptive tags, not arxiv categories. use lowercase.
 - concrete numbers everywhere: params, flops, training time, benchmark scores, dataset sizes
 - name specific prior methods and their limitations, not vague "existing methods"
-- equations in backtick code blocks for monospace rendering
+- ALL math uses LaTeX: `$...$` for inline, `$$...$$` for display. see "latex in digests" section below
+- never use backtick code blocks for equations
+- escape `_` after `}`, `)`, `]` in inline math with `\_` (see the underscore problem)
+- all section headers and body text should be lowercase
 - reproduction guide must be actionable
 
 ### notes (`_notes/`)
@@ -215,6 +218,95 @@ the agent should ONLY modify:
 - **collection folder is `_digests/` but URL is `/papers/:title/`.** don't mix these up.
 - **use `relative_url` filter** for all internal links in layouts.
 - **tailwind is loaded via CDN** (`<script src="https://cdn.tailwindcss.com"></script>`) because github pages doesn't support tailwind as a jekyll plugin.
+
+---
+
+## latex in digests
+
+the site uses KaTeX for math rendering. latex is rendered client-side by KaTeX auto-render, which picks up delimiters that Kramdown passes through from the markdown source.
+
+### the underscore problem
+
+**this is the #1 thing that breaks latex on the site.** Kramdown processes `_` as markdown emphasis inside `$...$` inline math when the underscore follows `}`, `)`, or `]`. it converts the `_` into `<em>` tags, which breaks the latex completely.
+
+**broken:** `$\mathcal{R}_{\text{task}}$` → Kramdown eats `_{\text{task}}` and outputs `<em>` tags → KaTeX sees broken HTML → renders nothing or garbage.
+
+**fixed:** `$\mathcal{R}\_{\text{task}}$` → Kramdown outputs literal `_{\text{task}}` (the `\_` is an escaped underscore) → KaTeX sees `_{\text{task}}` → renders correctly as subscript.
+
+**the rule:** inside `$...$` inline math, escape `_` with a backslash when it follows `}`, `)`, or `]`. write `}\_` instead of `}_`. this only applies to inline `$...$` math. display math `$$...$$` is safe because Kramdown treats it as a block element.
+
+### inline vs display math
+
+```
+inline:  $x_t \in \mathbb{R}^d$        (use $...$)
+display: $$\mathcal{L} = \|x - y\|^2$$ (use $$...$$)
+```
+
+### common patterns and how to write them
+
+| what | write this | NOT this |
+|------|-----------|---------|
+| subscript after a letter | `$x_t$` | (this is fine, no escape needed) |
+| subscript after `}` | `$\mathcal{L}\_{\text{task}}$` | `$\mathcal{L}_{\text{task}}$` (broken) |
+| subscript after `)` | `$f(x)\_i$` | `$f(x)_i$` (broken) |
+| subscript after `]` | `$\mathbf{v}\_{k}$` | `$\mathbf{v}_{k}$` (broken) |
+| multiplication | `$\lambda \cdot \mathcal{R}$` | `$\lambda * \mathcal{R}$` (broken, triggers bold) |
+| norms | `$\|x - y\|^2$` | `$||x - y||^2$` (ambiguous pipes) |
+| sets | `$\mathbb{R}^d$`, `$\mathcal{N}(0, I)$` | `$R^d$`, `$N(0,I)$` |
+| greek letters | `$\lambda$`, `$\alpha$`, `$\theta$`, `$\pi_\theta$` | `$lambda$`, `$alpha$` |
+| fractions | `$\frac{1}{N}$` | `$1/N$` |
+| matrices | `$$\begin{bmatrix} a \\\\ b \end{bmatrix}$$` | only in display math |
+| KL divergence | `$D_{\text{KL}}(p \| q)$` | `$KL(p||q)$` |
+| conditional | `$p(x \mid y)$` | `$p(x|y)$` (ambiguous pipe) |
+
+### checklist for every digest
+
+after writing a digest, verify these before pushing:
+
+1. **no code blocks for equations.** backtick blocks are for code/commands only. equations go in `$$...$$` display math.
+2. **no plain-text formulas alongside latex.** don't write a backtick code block version AND a latex version of the same equation. pick one (latex).
+3. **all technical variables in prose use latex.** `$z_t$` not "z_t", `$\ell_2$` not "L2", `$\mathcal{N}(0, I)$` not "N(0,I)".
+4. **escape `_` after `}`, `)`, `]` in inline math.** see the underscore problem above.
+5. **never use bare `*` for multiplication in math.** use `\cdot`.
+6. **test by curling the live page** after pushing. search for `<em>` inside math delimiters: `curl -s URL | grep '<em>'`. if you find `<em>` near latex commands, the underscores are broken.
+7. **capitals at start of sentences.** all section headers and body text should be lowercase. only proper nouns get capitals.
+
+### automated fix
+
+the following python snippet fixes the underscore escaping for an entire digest file. run it as a sanity check before pushing:
+
+```python
+import re
+
+def fix_inline_math(content):
+    lines = content.split('\n')
+    in_code = False
+    result = []
+    for line in lines:
+        if line.strip().startswith('```'):
+            in_code = not in_code
+            result.append(line)
+            continue
+        if in_code:
+            result.append(line)
+            continue
+        # process $...$ inline math (not $$...$$)
+        fixed, i = [], 0
+        while i < len(line):
+            if line[i:i+2] == '$$':
+                end = line.find('$$', i + 2)
+                if end < 0: fixed.append(line[i:]); break
+                fixed.append(line[i:end+2]); i = end + 2
+            elif line[i] == '$':
+                end = line.find('$', i + 1)
+                if end < 0: fixed.append(line[i:]); break
+                math = re.sub(r'(?<=[\}\)\]])_', r'\\_', line[i+1:end])
+                fixed.append('$' + math + '$'); i = end + 1
+            else:
+                fixed.append(line[i]); i += 1
+        result.append(''.join(fixed))
+    return '\n'.join(result)
+```
 
 ---
 
