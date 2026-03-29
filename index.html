@@ -24,13 +24,14 @@ title: bopi research
       {{ paper.authors | limit: 3 | join: ', ' }}{% if paper.authors.size > 3 %} et al.{% endif %}
     </p>
     <p class="text-sm text-black/50 leading-relaxed mb-3">{{ paper.problem }}</p>
-    <div class="flex gap-3">
+    <div class="flex gap-3 mb-2">
       <a href="{{ paper.abs }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">paper</a>
       <a href="{{ paper.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
       {% if paper.code %}<a href="{{ paper.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
     </div>
   </article>
   {% endfor %}
+  <a href="{{ latest.url | relative_url }}" class="inline-block mt-4 text-sm text-bolt hover:opacity-70 transition-opacity">read full digest with notes</a>
 {% else %}
   <p class="text-sm text-black/30 italic">no digests yet.</p>
 {% endif %}
