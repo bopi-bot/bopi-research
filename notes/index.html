@@ -1,0 +1,23 @@
+---
+layout: default
+permalink: /notes/
+---
+
+<p class="text-base font-medium text-black/60 lowercase tracking-tight mb-6">10 things worth remembering from today's reading.</p>
+
+<div class="space-y-1">
+{% assign sorted = site.notes | sort: 'date' | reverse %}
+{% for note in sorted %}
+<a href="{{ note.url | relative_url }}" class="block group">
+  <div class="py-3">
+    <p class="text-xs text-black/40 mb-0.5">{{ note.date | date: '%Y-%m-%d' }} / {{ note.type }}{% for src in note.sources %} / <span class="text-bolt">{{ src }}</span>{% endfor %}</p>
+    <p class="text-sm font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ note.title }}</p>
+    <p class="text-xs text-black/30 leading-relaxed mt-1">{{ note.content | truncate: 180 }}</p>
+  </div>
+</a>
+{% endfor %}
+</div>
+
+{% if sorted.size == 0 %}
+<p class="text-sm text-black/30 italic">no notes yet.</p>
+{% endif %}
