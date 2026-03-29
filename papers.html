@@ -1,0 +1,28 @@
+---
+layout: default
+title: papers
+permalink: /papers/
+---
+
+<h1 class="text-2xl font-normal lowercase tracking-tight mb-8">papers</h1>
+
+<div class="space-y-6">
+{% assign sorted = site.digests | sort: 'date' | reverse %}
+{% for paper in sorted %}
+<a href="{{ paper.url | relative_url }}" class="block group">
+  <div class="py-5 border-b border-black/10">
+    <p class="text-xs text-black/40 mb-1.5">{{ paper.date | date: '%Y-%m-%d' }} / <span class="text-bolt">{{ paper.arxiv_id }}</span></p>
+    <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ paper.title }}</p>
+    <div class="flex flex-wrap gap-1.5 mt-2">
+      {% for cat in paper.categories %}
+        <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</a>
+{% endfor %}
+</div>
+
+{% if sorted.size == 0 %}
+<p class="text-sm text-black/30 italic">no papers yet.</p>
+{% endif %}
