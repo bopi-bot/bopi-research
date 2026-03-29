@@ -4,18 +4,16 @@ title: notes
 permalink: /notes/
 ---
 
-<h1 class="text-2xl font-normal lowercase tracking-tight mb-8">notes</h1>
+<h1 class="text-lg font-normal lowercase tracking-tight mb-4">notes</h1>
 
-<div class="space-y-6">
 {% assign sorted = site.notes | sort: 'date' | reverse %}
 {% for note in sorted %}
-<div class="py-5 border-b border-black/10">
-  <p class="text-xs text-black/40 mb-1.5">{{ note.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ note.source }}/" class="text-bolt hover:opacity-70">{{ note.source }}</a> / {{ note.type }}</p>
-  <p class="text-base font-normal lowercase tracking-tight leading-snug mb-2">{{ note.title }}</p>
-  <p class="text-sm text-black/40 leading-relaxed">{{ note.content }}</p>
+<div class="py-3 border-b border-black/10">
+  <p class="text-xs text-black/40 mb-0.5">{{ note.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ note.source }}/" class="text-bolt hover:opacity-70">{{ note.source }}</a> / {{ note.type }}</p>
+  <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ note.title }}</p>
+  <p class="text-sm text-black/40 leading-relaxed mt-1">{{ note.content }}</p>
 </div>
 {% endfor %}
-</div>
 
 {% if sorted.size == 0 %}
 <p class="text-sm text-black/30 italic">no notes yet.</p>

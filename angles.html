@@ -4,34 +4,30 @@ title: angles
 permalink: /angles/
 ---
 
-<h1 class="text-2xl font-normal lowercase tracking-tight mb-8">angles</h1>
+<h1 class="text-lg font-normal lowercase tracking-tight mb-4">angles</h1>
 
 {% assign active = site.angles | where: 'status', 'active' | sort: 'date' | reverse %}
 {% assign archived = site.angles | where: 'status', 'archived' | sort: 'date' | reverse %}
 
 {% if active.size > 0 %}
-<div class="space-y-6 mb-12">
 {% for angle in active %}
-<div class="py-5 border-b border-black/10">
-  <p class="text-xs text-black/40 mb-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
-  <p class="text-base font-normal lowercase tracking-tight leading-snug mb-2">{{ angle.title }}</p>
-  <p class="text-sm text-black/40 leading-relaxed">{{ angle.content }}</p>
+<div class="py-3 border-b border-black/10">
+  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
+  <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
+  <p class="text-sm text-black/40 leading-relaxed mt-1">{{ angle.content }}</p>
 </div>
 {% endfor %}
-</div>
 {% endif %}
 
 {% if archived.size > 0 %}
-<h2 class="text-sm font-medium uppercase tracking-wider text-black/40 mb-4">archived</h2>
-<div class="space-y-6">
+<h2 class="text-xs font-medium uppercase tracking-wider text-black/40 mt-6 mb-3">archived</h2>
 {% for angle in archived %}
-<div class="py-5 border-b border-black/10">
-  <p class="text-xs text-black/40 mb-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
-  <p class="text-base font-normal lowercase tracking-tight leading-snug mb-2">{{ angle.title }}</p>
-  <p class="text-sm text-black/40 leading-relaxed">{{ angle.content }}</p>
+<div class="py-3 border-b border-black/10">
+  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
+  <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
+  <p class="text-sm text-black/40 leading-relaxed mt-1">{{ angle.content }}</p>
 </div>
 {% endfor %}
-</div>
 {% endif %}
 
 {% if active.size == 0 and archived.size == 0 %}

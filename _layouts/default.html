@@ -33,16 +33,16 @@
 <body class="bg-cream text-gray-900 font-sans">
 
   <header class="border-b border-black/10">
-    <div class="max-w-2xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="max-w-2xl mx-auto px-6 py-3 flex items-center justify-between">
       <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight text-gray-900 hover:text-bolt transition-colors">{{ site.title }}</a>
-      <nav class="flex gap-5">
+      <nav class="flex gap-4">
         <a href="{{ '/angles/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">angles</a>
         <a href="{{ '/notes/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">notes</a>
       </nav>
     </div>
   </header>
 
-  <main class="max-w-2xl mx-auto px-6 py-12">
+  <main class="max-w-2xl mx-auto px-6 py-6">
     {{ content }}
   </main>
 

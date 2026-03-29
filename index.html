@@ -3,14 +3,14 @@ layout: default
 title: bopi research
 ---
 
-<div class="space-y-6">
+<div class="space-y-1">
 {% assign sorted = site.digests | sort: 'date' | reverse %}
 {% for paper in sorted %}
 <a href="{{ paper.url | relative_url }}" class="block group">
-  <div class="py-5 border-b border-black/10">
-    <p class="text-xs text-black/40 mb-1.5">{{ paper.date | date: '%Y-%m-%d' }} / <span class="text-bolt">{{ paper.arxiv_id }}</span></p>
-    <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ paper.title }}</p>
-    <div class="flex flex-wrap gap-1.5 mt-2">
+  <div class="py-3 border-b border-black/10">
+    <p class="text-xs text-black/40 mb-0.5">{{ paper.date | date: '%Y-%m-%d' }} / <span class="text-bolt">{{ paper.arxiv_id }}</span></p>
+    <p class="text-sm font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ paper.title }}</p>
+    <div class="flex flex-wrap gap-1 mt-1">
       {% for cat in paper.categories %}
         <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
       {% endfor %}

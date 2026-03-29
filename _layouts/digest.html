@@ -3,42 +3,41 @@ layout: default
 ---
 
 <article>
+  <p class="text-xs text-black/40 mb-0.5">{{ page.date | date: '%Y-%m-%d' }}</p>
 
-  <p class="text-xs text-black/40 mb-1">{{ page.date | date: '%Y-%m-%d' }}</p>
+  <h1 class="text-lg font-normal lowercase tracking-tight mb-1">{{ page.title }}</h1>
 
-  <h1 class="text-2xl font-normal lowercase tracking-tight mb-1.5">{{ page.title }}</h1>
-
-  <div class="flex flex-wrap gap-1.5 mb-1.5">
+  <div class="flex flex-wrap gap-1 mb-1">
     {% for cat in page.categories %}
       <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
     {% endfor %}
   </div>
 
-  <p class="text-xs text-black/40 mb-6">
+  <p class="text-xs text-black/40 mb-4">
     <a href="{{ page.abs }}" class="text-bolt hover:opacity-70 transition-opacity">[{{ page.arxiv_id }}]</a>
     <span class="mx-1">/</span>
     {{ page.authors | limit: 4 | join: ', ' }}{% if page.authors.size > 4 %} et al.{% endif %}
   </p>
 
-  <div class="space-y-6 mb-6">
+  <div class="space-y-3 mb-4">
     <div>
-      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">problem space</h3>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">problem space</h3>
       <p class="text-sm text-black/50 leading-relaxed">{{ page.problem }}</p>
     </div>
     <div>
-      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">methods</h3>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">methods</h3>
       <p class="text-sm text-black/50 leading-relaxed">{{ page.methods }}</p>
     </div>
     <div>
-      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">evaluation</h3>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">evaluation</h3>
       <p class="text-sm text-black/50 leading-relaxed">{{ page.evaluation }}</p>
     </div>
     <div>
-      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">reproduction guide</h3>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">reproduction guide</h3>
       <p class="text-sm text-black/50 leading-relaxed">{{ page.reproduction }}</p>
     </div>
     <div>
-      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">notes</h3>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">notes</h3>
       <p class="text-sm text-black/50 leading-relaxed">{{ page.notes }}</p>
     </div>
   </div>
@@ -48,5 +47,4 @@ layout: default
     <a href="{{ page.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
     {% if page.code %}<a href="{{ page.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
   </div>
-
 </article>
