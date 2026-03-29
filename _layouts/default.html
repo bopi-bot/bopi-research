@@ -74,9 +74,11 @@
 </head>
 <body class="bg-cream text-gray-900 font-sans">
 
+  {% if page.layout != 'digest' and page.layout != 'note' and page.layout != 'angle' %}
   <div class="max-w-2xl mx-auto px-6 pt-8 pb-1">
     {% include sentiment.html %}
   </div>
+  {% endif %}
 
   <header class="pt-6 pb-3">
     <div class="max-w-2xl mx-auto px-6">
