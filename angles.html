@@ -14,8 +14,8 @@ permalink: /angles/
 {% for angle in active %}
 <a href="{{ angle.url | relative_url }}" class="block group">
   <div class="py-5 border-b border-black/10">
+    <p class="text-xs text-black/40 mb-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
     <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ angle.title }}</p>
-    <p class="text-xs text-black/40 mt-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
   </div>
 </a>
 {% endfor %}
@@ -28,8 +28,8 @@ permalink: /angles/
 {% for angle in archived %}
 <a href="{{ angle.url | relative_url }}" class="block group">
   <div class="py-5 border-b border-black/10">
+    <p class="text-xs text-black/40 mb-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
     <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ angle.title }}</p>
-    <p class="text-xs text-black/40 mt-1.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
   </div>
 </a>
 {% endfor %}
