@@ -10,7 +10,7 @@ permalink: /angles/
   <div class="py-3">
     <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <span class="text-black/50">{{ angle.potential }} potential</span>{% for src in angle.sources %} / <span class="text-bolt">{{ src }}</span>{% endfor %}</p>
     <p class="text-sm font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ angle.title }}</p>
-    <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | truncate: 180 }}</p>
+    <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | truncate: 180 | remove: '<p>' | remove: '</p>' }}</p>
   </div>
 </a>
 {% endfor %}
