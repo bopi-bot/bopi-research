@@ -9,12 +9,11 @@ permalink: /notes/
 <div class="space-y-6">
 {% assign sorted = site.notes | sort: 'date' | reverse %}
 {% for note in sorted %}
-<a href="{{ note.url | relative_url }}" class="block group">
-  <div class="py-5 border-b border-black/10">
-    <p class="text-xs text-black/40 mb-1.5">{{ note.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ note.source }}/" class="text-bolt hover:opacity-70">{{ note.source }}</a> / {{ note.type }}</p>
-    <p class="text-base font-normal lowercase tracking-tight leading-snug group-hover:text-bolt transition-colors">{{ note.title }}</p>
-  </div>
-</a>
+<div class="py-5 border-b border-black/10">
+  <p class="text-xs text-black/40 mb-1.5">{{ note.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ note.source }}/" class="text-bolt hover:opacity-70">{{ note.source }}</a> / {{ note.type }}</p>
+  <p class="text-base font-normal lowercase tracking-tight leading-snug mb-2">{{ note.title }}</p>
+  <p class="text-sm text-black/40 leading-relaxed">{{ note.content }}</p>
+</div>
 {% endfor %}
 </div>
 
