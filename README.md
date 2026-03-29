@@ -45,9 +45,9 @@ scripts/           helper scripts (arxiv fetcher)
 
 ### digests (`_digests/`)
 
-one file per paper. filename is the arxiv ID.
+one file per paper. filename is the arxiv ID. **must be detailed enough for a researcher to plan and start a research sprint from this file alone, without reading the full paper.**
 
-**front matter:**
+**front matter** (metadata only):
 ```yaml
 layout: digest
 arxiv_id: "2603.19312"
@@ -58,11 +58,28 @@ categories: ["world-models", "JEPA"]
 abs: "https://arxiv.org/abs/2603.19312"
 pdf: "https://arxiv.org/pdf/2603.19312"
 code: "https://github.com/..."          # or empty string
-problem: "what they solve and why"
-methods: "key technical approach"
-evaluation: "benchmarks, baselines, how convincing"
-reproduction: "steps to reproduce"
-notes: "personal observations and ideas"
+```
+
+**body** (detailed markdown sections):
+
+```markdown
+## problem
+what they solve and why. prior art with named methods and their limitations.
+
+## architecture
+layer types, dimensions, equations/pseudocode for loss functions, parameter counts.
+
+## training
+hardware, training time, dataset, optimizer, lr, batch size, special tricks.
+
+## evaluation
+benchmarks with actual numbers. baselines compared. metrics. where it wins/loses.
+
+## reproduction guide
+step-by-step install, run, verify. gotchas. failure modes. compute cost.
+
+## notes
+takeaways, connections, next-step ideas. weakest assumption?
 ```
 
 **url:** `/papers/:title/`
@@ -71,8 +88,10 @@ notes: "personal observations and ideas"
 - filename MUST be the arxiv ID (e.g. `2603.19312.md`)
 - one file per paper, never combine papers
 - `categories` should be descriptive tags, not arxiv categories. use lowercase.
-- `notes` field is for personal takeaways, not a summary of the paper
-- no body content needed, everything lives in front matter
+- concrete numbers everywhere: params, flops, training time, benchmark scores, dataset sizes
+- name specific prior methods and their limitations, not vague "existing methods"
+- equations in backtick code blocks for monospace rendering
+- reproduction guide must be actionable
 
 ### notes (`_notes/`)
 
