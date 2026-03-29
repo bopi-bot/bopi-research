@@ -2,7 +2,7 @@
 layout: note
 title: "simpler losses trend in joint embedding architectures"
 date: 2026-03-29
-source: "2603.19312"
+sources: ["2603.19312"]
 type: pattern
 ---
 

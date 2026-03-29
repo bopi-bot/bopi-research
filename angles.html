@@ -10,7 +10,7 @@ permalink: /angles/
 {% if active.size > 0 %}
 {% for angle in active %}
 <div class="py-3">
-  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
+  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <span class="text-black/50">{{ angle.potential }} potential</span>{% for src in angle.sources %} / <a href="/bopi-research/papers/{{ src }}/" class="text-bolt hover:opacity-70">{{ src }}</a>{% endfor %}</p>
   <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
   <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | remove: '<p>' | remove: '</p>' }}</p>
 </div>
@@ -21,7 +21,7 @@ permalink: /angles/
 <h2 class="text-xs font-medium uppercase tracking-wider text-black/40 mt-6 mb-3">archived</h2>
 {% for angle in archived %}
 <div class="py-3">
-  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <a href="/bopi-research/papers/{{ angle.source }}/" class="text-bolt hover:opacity-70">{{ angle.source }}</a></p>
+  <p class="text-xs text-black/40 mb-0.5">{{ angle.date | date: '%Y-%m-%d' }} / <span class="text-black/50">{{ angle.potential }} potential</span>{% for src in angle.sources %} / <a href="/bopi-research/papers/{{ src }}/" class="text-bolt hover:opacity-70">{{ src }}</a>{% endfor %}</p>
   <p class="text-sm font-normal lowercase tracking-tight leading-snug">{{ angle.title }}</p>
   <p class="text-xs text-black/30 leading-relaxed mt-1">{{ angle.content | remove: '<p>' | remove: '</p>' }}</p>
 </div>
@@ -29,5 +29,5 @@ permalink: /angles/
 {% endif %}
 
 {% if active.size == 0 and archived.size == 0 %}
-<p class="text-sm text-black/30 italic">no angles yet.</p>
+<p class="text-sm text-black/30 italic">no questions yet.</p>
 {% endif %}
