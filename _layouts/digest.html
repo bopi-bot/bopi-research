@@ -19,6 +19,12 @@ layout: default
     {{ page.authors | limit: 4 | join: ', ' }}{% if page.authors.size > 4 %} et al.{% endif %}
   </p>
 
+  <div class="flex gap-3 mb-4">
+    <a href="{{ page.abs }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">paper</a>
+    <a href="{{ page.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
+    {% if page.code %}<a href="{{ page.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
+  </div>
+
   <div class="space-y-3 mb-4">
     <div>
       <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-0.5">problem space</h3>
@@ -42,9 +48,4 @@ layout: default
     </div>
   </div>
 
-  <div class="flex gap-3">
-    <a href="{{ page.abs }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">paper</a>
-    <a href="{{ page.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
-    {% if page.code %}<a href="{{ page.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
-  </div>
 </article>
