@@ -28,6 +28,36 @@
   <style>
     body { -webkit-font-smoothing: antialiased; }
     ::selection { background: rgba(0,94,234,0.15); }
+
+    /* prose: rich text inside .prose */
+    .prose { color: rgba(0,0,0,0.5); line-height: 1.7; font-size: 0.9375rem; }
+    .prose p { margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose h2 { color: #111; font-size: 0.875rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.75rem; margin-bottom: 0.625rem; }
+    .prose h3 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; letter-spacing: -0.01em; margin-top: 1.375rem; margin-bottom: 0.5rem; }
+    .prose h4 { color: #111; font-size: 0.8125rem; font-weight: 500; text-transform: lowercase; margin-top: 1.25rem; margin-bottom: 0.375rem; }
+    .prose strong { color: rgba(0,0,0,0.75); font-weight: 500; }
+    .prose a { color: #005EEA; text-decoration: none; transition: opacity 0.15s; }
+    .prose a:hover { opacity: 0.7; }
+    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
+    .prose ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 1rem; }
+    .prose li { margin-bottom: 0.25rem; }
+    .prose li > ul, .prose li > ol { margin-bottom: 0; margin-top: 0.25rem; }
+    .prose code { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace; font-size: 0.8125em; background: rgba(0,0,0,0.04); padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: rgba(0,0,0,0.65); }
+    .prose pre { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin-bottom: 1rem; -webkit-overflow-scrolling: touch; }
+    .prose pre code { background: none; padding: 0; border-radius: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(0,0,0,0.55); }
+    .prose blockquote { border-left: 2px solid rgba(0,0,0,0.08); padding-left: 1rem; color: rgba(0,0,0,0.4); font-style: italic; margin-bottom: 1rem; }
+    .prose table { width: 100%; font-size: 0.8125rem; margin-bottom: 1rem; }
+    .prose th { text-align: left; font-weight: 500; color: rgba(0,0,0,0.65); padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .prose td { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+    .prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1.5rem 0; }
+    .prose img { border-radius: 0.5rem; max-width: 100%; height: auto; }
+
+    /* highlighter-rouge (Jekyll code blocks) */
+    .prose .highlighter-rouge { margin-bottom: 1rem; }
+    .prose .highlighter-rouge .highlight { background: rgba(0,0,0,0.04); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .prose .highlighter-rouge pre { background: none; padding: 0; margin: 0; }
+    .prose .highlighter-rouge pre code { background: none; padding: 0; }
   </style>
 </head>
 <body class="bg-cream text-gray-900 font-sans">
