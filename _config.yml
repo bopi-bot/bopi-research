@@ -1,0 +1,9 @@
+title: bopi research
+description: daily ai & robotics paper digest
+url: "https://bopi-bot.github.io"
+baseurl: "/bopi-research"
+theme: jekyll-theme-minimal
+collections:
+  digests:
+    output: true
+    permalink: /papers/:title/

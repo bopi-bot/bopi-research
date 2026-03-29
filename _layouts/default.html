@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title != "bopi research" %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FFFBF0',
+            bolt: '#005EEA',
+            flower: '#FFD500',
+            citrus: '#FF7400',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { -webkit-font-smoothing: antialiased; }
+    ::selection { background: rgba(0,94,234,0.15); }
+  </style>
+</head>
+<body class="bg-cream text-gray-900 font-sans">
+
+  <header class="border-b border-black/10">
+    <div class="max-w-2xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="{{ '/' | relative_url }}" class="text-sm lowercase tracking-tight text-gray-900 hover:text-bolt transition-colors">{{ site.title }}</a>
+      <nav class="flex gap-5">
+        <a href="{{ '/angles/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">angles</a>
+        <a href="{{ '/notes/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">notes</a>
+        <a href="{{ '/papers/' | relative_url }}" class="text-sm text-black/40 hover:text-gray-900 transition-colors">papers</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6 py-12">
+    {{ content }}
+  </main>
+
+</body>
+</html>

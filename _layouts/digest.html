@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<p class="text-xs text-black/40 mb-1">{{ page.date | date: '%Y-%m-%d' }}</p>
+<h1 class="text-2xl font-normal lowercase tracking-tight mb-8">{{ page.title }}</h1>
+
+{% for paper in page.papers %}
+<article class="py-6 border-b border-black/10 first:pt-0 last:border-b-0">
+
+  <h2 class="text-lg font-normal lowercase tracking-tight leading-snug mb-1.5">{{ paper.title }}</h2>
+
+  <div class="flex flex-wrap gap-1.5 mb-1.5">
+    {% for cat in paper.categories %}
+      <span class="text-xs text-black/40 bg-black/5 px-1.5 py-0.5 rounded-sm">{{ cat }}</span>
+    {% endfor %}
+  </div>
+
+  <p class="text-xs text-black/40 mb-6">
+    <a href="{{ paper.abs }}" class="text-bolt hover:opacity-70 transition-opacity">[{{ paper.arxiv_id }}]</a>
+    <span class="mx-1">/</span>
+    {{ paper.authors | limit: 4 | join: ', ' }}{% if paper.authors.size > 4 %} et al.{% endif %}
+  </p>
+
+  <div class="space-y-6 mb-6">
+    <div>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">problem space</h3>
+      <p class="text-sm text-black/50 leading-relaxed">{{ paper.problem }}</p>
+    </div>
+    <div>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">methods</h3>
+      <p class="text-sm text-black/50 leading-relaxed">{{ paper.methods }}</p>
+    </div>
+    <div>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">evaluation</h3>
+      <p class="text-sm text-black/50 leading-relaxed">{{ paper.evaluation }}</p>
+    </div>
+    <div>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">reproduction guide</h3>
+      <p class="text-sm text-black/50 leading-relaxed">{{ paper.reproduction }}</p>
+    </div>
+    <div>
+      <h3 class="text-xs font-medium uppercase tracking-wider text-black/40 mb-1.5">notes</h3>
+      <p class="text-sm text-black/50 leading-relaxed">{{ paper.notes }}</p>
+    </div>
+  </div>
+
+  <div class="flex gap-3">
+    <a href="{{ paper.abs }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">paper</a>
+    <a href="{{ paper.pdf }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">pdf</a>
+    {% if paper.code %}<a href="{{ paper.code }}" class="text-xs text-bolt hover:opacity-70 transition-opacity">code</a>{% endif %}
+  </div>
+
+</article>
+{% endfor %}
