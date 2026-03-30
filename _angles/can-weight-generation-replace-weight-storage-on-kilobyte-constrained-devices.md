@@ -2,8 +2,9 @@
 layout: angle
 title: "can generative weight synthesis replace weight storage on kilobyte-constrained MCUs?"
 date: 2026-03-29
-source: "2603.24916"
+sources: ["2603.24916", "2603.25284", "2603.25385"]
 status: active
+potential: medium
 ---
 
-HYPER-TINYPW achieves 6.31x compression by generating pointwise mixer weights at load time from tiny codes. the steady-state inference matches INT8 baselines since generation is one-off. could this approach extend to attention layers or even full transformer blocks? if you can generate most of a model's weights from a small latent code, the effective model capacity you can fit on an MCU changes dramatically. what are the limits of this approach for attention-heavy architectures like LLMs?
+HYPER-TINYPW achieves 6.31x compression by generating pointwise mixer weights at load time from tiny codes. SliderQuant pushes PTQ to viable 2-bit quantization (9.59 ppl on Llama2-7B) by adapting sliding windows to layer sensitivity. GlowQ reduces edge inference latency by 37.4% through group-shared computation. the convergence is striking: multiple independent approaches (generative synthesis, layer-adaptive PTQ, shared computation) are all chipping away at the memory and compute requirements for running LLMs on constrained hardware. could these be combined -- generate weights, quantize with layer-aware windows, and share computation across modules?
