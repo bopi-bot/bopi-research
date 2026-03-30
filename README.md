@@ -247,6 +247,12 @@ the actual observation about the readings. reference actual paper names, methods
 - **use `relative_url` filter** for all internal links in layouts.
 - **tailwind is loaded via CDN** (`<script src="https://cdn.tailwindcss.com"></script>`) because github pages doesn't support tailwind as a jekyll plugin.
 
+### table gotchas
+
+- **always put a blank line before a pipe table.** kramdown requires a blank line before a table to recognize it as a table element. writing `**bold label:**` immediately followed by `| col | col |` (no blank line) makes kramdown treat the pipes as paragraph content, rendering raw `| method | spatial | ...` text instead of an HTML table. this is the most common table rendering failure on the site. always add a blank line between any text and the table header row.
+- **tables need an overflow-x wrapper for mobile.** this is handled by a JS snippet in `default.html` that wraps tables in a scrollable container at runtime. no action needed in digest content, but know it exists if you ever touch the layouts.
+- **never use `\%` inside `$...$` in table cells.** kramdown doubles `\` to `\\` in the HTML output, breaking KaTeX. write plain `-14%` instead of `$-14\%$`. percent signs don't need math mode.
+
 ---
 
 ## latex in digests
