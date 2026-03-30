@@ -50,9 +50,10 @@
     .prose pre { background: rgba(0,0,0,0.04); border-radius: 0.25rem; padding: 1rem; overflow-x: auto; margin-bottom: 1rem; -webkit-overflow-scrolling: touch; }
     .prose pre code { background: none; padding: 0; border-radius: 0; font-size: 0.8125rem; line-height: 1.6; color: rgba(0,0,0,0.55); }
     .prose blockquote { border-left: 2px solid rgba(0,0,0,0.08); padding-left: 1rem; color: rgba(0,0,0,0.4); font-style: italic; margin-bottom: 1rem; }
-    .prose table { width: 100%; font-size: 0.8125rem; margin-bottom: 1rem; }
-    .prose th { text-align: left; font-weight: 500; color: rgba(0,0,0,0.65); padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .prose td { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+    .prose .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1rem; }
+    .prose table { width: 100%; font-size: 0.8125rem; }
+    .prose th { text-align: left; font-weight: 500; color: rgba(0,0,0,0.65); padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.06); white-space: nowrap; }
+    .prose td { padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
     .prose hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1.5rem 0; }
     .prose img { border-radius: 0.25rem; max-width: 100%; height: auto; }
 
@@ -119,6 +120,14 @@
       div.className = 'mermaid';
       div.textContent = el.textContent;
       pre.replaceWith(div);
+    });
+
+    // wrap tables in scrollable container for mobile
+    document.querySelectorAll('.prose table').forEach(function(table) {
+      var wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      table.parentNode.insertBefore(wrap, table);
+      wrap.appendChild(table);
     });
 
     // render katex after DOM is ready
