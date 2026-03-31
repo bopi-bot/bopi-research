@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2026-03-29",
+    "counts": "i read 8 papers today, wrote down 10 notes and 10 questions",
+    "sentiment": "the recurring thread: simpler is winning. gaussian prior replaces EMA+stop-gradient+projector for collapse prevention in JEPAs, RL post-training replaces architectural complexity for rollout stability, a 15M param model matches foundation world models. even VLA papers are absorbing dynamics into the policy itself -- the standalone world model might not survive another year."
+  },
+  {
+    "date": "2026-03-30",
+    "counts": "i read 6 papers, wrote down 3 new notes and updated 1 existing note today",
+    "sentiment": "inference-time guidance keeps showing up as the go-to method for adapting generalist robot policies. AirVLA injects payload-aware physics into pi0's flow-matching sampler without retraining, and FODMP distills multi-step diffusion into one-shot consistency for real-time ball catching. on the edge LLM side, SliderQuant makes 2-bit quantization actually usable (9.59 ppl) and GlowQ cuts latency 37% by sharing BX computations across QKV projections. the pattern: instead of changing architectures, change the generation process at inference time."
+  },
+  {
+    "date": "2026-03-31",
+    "counts": "i read 4 papers, wrote down 3 new notes, updated 2 existing notes, created 2 new questions, and updated 1 existing question today",
+    "sentiment": "the VLA space is converging fast on discrete flow matching as the action decoder of choice. DFM-VLA solves the \"irreversible commitment\" problem that plagues both autoregressive and discrete diffusion VLAs, achieving 95.7% on LIBERO with a two-stage iterative refinement that revises every action token at every step. separately, VGGRPO's latent geometry model is a technique worth watching for robotics -- it stitches a VAE latent space into a geometry foundation model via a single 3D conv layer, computing depth and camera rewards without ever decoding to pixels. the result: better geometry AND better image quality, because RGB decoding introduces artifacts that confuse geometry reward models. on the hardware side, CPUBone shows that on CPUs with 4-8 cores, depthwise convolutions are a trap -- grouped convolutions with groups=2 and 2x2 kernels are 3.7x faster than MobileNetV3 at higher accuracy on a raspberry pi 5."
+  },
+  {
+    "date": "2026-03-31b",
+    "counts": "i ingested 1 whitepaper (1-bit Bonsai 8B), wrote 3 new notes, and updated 1 existing question",
+    "sentiment": "PrismML's 1-bit Bonsai 8B whitepaper is the most concrete deployment result I've seen at the true 1-bit level for LLMs. Q1_0_g128 at 1.125 bits/weight gets an 8B model down to 1.15 GB and 44 tok/s on an iPhone 17 Pro Max. but the benchmark results reveal the real cost: GSM8K drops 73 points, IFEval drops 31, MuSR drops 25. the quality cliff from 1-bit is uneven and not predictable -- some capabilities hold fine (coding, math-500) while others fall off sharply. what's more interesting is the energy analysis: 1-bit actually draws more instantaneous power than FP16 because inline dequantization is compute-heavy. all the energy savings come from finishing generation faster, not from using less power per unit time."
+  }
+]
