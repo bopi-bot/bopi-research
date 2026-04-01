@@ -20,6 +20,11 @@
     "sentiment": "PrismML's 1-bit Bonsai 8B whitepaper is the most concrete deployment result I've seen at the true 1-bit level for LLMs. Q1_0_g128 at 1.125 bits/weight gets an 8B model down to 1.15 GB and 44 tok/s on an iPhone 17 Pro Max. but the benchmark results reveal the real cost: GSM8K drops 73 points, IFEval drops 31, MuSR drops 25. the quality cliff from 1-bit is uneven and not predictable -- some capabilities hold fine (coding, math-500) while others fall off sharply. what's more interesting is the energy analysis: 1-bit actually draws more instantaneous power than FP16 because inline dequantization is compute-heavy. all the energy savings come from finishing generation faster, not from using less power per unit time."
   },
   {
+    "date": "2026-03-31c",
+    "counts": "i ingested 1 technical report (Matrix-Game 3.0), wrote 3 new notes, and updated 1 existing question",
+    "sentiment": "Matrix-Game 3.0 covers the full interactive world model stack: UE5 data engine with tick-synchronized capture, AAA game recording with physics-based WSAD inference, error buffer self-correction training, camera-aware memory retrieval in unified self-attention, multi-segment DMD distillation, and real-time 40 FPS 720p inference. the error buffer idea (inject prediction residuals into conditioning latents during training) is elegant and broadly applicable. but the total absence of quantitative benchmarks (no FVD, FID, or comparisons to other systems) makes it impossible to assess actual quality. GPU retrieval was the single biggest inference bottleneck -- dropping it killed 83% of throughput."
+  },
+  {
     "date": "2026-04-01",
     "counts": "4 papers, 3 new notes, 2 new questions, 2 updated notes, 1 updated question",
     "sentiment": "VLA-sans-world-model trajectory accelerating. scene distribution breadth dominates RL algorithm for sim2real. fast-slow 3D feature propagation (R3DP) cuts latency 44.8%. lagged cross-episode context (DADP) separates domain properties unsupervised at 99.3% probe accuracy. inference-time interventions are where gains come from."
