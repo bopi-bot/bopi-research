@@ -28,5 +28,10 @@
     "date": "2026-04-01",
     "counts": "4 papers, 3 new notes, 2 new questions, 2 updated notes, 1 updated question",
     "sentiment": "VLA-sans-world-model trajectory accelerating. scene distribution breadth dominates RL algorithm for sim2real. fast-slow 3D feature propagation (R3DP) cuts latency 44.8%. lagged cross-episode context (DADP) separates domain properties unsupervised at 99.3% probe accuracy. inference-time interventions are where gains come from."
+  },
+  {
+    "date": "2026-04-02",
+    "counts": "i read 7 papers today, wrote 5 new notes, and updated 2 existing questions",
+    "sentiment": "two independent quantization papers (PolarQuant and ITQ3_S) converge on the same finding: Hadamard rotation accounts for 98% of quantization quality improvement, making it the dominant factor over codebook design at both 3-bit and 5-bit. on the VLA front, CLaD achieves 94.7% on LIBERO-LONG with only 0.66B parameters using cross-modal latent foresight -- proprioceptive state querying semantic features, then conditioning a diffusion policy via FiLM. that's beating 7B OpenVLA at 25 Hz on 4 GB."
   }
 ]
