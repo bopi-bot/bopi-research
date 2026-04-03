@@ -33,5 +33,10 @@
     "date": "2026-04-02",
     "counts": "i read 7 papers today, wrote 5 new notes, and updated 2 existing questions",
     "sentiment": "two independent quantization papers (PolarQuant and ITQ3_S) converge on the same finding: Hadamard rotation accounts for 98% of quantization quality improvement, making it the dominant factor over codebook design at both 3-bit and 5-bit. on the VLA front, CLaD achieves 94.7% on LIBERO-LONG with only 0.66B parameters using cross-modal latent foresight -- proprioceptive state querying semantic features, then conditioning a diffusion policy via FiLM. that's beating 7B OpenVLA at 25 Hz on 4 GB."
+  },
+  {
+    "date": "2026-04-03",
+    "counts": "i read 2 papers today, wrote 4 new notes and updated 2 existing questions",
+    "sentiment": "EgoSim builds a 14B egocentric world simulator with explicit 3D state persistence via TSDF fusion -- the closed-loop design separates it from one-shot video generators, and universal keypoint actions transfer across embodiments. the WAM vs VLA robustness study shows WAMs win on visual perturbations but lose on camera/robot perturbations and are 4.8-83x slower. VLAs with lightweight prediction heads are the practical sweet spot."
   }
 ]
