@@ -30,7 +30,7 @@ this is the core method. the extraction pipeline has four steps:
 
 **step 3: compute emotion vectors by contrast.** for each emotion $e$, the raw emotion vector is:
 
-$$\mathbf{v}\_e = \frac{1}{|S\_e|} \sum\_{s \in S\_e} \mathbf{a}\_s - \frac{1}{|E|} \sum\_{e' \in E} \frac{1}{|S\_{e'}|} \sum\_{s \in S\_{e'}} \mathbf{a}\_s$$
+$$\mathbf{v}\_e = \frac{1}{ \mid S\_e \mid } \sum\_{s \in S\_e} \mathbf{a}\_s - \frac{1}{ \mid E \mid } \sum\_{e' \in E} \frac{1}{ \mid S\_{e'} \mid } \sum\_{s \in S\_{e'}} \mathbf{a}\_s$$
 
 where $S\_e$ is the set of stories for emotion $e$, $\mathbf{a}\_s$ is the averaged activation for story $s$, and the second term is the mean activation across all emotions. this mean-subtraction ensures the vector captures what is specific to that emotion versus a generic "emotional content" direction.
 
