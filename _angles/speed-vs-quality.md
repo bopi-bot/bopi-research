@@ -3,7 +3,7 @@ layout: angle
 title: "is there a fundamental quality ceiling for lightweight world models, or will architecture close the gap?"
 date: 2026-03-29
 sources: ["2603.19312"]
-status: active
+status: archived
 potential: low
 ---
 

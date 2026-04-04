@@ -3,6 +3,7 @@ layout: angle
 title: "what concepts do LLMs represent linearly in activation space, and how do these representations shape agentic behavior?"
 date: 2026-03-31
 sources: ["anthropic-emotions-2026"]
+status: active
 potential: medium
 ---
 

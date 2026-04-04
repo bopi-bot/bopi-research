@@ -3,7 +3,7 @@ layout: angle
 title: "can a simple Gaussian prior replace all the complex collapse prevention machinery in JEPAs?"
 date: 2026-03-29
 sources: ["2603.19312"]
-status: active
+status: archived
 potential: low
 ---
 

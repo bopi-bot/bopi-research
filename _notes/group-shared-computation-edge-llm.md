@@ -3,6 +3,7 @@ layout: note
 title: "shared computation across input-sharing modules reduces edge LLM inference cost"
 date: 2026-03-30
 sources: ["2603.25385"]
+- "2604.02051"
 type: technique
 ---
 

@@ -3,6 +3,7 @@ layout: angle
 title: "can linear concept vectors be used to steer model alignment and prevent misalignment?"
 date: 2026-03-31
 sources: ["anthropic-emotions-2026"]
+status: active
 potential: high
 ---
 

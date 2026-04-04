@@ -1,3 +1,4 @@
+- "2604.02292"
 ---
 layout: angle
 title: "can fast-slow inference patterns make foundation 3D models practical for real-time robot control?"

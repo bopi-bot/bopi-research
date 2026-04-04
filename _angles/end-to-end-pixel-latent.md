@@ -3,7 +3,7 @@ layout: angle
 title: "can end-to-end pixel-to-latent pipelines replace pretrained vision backbones in robotics?"
 date: 2026-03-29
 sources: ["2603.19312"]
-status: active
+status: archived
 potential: low
 ---
 

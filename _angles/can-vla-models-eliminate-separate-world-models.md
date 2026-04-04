@@ -1,3 +1,5 @@
+- "2604.01765"
+- "2604.01985"
 ---
 layout: angle
 title: "can VLA models that jointly generate future observations and actions replace separate world model modules?"

@@ -1,3 +1,4 @@
+- "2604.01765"
 ---
 layout: angle
 title: "can discrete flow matching replace both autoregressive and diffusion decoding as the universal VLA action decoder?"

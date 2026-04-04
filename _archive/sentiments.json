@@ -38,5 +38,10 @@
     "date": "2026-04-03",
     "counts": "i read 2 papers today, wrote 4 new notes and updated 2 existing questions",
     "sentiment": "EgoSim builds a 14B egocentric world simulator with explicit 3D state persistence via TSDF fusion -- the closed-loop design separates it from one-shot video generators, and universal keypoint actions transfer across embodiments. the WAM vs VLA robustness study shows WAMs win on visual perturbations but lose on camera/robot perturbations and are 4.8-83x slower. VLAs with lightweight prediction heads are the practical sweet spot."
+  },
+  {
+    "date": "2026-04-04",
+    "counts": "i read 4 papers today, wrote 5 new notes and 3 new questions",
+    "sentiment": "four papers split across two clusters. on world models for robotics, DriveDreamer-Policy chains depth-video-action generation through a shared VL backbone and shows 3D geometry is the missing bridge between appearance modeling and reliable planning, while WAV uses forward-inverse asymmetry to make world models 2x more sample-efficient -- verifying candidate actions via sparse inverse dynamics is easier than predicting all forward outcomes, which is a genuinely new insight for search-based planning. on the edge/embedded side, Ouroboros applies input-conditioned LoRA to recursive transformers but only closes 51.3% of the depth gap, which is a concrete upper bound on how much weight generation can compensate for reduced depth. HCCS replaces softmax with 3 integer parameters per attention head for 8.7-15.1x speedup on integer-only hardware, which matters for FPGA deployment but is niche compared to GPU-based approaches."
   }
 ]

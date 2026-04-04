@@ -3,6 +3,7 @@ layout: note
 title: inverse dynamics head improves world model representations for downstream policy without changing the model
 date: 2026-04-02
 sources: ["2603.28955"]
+- "2604.01985"
 type: technique
 ---
 
