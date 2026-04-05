@@ -2,8 +2,7 @@
 layout: note
 title: treating LoRA weights as runtime inputs to a single compiled graph eliminates edge NPU graph swap overhead
 date: 2026-04-02
-sources: ["2603.29535"]
-- "2604.02051"
+sources: ["2603.29535", "2604.02051", "2604.02215"]
 type: technique
 ---
 

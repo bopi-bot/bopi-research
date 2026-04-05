@@ -2,7 +2,7 @@
 layout: note
 title: "inference-time guidance is becoming a standard pattern for bridging generalist policies and physical constraints"
 date: 2026-03-30
-sources: ["2603.25038", "2603.24806", "2603.26599", "2602.04037"]
+sources: ["2603.25038", "2603.24806", "2603.26599", "2602.04037", "2604.01567"]
 type: pattern
 ---
 

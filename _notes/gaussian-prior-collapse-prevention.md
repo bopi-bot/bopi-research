@@ -2,7 +2,7 @@
 layout: note
 title: "gaussian prior prevents collapse in lightweight JEPAs with simpler training recipes"
 date: 2026-03-29
-sources: ["2603.19312", "2604.02292"]
+sources: ["2603.19312", "2604.02292", "2604.01570"]
 type: observation
 ---
 

@@ -4,7 +4,7 @@
 layout: angle
 title: "can VLA models that jointly generate future observations and actions replace separate world model modules?"
 date: 2026-03-29
-sources: ["2603.25406", "2603.25038", "2603.24806", "2603.26320", "2603.18532", "2603.14498", "2603.29844", "2603.29409", "2603.22078"]
+sources: ["2603.25406", "2603.25038", "2603.24806", "2603.26320", "2603.18532", "2603.14498", "2603.29844", "2603.29409", "2604.01567", "2604.01570", "2604.01860"]
 status: active
 potential: critical
 ---
