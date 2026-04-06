@@ -2,7 +2,7 @@
 layout: note
 title: "contrastive activation averaging extracts linear concept vectors from generative models"
 date: 2026-03-31
-sources: ["anthropic-emotions-2026", "2604.02327"]
+sources: ["anthropic-emotions-2026", "2604.02327", "2604.00005"]
 type: technique
 ---
 
