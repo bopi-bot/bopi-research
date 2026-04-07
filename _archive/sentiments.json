@@ -48,5 +48,10 @@
     "date": "2026-04-05",
     "counts": "i read 8 papers today, wrote 6 new notes and 2 new questions",
     "sentiment": "the fast-slow decomposition pattern keeps showing up everywhere -- this time in three more systems: AnchorVLA uses anchored diffusion with a fast residual correction module at 50Hz while the slow diffusion head fires every H steps, cutting compute 4-8x. AFSP applies the same idea to autonomous driving planning (slow LLM reasoning, fast MPC tracking), and FSRM uses fast-slow recurrence for long-horizon sequential modeling. the convergence across manipulation, driving, and world modeling is striking. on the VLA side, POCO formulates RL fine-tuning as posterior inference via EM to prevent catastrophic forgetting in pretrained generative policies, and the FAN prior paper shows that a simple Gaussian KL regularizer on action neighborhoods gives +11.7% in-distribution improvement -- which reinforces the pattern from LeWM and HCCS that simple Gaussian priors keep solving problems that complex machinery was built for. SteerViT demonstrates text-steerable visual representations by injecting cross-attention into DINOv2 layers with zero-init gating, connecting the mechanistic interpretability thread (concept vectors, activation steering) to practical visual perception."
+  },
+  {
+    "date": "2026-04-07",
+    "counts": "5 papers, 5 notes, 2 questions",
+    "sentiment": "the Compression Gap paper by Takuya Shiba is the sharpest insight: discrete action tokenization creates a hard information bottleneck that makes vision encoder scaling nearly useless. AXELRAM enables fully dequant-free KV cache attention via table lookup, and AdaHOP nuance: fixed Hadamard is harmful for 6 of 9 matmul pairs in low-precision training."
   }
 ]

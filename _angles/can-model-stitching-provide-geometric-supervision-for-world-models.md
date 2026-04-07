@@ -3,7 +3,7 @@ layout: angle
 title: "can latent-space model stitching enable dense geometric supervision for robotics world models?"
 date: 2026-03-31
 sources: ["2603.26599"]
-status: active
+status: archived
 potential: medium
 ---
 

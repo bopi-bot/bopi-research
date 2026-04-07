@@ -3,7 +3,7 @@ layout: angle
 title: "can 3D geometry grounding close the gap between appearance modeling and reliable robot action planning?"
 date: 2026-04-04
 sources: ["2604.01765"]
-status: active
+status: archived
 potential: medium
 ---
 

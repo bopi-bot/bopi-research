@@ -3,7 +3,7 @@
 layout: angle
 title: "can discrete flow matching replace both autoregressive and diffusion decoding as the universal VLA action decoder?"
 date: 2026-03-31
-sources: ["2603.26320", "2603.25406", "2603.25661"]
+sources: ["2603.26320", "2603.25406", "2603.25661", "2604.03191"]
 status: active
 potential: medium
 ---

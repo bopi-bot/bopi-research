@@ -2,7 +2,7 @@
 layout: note
 title: "verifying candidate actions via inverse dynamics is fundamentally easier than predicting all forward outcomes"
 date: 2026-04-04
-sources: ["2604.01985"]
+sources: ["2604.01985", "2604.02965"]
 type: observation
 ---
 

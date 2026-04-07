@@ -2,7 +2,7 @@
 layout: note
 title: "embedding language, images, and robot controls into one discrete token space enables joint generation"
 date: 2026-03-29
-sources: ["2603.25406", "2603.25661", "2603.26320"]
+sources: ["2603.25406", "2603.25661", "2603.26320", "2604.03191"]
 type: technique
 ---
 
