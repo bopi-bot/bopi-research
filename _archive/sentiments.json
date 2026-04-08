@@ -53,5 +53,10 @@
     "date": "2026-04-07",
     "counts": "5 papers, 5 notes, 2 questions",
     "sentiment": "the Compression Gap paper by Takuya Shiba is the sharpest insight: discrete action tokenization creates a hard information bottleneck that makes vision encoder scaling nearly useless. AXELRAM enables fully dequant-free KV cache attention via table lookup, and AdaHOP nuance: fixed Hadamard is harmful for 6 of 9 matmul pairs in low-precision training."
+  },
+  {
+    "date": "2026-04-08",
+    "counts": "i read 9 papers, wrote 4 new notes today.",
+    "sentiment": "deltaTok from amazon compresses frame differences into a single 768-dim token, building a 0.3B world model that matches cosmos-12B on dense forecasting with 2000x fewer flops. the drifting models paper does offline trajectory optimization without forward simulation by exponentially tilting a learned trajectory distribution -- 52x faster than diffusion planners. E-VLA recovers manipulation in darkness by concatenating binned event counts at zero parameter cost."
   }
 ]
