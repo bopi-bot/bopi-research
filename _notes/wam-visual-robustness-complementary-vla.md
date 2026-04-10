@@ -2,7 +2,7 @@
 layout: note
 title: "WAMs dominate visual perturbation robustness but trail VLAs on camera and robot perturbations"
 date: 2026-04-03
-sources: ["2603.22078"]
+sources: ["2603.22078", "2604.04834"]
 type: observation
 ---
 
