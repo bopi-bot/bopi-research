@@ -1,0 +1,1403 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Improving Robustness in Sparse Autoencoders via Masked Regularization</title>
+<!--Generated on Tue Apr  7 21:48:11 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/static/browse/0.3.4/css/arxiv-html-papers-20260131.css" type="text/css">
+<script src="/static/browse/0.3.4/js/arxiv-html-papers-20260131.js"></script>
+<script>
+  // Restore the saved color scheme preference, or
+  // enact the browser preference if "automatic", 
+  // without expecting DOM load to have completed.
+  //
+  // Also restore any saved readingmode and ToC display preferences.
+  function initializeReadingPreferences() {
+    let saved_theme = localStorage.getItem("ar5iv_theme") || "automatic";
+    if (saved_theme === "automatic") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        saved_theme = "dark";
+      }
+    }
+    if (saved_theme == "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+
+    const tocDisplay = localStorage.getItem('arxiv_html_paper_toc_display');
+    if (tocDisplay) {
+      document.documentElement.setAttribute("data-toc-display", tocDisplay);
+    }
+    const readingMode = localStorage.getItem('arxiv_html_paper_reading_mode');
+    if (readingMode) {
+      document.documentElement.setAttribute("data-reading-mode", readingMode);
+    }
+  }
+  // Run as soon as JS starts, to minimize repainting
+  initializeReadingPreferences();
+</script>
+<link rel="apple-touch-icon" sizes="180x180"
+  href="/static/browse/0.3.4/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+  href="/static/browse/0.3.4/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+  href="/static/browse/0.3.4/images/icons/favicon-16x16.png">
+<link rel="manifest" href="/static/browse/0.3.4/images/icons/site.webmanifest">
+<link rel="mask-icon" href="/static/browse/0.3.4/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" type="text/css" media="screen" href="https://use.typekit.net/utz6mli.css">
+</head>
+<body>
+<dialog id="modal-form" aria-labelledby="modal-title" closedby="any">
+  <form id="modal-form-content" method="dialog" enctype="multipart/form-data">
+    <header class="modal-header">
+      <h5 id="modal-title" class="modal-title">Report GitHub Issue</h5>
+      <button type="submit" formnovalidate class="modal-close" aria-label="Close">×</button>
+    </header>
+
+    <div class="modal-body">
+      <label for="form_title">Title:</label>
+      <input class="form-control" id="form_title" name="form_title" required placeholder="Enter title">
+
+      <p id="selectedTextModalDescription" hidden>Content selection saved. Describe the issue below:</p>
+
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" required maxlength="500"
+        placeholder="500 characters maximum"></textarea>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="submit" value="internal-report" class="sr-only modal-submit">Submit without GitHub</button>
+      <button type="submit" value="github-report" class="modal-submit">Submit in GitHub</button>
+    </footer>
+  </form>
+</dialog>
+
+<header class="arxiv-html-header">
+  <div class="html-header-logo">
+    <a href="/">
+      <img alt="arXiv logo" class="logo desktop-only" width="100"
+        src="/static/browse/0.3.4/images/arxiv-logo-one-color-white.svg">
+      <span class="sr-only">Back to arXiv</span>
+    </a>
+  </div>
+  <!--TOC, dark mode, links-->
+  <nav class="html-header-nav">
+    <a class="header-button hover-effect desktop-only" href="https://info.arxiv.org/about/accessible_HTML.html"
+      target="_blank">Why HTML?</a>
+    <a class="header-button" title="Report an Issue" href="#" title="Report an issue"
+      onclick="event.preventDefault(); showModalForm();">
+      <svg role="presentation" class="mobile-only toggle-icon" aria-hidden="true" height="1.25rem"
+        viewBox="0 0 640 640">
+        <path
+          d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+      </svg>
+      <span class="desktop-only">Report Issue</span></a>
+    <!--back to abstract-->
+    <a class="header-button" title="Back to abstract page" aria-label="Back to abstract page"
+      href="/abs/2604.06495v1">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 512 512" fill="#ffffff"
+        aria-hidden="true">
+        <path
+          d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z">
+        </path>
+      </svg>
+      <span class="desktop-only">Back to Abstract</span>
+    </a>
+    <!-- PDF download link -->
+    <a class="header-button" title="Download PDF" href="/pdf/2604.06495v1"
+      target="_blank">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 576 542">
+        <path
+          d="M208 48L96 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l80 0 0 48-80 0c-35.3 0-64-28.7-64-64L32 64C32 28.7 60.7 0 96 0L229.5 0c17 0 33.3 6.7 45.3 18.7L397.3 141.3c12 12 18.7 28.3 18.7 45.3l0 149.5-48 0 0-128-88 0c-39.8 0-72-32.2-72-72l0-88zM348.1 160L256 67.9 256 136c0 13.3 10.7 24 24 24l68.1 0zM240 380l32 0c33.1 0 60 26.9 60 60s-26.9 60-60 60l-12 0 0 28c0 11-9 20-20 20s-20-9-20-20l0-128c0-11 9-20 20-20zm32 80c11 0 20-9 20-20s-9-20-20-20l-12 0 0 40 12 0zm96-80l32 0c28.7 0 52 23.3 52 52l0 64c0 28.7-23.3 52-52 52l-32 0c-11 0-20-9-20-20l0-128c0-11 9-20 20-20zm32 128c6.6 0 12-5.4 12-12l0-64c0-6.6-5.4-12-12-12l-12 0 0 88 12 0zm76-108c0-11 9-20 20-20l48 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 24 28 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 44c0 11-9 20-20 20s-20-9-20-20l0-128z" />
+      </svg>
+      <span class="desktop-only">Download PDF</span></a>
+    <!-- navigational table of contents toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleNavTOC();" title="Toggle navigation"
+      aria-label="Toggle navigation">
+      <svg height="1.25rem" role="presentation" viewBox="0 0 512 512">
+        <path
+          d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z">
+        </path>
+      </svg>
+    </a>
+    <!--- collapsable header / reading mode toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleReadingMode();"
+      title="Disable reading mode, show header and footer">
+      <svg role="presentation" height="1.25rem"
+        viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32S0 334.3 0 352l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z" />
+      </svg>
+    </a>
+    <!--- colored theme toggle -->
+    <a class="header-button color-tog" href="javascript:toggleColorScheme();" title="Toggle dark/light mode">
+      <label class="toggle-icon automatic-tog" title="Switch to light mode">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z">
+          </path>
+        </svg>
+      </label>
+      <label class="toggle-icon light-tog" title="Switch to dark mode">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </label>
+      <label class="toggle-icon dark-tog" title="Switch to system preference">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </label>
+    </a>
+  </nav>
+</header><nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_abstract"><a href="#abstract1" title="In Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title">Abstract</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S1" title="In Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Introduction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S2" title="In Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Approach</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S3" title="In 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Experimental Setup and Results</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S4" title="In 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4 </span>Discussion and Future Work</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_bibliography"><a href="#bib" title="In 4 Discussion and Future Work ‣ 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_title">References</span></a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div id="infobox" class="infobox">
+  <a id="license-tr" href="https://info.arxiv.org/help/license/index.html#licenses-available">
+    License: CC BY 4.0
+  </a>
+  <div id="watermark-tr">
+arXiv:2604.06495v1 [cs.LG] 07 Apr 2026</div>
+</div><div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Improving Robustness in Sparse Autoencoders via Masked Regularization</h1>
+
+<div id="abstract1" class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">Sparse autoencoders (SAEs) are widely used in mechanistic interpretability to project LLM activations onto sparse latent spaces. However, sparsity alone is an imperfect proxy for interpretability, and current training objectives often result in brittle latent representations. SAEs are known to be prone to feature absorption, where general features are subsumed by more specific ones due to co-occurrence, degrading interpretability despite high reconstruction fidelity. Recent negative results on Out-of-Distribution (OOD) performance further underscore broader robustness related failures tied to under-specified training objectives. We address this by proposing a masking-based regularization that randomly replaces tokens during training to disrupt co-occurrence patterns. This improves robustness across SAE architectures and sparsity levels reducing absorption, enhancing probing performance, and narrowing the OOD gap. Our results point toward a practical path for more reliable interpretability tools.</p>
+</div>
+<span id="footnotex1" class="ltx_note ltx_role_footnotetext"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">footnotetext: </span>*equal contribution. This work was performed under the auspices of the U.S. Department of Energy by the Lawrence Livermore National Laboratory under Contract No. DE-AC52-07NA27344, Lawrence Livermore National Security, LLC. and was supported by the LLNL-LDRD Program under Project No. 25-SI-001.LLNL-CONF-2011550
+</span></span></span>
+<div id="p1" class="ltx_para">
+<p id="p1.1" class="ltx_p"><span id="p1.1.1" class="ltx_text ltx_font_bold ltx_font_italic">Index Terms<span id="p1.1.1.1" class="ltx_text ltx_font_upright">— </span></span>
+Sparse Autoencoders, Feature Absorption, Large Language Models, Robustness, Interpretability</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p id="S1.p1.1" class="ltx_p">Sparse autoencoders (SAEs) have emerged as key tools in mechanistic interpretability (MI), enabling human-interpretable explanations of large language model (LLM) internals. They do so by mapping dense activations from LLMs into sparse, overcomplete latent representations that reveal underlying structure <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib31" title="Sparse autoencoders find highly interpretable features in language models" class="ltx_ref">6</a>, <a href="#bib.bib8" title="Scaling and evaluating sparse autoencoders" class="ltx_ref">9</a>, <a href="#bib.bib11" title="Improving sparse decomposition of language model activations with gated sparse autoencoders" class="ltx_ref">16</a>, <a href="#bib.bib1" title="Learning multi-level features with matryoshka sparse autoencoders" class="ltx_ref">4</a>, <a href="#bib.bib37" title="How llms learn: tracing internal representations with sparse autoencoders" class="ltx_ref">10</a>]</cite>. The use of SAEs for MI is motivated by the superposition principle <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib34" title="Toy models of superposition" class="ltx_ref">7</a>, <a href="#bib.bib32" title="Taking features out of superposition with sparse autoencoders" class="ltx_ref">18</a>]</cite>, which posits that individual neurons encode polysemantic mixtures of features, hindering direct interpretation. By enforcing sparsity, SAEs aim to disentangle these features into monosemantic components, enabling human-interpretable analysis of model behavior. However, recent studies <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="Improving sparse decomposition of language model activations with gated sparse autoencoders" class="ltx_ref">16</a>, <a href="#bib.bib33" title="Transcoders beat sparse autoencoders for interpretability" class="ltx_ref">15</a>, <a href="#bib.bib6" title="Jumping ahead: improving reconstruction fidelity with jumprelu sparse autoencoders" class="ltx_ref">17</a>]</cite> demonstrate that sparsity is an imperfect proxy for interpretability,as enforcing excessive sparsity often biases SAEs toward representations that obscure the structure (e.g., hierarchy) of real-world features.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p id="S1.p2.1" class="ltx_p">One of the key problems stemming from the mismatch between sparsity objectives and the hierarchical structure of real-world features is <em id="S1.p2.1.1" class="ltx_emph ltx_font_italic">feature absorption</em> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib25" title="A is for absorption: studying feature splitting and absorption in sparse autoencoders" class="ltx_ref">5</a>, <a href="#bib.bib1" title="Learning multi-level features with matryoshka sparse autoencoders" class="ltx_ref">4</a>]</cite>. For e.g., a latent meant to represent “words starting with S” may collapse into one representation for “short words starting with S,” underrepresenting the broader concept. While reconstruction remains accurate with fewer active latents, the learned features become harder to interpret. This stems from the SAE’s tendency to create shortcuts when words/tokens frequently co-occur—favoring latents that absorb general concepts into more specific ones to satisfy sparsity. These shortcuts hinder interpretability as they fragment general features into incomplete or overly specialized ones thus producing sub-optimal representations. Moreover, recent negative results on the poor OOD generalization performance of probes trained on SAE latents <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Are sparse autoencoders useful? a case study in sparse probing" class="ltx_ref">11</a>, <a href="#bib.bib23" title="Negative results for saes on downstream tasks" class="ltx_ref">19</a>]</cite> demonstrate that SAEs produce brittle representations under distribution shifts. Although absorption and OOD fragility manifest differently, we posit that both arise from inadequately constrained training objectives that fail to prevent shortcut-based representations in current SAEs.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p id="S1.p3.1" class="ltx_p">To address this, we introduce a simple yet effective regularization mechanism that mitigates feature absorption by disrupting co-occurrence patterns in text. Specifically, during training, we randomly replace tokens in the input sequence with a fixed mask string (e.g., "…") at a user-defined probability. We observe that this strategy breaks spurious correlations and encourages the SAE to learn more generalizable structure, reducing its reliance on shortcuts. When applied across multiple LLMs (Pythia-160M-deduped, Gemma-2-2B), this strategy consistently reduces absorption and interestingly improves performance on a suite of evaluation metrics <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability" class="ltx_ref">12</a>]</cite>. Encouragingly, it also enhances OOD performance <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Are sparse autoencoders useful? a case study in sparse probing" class="ltx_ref">11</a>]</cite>, narrowing the gap with oracle probes. Overall, our results demonstrate that this strategy improves SAE robustness paving the path for more reliable and interpretable tools.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Approach</h2>
+
+<div id="S2.p1" class="ltx_para ltx_noindent">
+<p id="S2.p1.26" class="ltx_p"><span id="S2.p1.26.1" class="ltx_text ltx_font_bold">Preliminaries</span>. Let <math id="S2.p1.1.m1" class="ltx_Math" alttext="\mathcal{G}" display="inline" intent=":literal"><semantics><mi class="ltx_font_mathcaligraphic">𝒢</mi><annotation encoding="application/x-tex">\mathcal{G}</annotation></semantics></math> denote an LLM operating on a text sequence <math id="S2.p1.2.m2" class="ltx_Math" alttext="\mathbf{t}=[t_{1},t_{2},\ldots,t_{n}]" display="inline" intent=":literal"><semantics><mrow><mi>𝐭</mi><mo>=</mo><mrow><mo stretchy="false">[</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msub><mi>t</mi><mi>n</mi></msub><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{t}=[t_{1},t_{2},\ldots,t_{n}]</annotation></semantics></math> which are then tokenized. For a given layer <math id="S2.p1.3.m3" class="ltx_Math" alttext="l" display="inline" intent=":literal"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>, the hidden activations are denoted as <math id="S2.p1.4.m4" class="ltx_Math" alttext="\mathbf{X}^{(l)}=[\mathbf{x}_{1}^{(l)},\mathbf{x}_{2}^{(l)},\ldots,\mathbf{x}_{n}^{(l)}]" display="inline" intent=":literal"><semantics><mrow><msup><mi>𝐗</mi><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mrow><mo stretchy="false">[</mo><msubsup><mi>𝐱</mi><mn>1</mn><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>,</mo><msubsup><mi>𝐱</mi><mn>2</mn><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>𝐱</mi><mi>n</mi><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msubsup><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{X}^{(l)}=[\mathbf{x}_{1}^{(l)},\mathbf{x}_{2}^{(l)},\ldots,\mathbf{x}_{n}^{(l)}]</annotation></semantics></math>, where <math id="S2.p1.5.m5" class="ltx_Math" alttext="\mathbf{x}_{i}^{(l)}\in\mathbb{R}^{D}" display="inline" intent=":literal"><semantics><mrow><msubsup><mi>𝐱</mi><mi>i</mi><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>∈</mo><msup><mi>ℝ</mi><mi>D</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{x}_{i}^{(l)}\in\mathbb{R}^{D}</annotation></semantics></math> and <math id="S2.p1.6.m6" class="ltx_Math" alttext="D" display="inline" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> is the activation dimension. These token-level activations serve as training data for the SAE. Let <math id="S2.p1.7.m7" class="ltx_Math" alttext="f" display="inline" intent=":literal"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> denote the SAE, which consists of an encoder <math id="S2.p1.8.m8" class="ltx_Math" alttext="e" display="inline" intent=":literal"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math> that maps token activations into a sparse latent representation <math id="S2.p1.9.m9" class="ltx_Math" alttext="\mathbf{e}(\mathbf{x})" display="inline" intent=":literal"><semantics><mrow><mi>𝐞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{e}(\mathbf{x})</annotation></semantics></math>, and a decoder <math id="S2.p1.10.m10" class="ltx_Math" alttext="d" display="inline" intent=":literal"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> (or dictionary <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="Towards monosemanticity: decomposing language models with dictionary learning" class="ltx_ref">2</a>]</cite>) that reconstructs that activation. Specifically, the encoder is defined as <math id="S2.p1.11.m11" class="ltx_Math" alttext="e(\mathbf{x})=\sigma(W_{\text{e}}\mathbf{x}+\mathbf{b}_{\text{e}})\in\mathbb{R}^{m}" display="inline" intent=":literal"><semantics><mrow><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>σ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><msub><mi>W</mi><mtext>e</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mi>𝐱</mi></mrow><mo>+</mo><msub><mi>𝐛</mi><mtext>e</mtext></msub></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>∈</mo><msup><mi>ℝ</mi><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">e(\mathbf{x})=\sigma(W_{\text{e}}\mathbf{x}+\mathbf{b}_{\text{e}})\in\mathbb{R}^{m}</annotation></semantics></math> with <math id="S2.p1.12.m12" class="ltx_Math" alttext="m\gg D" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>≫</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">m\gg D</annotation></semantics></math>, where <math id="S2.p1.13.m13" class="ltx_Math" alttext="W_{\text{e}}\in\mathbb{R}^{m\times D}" display="inline" intent=":literal"><semantics><mrow><msub><mi>W</mi><mtext>e</mtext></msub><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>m</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>D</mi></mrow></msup></mrow><annotation encoding="application/x-tex">W_{\text{e}}\in\mathbb{R}^{m\times D}</annotation></semantics></math>, <math id="S2.p1.14.m14" class="ltx_Math" alttext="\mathbf{b}_{\text{e}}\in\mathbb{R}^{m}" display="inline" intent=":literal"><semantics><mrow><msub><mi>𝐛</mi><mtext>e</mtext></msub><mo>∈</mo><msup><mi>ℝ</mi><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{b}_{\text{e}}\in\mathbb{R}^{m}</annotation></semantics></math>, and <math id="S2.p1.15.m15" class="ltx_Math" alttext="\sigma(\cdot)" display="inline" intent=":literal"><semantics><mrow><mi>σ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma(\cdot)</annotation></semantics></math> is a sparsity-inducing nonlinearity (e.g., BatchTopK <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Batchtopk sparse autoencoders" class="ltx_ref">3</a>]</cite>). The decoder reconstructs the activation as <math id="S2.p1.16.m16" class="ltx_Math" alttext="\hat{\mathbf{x}}=W_{\text{d}}e(\mathbf{x})+\mathbf{b}_{\text{d}}" display="inline" intent=":literal"><semantics><mrow><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover><mo>=</mo><mrow><mrow><msub><mi>W</mi><mtext>d</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><msub><mi>𝐛</mi><mtext>d</mtext></msub></mrow></mrow><annotation encoding="application/x-tex">\hat{\mathbf{x}}=W_{\text{d}}e(\mathbf{x})+\mathbf{b}_{\text{d}}</annotation></semantics></math>, where <math id="S2.p1.17.m17" class="ltx_Math" alttext="W_{\text{d}}\in\mathbb{R}^{D\times m}" display="inline" intent=":literal"><semantics><mrow><msub><mi>W</mi><mtext>d</mtext></msub><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>D</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>m</mi></mrow></msup></mrow><annotation encoding="application/x-tex">W_{\text{d}}\in\mathbb{R}^{D\times m}</annotation></semantics></math> and <math id="S2.p1.18.m18" class="ltx_Math" alttext="\mathbf{b}_{\text{d}}\in\mathbb{R}^{D}" display="inline" intent=":literal"><semantics><mrow><msub><mi>𝐛</mi><mtext>d</mtext></msub><mo>∈</mo><msup><mi>ℝ</mi><mi>D</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{b}_{\text{d}}\in\mathbb{R}^{D}</annotation></semantics></math>. The SAE training objective balances reconstruction fidelity with latent sparsity. Given input activations <math id="S2.p1.19.m19" class="ltx_Math" alttext="\mathbf{x}" display="inline" intent=":literal"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> and reconstructed output <math id="S2.p1.20.m20" class="ltx_Math" alttext="\hat{\mathbf{x}}" display="inline" intent=":literal"><semantics><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{x}}</annotation></semantics></math>, the SAE training objective is defined as <math id="S2.p1.21.m21" class="ltx_Math" alttext="\mathcal{L}(\mathbf{x})=\|\mathbf{x}-\hat{\mathbf{x}}\|_{2}^{2}+\lambda\|e(\mathbf{x})\|_{1}" display="inline" intent=":literal"><semantics><mrow><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msubsup><mrow><mo stretchy="false">‖</mo><mrow><mi>𝐱</mi><mo>−</mo><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover></mrow><mo stretchy="false">‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mrow><mi>λ</mi><mo lspace="0em" rspace="0em">​</mo><msub><mrow><mo stretchy="false">‖</mo><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">‖</mo></mrow><mn>1</mn></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}(\mathbf{x})=\|\mathbf{x}-\hat{\mathbf{x}}\|_{2}^{2}+\lambda\|e(\mathbf{x})\|_{1}</annotation></semantics></math>, where <math id="S2.p1.22.m22" class="ltx_Math" alttext="\lambda" display="inline" intent=":literal"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math> controls the reconstruction and sparsity trade-off. While sparsity is often encouraged via <math id="S2.p1.23.m23" class="ltx_Math" alttext="\ell_{1}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\ell_{1}</annotation></semantics></math> regularization, practical implementations commonly apply hard constraints such as Top-<math id="S2.p1.24.m24" class="ltx_Math" alttext="K" display="inline" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Scaling and evaluating sparse autoencoders" class="ltx_ref">9</a>]</cite> or BatchTop-<math id="S2.p1.25.m25" class="ltx_Math" alttext="K" display="inline" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Batchtopk sparse autoencoders" class="ltx_ref">3</a>]</cite> selection over <math id="S2.p1.26.m26" class="ltx_Math" alttext="e(\mathbf{x})" display="inline" intent=":literal"><semantics><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">e(\mathbf{x})</annotation></semantics></math> to limit active latents.</p>
+</div>
+<div id="S2.p2" class="ltx_para ltx_noindent">
+<p id="S2.p2.1" class="ltx_p"><span id="S2.p2.1.1" class="ltx_text ltx_font_bold">Motivation</span>. SAE training involves a fundamental trade-off: minimizing reconstruction favors dense representations, while enforcing sparsity encourages fewer active latents. This tension often yields brittle solutions that satisfy the objective but fail to capture semantically coherent structure. As a result, hierarchical or overlapping features are under-represented, and shortcut latents frequently emerge under co-occurrence. Because real-world features are inherently hierarchical, imposing sparsity independently across latents misaligns with the true feature space. These shortcomings manifest as feature absorption and poor OOD performance, both symptomatic of under-specified training objectives.
+Recent architectural advances, such as the <span id="S2.p2.1.2" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> SAE <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Learning multi-level features with matryoshka sparse autoencoders" class="ltx_ref">4</a>]</cite>, build on Matryoshka representation learning <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="Matryoshka representation learning" class="ltx_ref">13</a>]</cite> to construct nested encoders operating at multiple scales, achieving notable progress toward mitigating these issues. However, as our results show, substantial gaps remain between the OOD generalization of probes trained on SAE activations and oracle probes trained directly on raw LLM activations, along with continued susceptibility to feature absorption.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p id="S2.p3.1" class="ltx_p">We argue that these challenges cannot be overcome by architectural modifications alone, but require stronger training objectives. We posit that combining architectural advances with improved objectives can substantially mitigate shortcut learning in SAEs. To this end, we introduce a simple, architecture-agnostic regularization strategy that suppresses shortcuts and encourages robust, transferable features.</p>
+</div>
+<div id="S2.p4" class="ltx_para ltx_noindent">
+<p id="S2.p4.3" class="ltx_p"><span id="S2.p4.3.1" class="ltx_text ltx_font_bold">Masking Based Regularization</span>. For a given input sequence <math id="S2.p4.1.m1" class="ltx_Math" alttext="\mathbf{t}" display="inline" intent=":literal"><semantics><mi>𝐭</mi><annotation encoding="application/x-tex">\mathbf{t}</annotation></semantics></math>, we sample a binary mask <math id="S2.p4.2.m2" class="ltx_Math" alttext="\omega\sim\text{Bernoulli}(p)" display="inline" intent=":literal"><semantics><mrow><mi>ω</mi><mo>∼</mo><mrow><mtext>Bernoulli</mtext><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\omega\sim\text{Bernoulli}(p)</annotation></semantics></math>, where <math id="S2.p4.3.m3" class="ltx_Math" alttext="p" display="inline" intent=":literal"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> is a user-defined masking probability. We replace the selected tokens with a special token “…” before feeding the sequence into the LLM:</p>
+<table id="S2.Ex1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.Ex1.m1" class="ltx_Math" alttext="\mathbf{t}^{\prime}=[t_{1}^{\prime},\ldots,t_{n}^{\prime}],\quad t_{i}^{\prime}=\begin{cases}\texttt{‘...’},&amp;\omega_{i}=1\\
+t_{i},&amp;\omega_{i}=0.\end{cases}" display="block" intent=":literal"><semantics><mrow><mrow><msup><mi>𝐭</mi><mo>′</mo></msup><mo>=</mo><mrow><mo stretchy="false">[</mo><msubsup><mi>t</mi><mn>1</mn><mo>′</mo></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>t</mi><mi>n</mi><mo>′</mo></msubsup><mo stretchy="false">]</mo></mrow></mrow><mo rspace="1.167em">,</mo><mrow><msubsup><mi>t</mi><mi>i</mi><mo>′</mo></msubsup><mo>=</mo><mrow><mo>{</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mtext class="ltx_mathvariant_monospace">‘...’</mtext><mo>,</mo></mrow></mtd><mtd class="ltx_align_left" columnalign="left"><mrow><msub><mi>ω</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow></mtd></mtr><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>,</mo></mrow></mtd><mtd class="ltx_align_left" columnalign="left"><mrow><mrow><msub><mi>ω</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow><mo lspace="0em">.</mo></mrow></mtd></mtr></mtable></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{t}^{\prime}=[t_{1}^{\prime},\ldots,t_{n}^{\prime}],\quad t_{i}^{\prime}=\begin{cases}\texttt{‘...’},&amp;\omega_{i}=1\\
+t_{i},&amp;\omega_{i}=0.\end{cases}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p id="S2.p4.4" class="ltx_p">The LLM activations of the modified tokens are used as input to the SAE. The training objective remains the same but is now applied over masked activations: <math id="S2.p4.4.m1" class="ltx_Math" alttext="\mathcal{L}_{\text{mask}}(\mathbf{x}^{\prime})=\|\mathbf{x}^{\prime}-\hat{\mathbf{x}}^{\prime}\|_{2}^{2}+\lambda\|e(\mathbf{x}^{\prime})\|_{1}" display="inline" intent=":literal"><semantics><mrow><mrow><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>mask</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐱</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msubsup><mrow><mo stretchy="false">‖</mo><mrow><msup><mi>𝐱</mi><mo>′</mo></msup><mo>−</mo><msup><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover><mo>′</mo></msup></mrow><mo stretchy="false">‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mrow><mi>λ</mi><mo lspace="0em" rspace="0em">​</mo><msub><mrow><mo stretchy="false">‖</mo><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐱</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">‖</mo></mrow><mn>1</mn></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}_{\text{mask}}(\mathbf{x}^{\prime})=\|\mathbf{x}^{\prime}-\hat{\mathbf{x}}^{\prime}\|_{2}^{2}+\lambda\|e(\mathbf{x}^{\prime})\|_{1}</annotation></semantics></math>. The key rationale is that introducing masking alters the contextual embeddings of surrounding tokens, thereby decorrelating feature co-occurrence and discouraging the SAE from collapsing broad features into overspecialized ones. This forces the latents to capture more generalizable structure, rather than favoring shortcuts, lowering the risk of feature absorption.</p>
+</div>
+<figure id="S2.9" class="ltx_table">
+
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span id="S2.9.11.1.1" class="ltx_text ltx_font_bold" style="font-size:90%;">Table 1</span>: </span><span id="S2.9.12.2" class="ltx_text" style="font-size:90%;">Performance comparison of the proposed masking strategy on the <span id="S2.9.12.2.1" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> SAE trained on Layer 8 of Pythia-160m-deduped across multiple evaluation metrics and sparsity levels. Across metrics, we see consistent improvements with our approach with a small trade-off in explained variance at lower sparsities. Overall, the method demonstrates robustness and strong performance across sparsity regimes.</span></figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<div id="S2.9.9" class="ltx_inline-block ltx_figure_panel ltx_align_center ltx_transformed_outer" style="width:405.2pt;height:21.8pt;vertical-align:-10.5pt;"><span class="ltx_transformed_inner" style="transform:translate(-1047.1pt,56.5pt) scale(0.162103920057093,0.162103920057093) ;">
+<table id="S2.9.9.9" class="ltx_tabular ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="S2.4.4.4.4" class="ltx_tr">
+<td id="S2.4.4.4.4.5" class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding:1pt 8.0pt;" colspan="6">
+<span id="S2.4.4.4.4.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.4.4.4.4.5.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.4.4.4.4.5.1.1.1" class="ltx_ERROR undefined">\rowcolor</span>gray!30
+<span id="S2.4.4.4.4.5.1.1.2" class="ltx_text ltx_font_bold">Metric</span></span>
+</span>    
+<span id="S2.4.4.4.4.5.2" class="ltx_inline-block ltx_align_top">
+<span id="S2.4.4.4.4.5.2.1" class="ltx_p" style="width:62.6pt;"></span>
+</span>            </td>
+<td id="S2.4.4.4.4.6" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><span id="S2.4.4.4.4.6.1" class="ltx_text ltx_font_bold">Method</span></td>
+<td id="S2.1.1.1.1.1" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S2.1.1.1.1.1.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=20}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟐𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=20}</annotation></semantics></math></td>
+<td id="S2.2.2.2.2.2" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S2.2.2.2.2.2.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=40}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟒𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=40}</annotation></semantics></math></td>
+<td id="S2.3.3.3.3.3" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S2.3.3.3.3.3.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=80}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟖𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=80}</annotation></semantics></math></td>
+<td id="S2.4.4.4.4.4" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S2.4.4.4.4.4.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=160}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟏𝟔𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=160}</annotation></semantics></math></td>
+</tr>
+<tr id="S2.5.5.5.5" class="ltx_tr">
+<td id="S2.5.5.5.5.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.5.5.5.5.1.1.1.1" class="ltx_text ltx_align_center">Mean Full Absorption (<math id="S2.5.5.5.5.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S2.5.5.5.5.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S2.5.5.5.5.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.3.1.1" class="ltx_p ltx_align_center">86.119</span>
+</span>
+</td>
+<td id="S2.5.5.5.5.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.4.1.1" class="ltx_p ltx_align_center">91.646</span>
+</span>
+</td>
+<td id="S2.5.5.5.5.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.5.1.1" class="ltx_p ltx_align_center">94.650</span>
+</span>
+</td>
+<td id="S2.5.5.5.5.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.5.5.5.5.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.5.5.5.5.6.1.1" class="ltx_p ltx_align_center">97.434</span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.10.1" class="ltx_tr">
+<td id="S2.9.9.9.10.1.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S2.9.9.9.10.1.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.10.1.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.3.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.10.1.3.1.1.1" class="ltx_text ltx_font_bold">88.475</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.10.1.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.4.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.10.1.4.1.1.1" class="ltx_text ltx_font_bold">93.450</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.10.1.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.5.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.10.1.5.1.1.1" class="ltx_text ltx_font_bold">96.437</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.10.1.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.10.1.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.10.1.6.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.10.1.6.1.1.1" class="ltx_text ltx_font_bold">98.003</span></span>
+</span>
+</td>
+</tr>
+<tr id="S2.6.6.6.6" class="ltx_tr">
+<td id="S2.6.6.6.6.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.6.6.6.6.1.1.1.1" class="ltx_text ltx_align_center">Explained Variance (<math id="S2.6.6.6.6.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S2.6.6.6.6.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S2.6.6.6.6.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.3.1.1" class="ltx_p ltx_align_center"><span id="S2.6.6.6.6.3.1.1.1" class="ltx_text ltx_font_bold">72.172</span></span>
+</span>
+</td>
+<td id="S2.6.6.6.6.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.4.1.1" class="ltx_p ltx_align_center"><span id="S2.6.6.6.6.4.1.1.1" class="ltx_text ltx_font_bold">77.421</span></span>
+</span>
+</td>
+<td id="S2.6.6.6.6.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.5.1.1" class="ltx_p ltx_align_center">82.303</span>
+</span>
+</td>
+<td id="S2.6.6.6.6.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.6.6.6.6.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.6.6.6.6.6.1.1" class="ltx_p ltx_align_center">87.841</span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.11.2" class="ltx_tr">
+<td id="S2.9.9.9.11.2.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S2.9.9.9.11.2.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.11.2.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.3.1.1" class="ltx_p ltx_align_center">71.266</span>
+</span>
+</td>
+<td id="S2.9.9.9.11.2.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.4.1.1" class="ltx_p ltx_align_center">76.874</span>
+</span>
+</td>
+<td id="S2.9.9.9.11.2.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.5.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.11.2.5.1.1.1" class="ltx_text ltx_font_bold">82.419</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.11.2.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.11.2.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.11.2.6.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.11.2.6.1.1.1" class="ltx_text ltx_font_bold">88.823</span></span>
+</span>
+</td>
+</tr>
+<tr id="S2.7.7.7.7" class="ltx_tr">
+<td id="S2.7.7.7.7.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.7.7.7.7.1.1.1.1" class="ltx_text ltx_align_center">Sparse Probing (<math id="S2.7.7.7.7.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S2.7.7.7.7.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S2.7.7.7.7.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.3.1.1" class="ltx_p ltx_align_center">73.483</span>
+</span>
+</td>
+<td id="S2.7.7.7.7.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.4.1.1" class="ltx_p ltx_align_center">75.099</span>
+</span>
+</td>
+<td id="S2.7.7.7.7.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.5.1.1" class="ltx_p ltx_align_center"><span id="S2.7.7.7.7.5.1.1.1" class="ltx_text ltx_font_bold">78.705</span></span>
+</span>
+</td>
+<td id="S2.7.7.7.7.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.7.7.7.7.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.7.7.7.7.6.1.1" class="ltx_p ltx_align_center">79.574</span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.12.3" class="ltx_tr">
+<td id="S2.9.9.9.12.3.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S2.9.9.9.12.3.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.12.3.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.3.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.12.3.3.1.1.1" class="ltx_text ltx_font_bold">75.574</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.12.3.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.4.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.12.3.4.1.1.1" class="ltx_text ltx_font_bold">77.112</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.12.3.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.5.1.1" class="ltx_p ltx_align_center">77.749</span>
+</span>
+</td>
+<td id="S2.9.9.9.12.3.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.12.3.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.12.3.6.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.12.3.6.1.1.1" class="ltx_text ltx_font_bold">79.639</span></span>
+</span>
+</td>
+</tr>
+<tr id="S2.8.8.8.8" class="ltx_tr">
+<td id="S2.8.8.8.8.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.8.8.8.8.1.1.1.1" class="ltx_text ltx_align_center">TPP (<math id="S2.8.8.8.8.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S2.8.8.8.8.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S2.8.8.8.8.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.3.1.1" class="ltx_p ltx_align_center">10.158</span>
+</span>
+</td>
+<td id="S2.8.8.8.8.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.4.1.1" class="ltx_p ltx_align_center">18.218</span>
+</span>
+</td>
+<td id="S2.8.8.8.8.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.5.1.1" class="ltx_p ltx_align_center"><span id="S2.8.8.8.8.5.1.1.1" class="ltx_text ltx_font_bold">27.033</span></span>
+</span>
+</td>
+<td id="S2.8.8.8.8.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.8.8.8.8.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.8.8.8.8.6.1.1" class="ltx_p ltx_align_center"><span id="S2.8.8.8.8.6.1.1.1" class="ltx_text ltx_font_bold">30.235</span></span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.13.4" class="ltx_tr">
+<td id="S2.9.9.9.13.4.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S2.9.9.9.13.4.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.13.4.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.3.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.13.4.3.1.1.1" class="ltx_text ltx_font_bold">12.430</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.13.4.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.4.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.13.4.4.1.1.1" class="ltx_text ltx_font_bold">18.968</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.13.4.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.5.1.1" class="ltx_p ltx_align_center">26.488</span>
+</span>
+</td>
+<td id="S2.9.9.9.13.4.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.13.4.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.13.4.6.1.1" class="ltx_p ltx_align_center">29.815</span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.9" class="ltx_tr">
+<td id="S2.9.9.9.9.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S2.9.9.9.9.1.1.1.1" class="ltx_text ltx_align_center">SCR (<math id="S2.9.9.9.9.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.9.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.9.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.3.1.1" class="ltx_p ltx_align_center">19.808</span>
+</span>
+</td>
+<td id="S2.9.9.9.9.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.4.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.9.4.1.1.1" class="ltx_text ltx_font_bold">25.843</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.9.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.5.1.1" class="ltx_p ltx_align_center">20.132</span>
+</span>
+</td>
+<td id="S2.9.9.9.9.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.9.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.9.6.1.1" class="ltx_p ltx_align_center">8.441</span>
+</span>
+</td>
+</tr>
+<tr id="S2.9.9.9.14.5" class="ltx_tr">
+<td id="S2.9.9.9.14.5.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_b ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S2.9.9.9.14.5.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_b ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S2.9.9.9.14.5.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.3.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.14.5.3.1.1.1" class="ltx_text ltx_font_bold">20.343</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.14.5.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.4.1.1" class="ltx_p ltx_align_center">25.01</span>
+</span>
+</td>
+<td id="S2.9.9.9.14.5.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.5.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.14.5.5.1.1.1" class="ltx_text ltx_font_bold">27.626</span></span>
+</span>
+</td>
+<td id="S2.9.9.9.14.5.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S2.9.9.9.14.5.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S2.9.9.9.14.5.6.1.1" class="ltx_p ltx_align_center"><span id="S2.9.9.9.14.5.6.1.1.1" class="ltx_text ltx_font_bold">20.240</span></span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<section id="S3" class="ltx_section ltx_figure_panel">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Experimental Setup and Results</h2>
+
+<div id="S3.p1" class="ltx_para ltx_noindent">
+<p id="S3.p1.3" class="ltx_p"><span id="S3.p1.3.1" class="ltx_text ltx_font_bold">Implementation Details</span>.
+We conduct all experiments on Pythia-160M-deduped <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib41" title="Pythia: a suite for analyzing large language models across training and scaling" class="ltx_ref">1</a>]</cite> and Gemma-2-2B <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib46" title="Gemma 2: improving open language models at a practical size" class="ltx_ref">20</a>]</cite>. We train SAEs for a total of 500M tokens on the Pile-CC-deduplicated dataset <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib42" title="The pile: an 800gb dataset of diverse text for language modeling" class="ltx_ref">8</a>]</cite>. To ensure fairness, we adopt the same training setup (hyper-parameters such as batch size, learning rate, etc.) provided in the <span id="S3.p1.3.2" class="ltx_text ltx_font_typewriter">dictionary_learning<span id="footnote0" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><a href="https://github.com/saprmarks/dictionary_learning" title="" class="ltx_ref ltx_url">https://github.com/saprmarks/dictionary_learning</a></span></span></span></span> code base. We train SAEs with a dictionary size of <math id="S3.p1.1.m1" class="ltx_Math" alttext="4096" display="inline" intent=":literal"><semantics><mn>4096</mn><annotation encoding="application/x-tex">4096</annotation></semantics></math> on residual stream activations from layer 8 of the Pythia-160M-deduped model and layer 12 of the Gemma-2-2B <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability" class="ltx_ref">12</a>]</cite>.
+For all experiments, we utilize the recently proposed <span id="S3.p1.3.3" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> architecture <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Learning multi-level features with matryoshka sparse autoencoders" class="ltx_ref">4</a>]</cite> which has been shown to achieve state-of-the-art performance across a variety of interpretability benchmarks <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability" class="ltx_ref">12</a>]</cite> across different SAE variants <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Batchtopk sparse autoencoders" class="ltx_ref">3</a>]</cite>. Moreover, based on <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability" class="ltx_ref">12</a>]</cite>, we train our SAEs across sparsity levels (<math id="S3.p1.2.m2" class="ltx_Math" alttext="\ell_{0}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\ell_{0}</annotation></semantics></math>) ranging from 20, 40, 80, and 160. We set the default masking probability <math id="S3.p1.3.m3" class="ltx_Math" alttext="p=0.3" display="inline" intent=":literal"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">p=0.3</annotation></semantics></math> as we observe that this value yields the best performance across all metrics (Table <a href="#S3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>).</p>
+</div>
+<div id="S3.p2" class="ltx_para ltx_noindent">
+<p id="S3.p2.1" class="ltx_p"><span id="S3.p2.1.1" class="ltx_text ltx_font_bold">Metrics</span>.
+We employ a comprehensive suite of five evaluation metrics to assess the performance and robustness of SAEs using our proposed objective. We provide a brief overview of each metric below and refer the reader to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib40" title="SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability" class="ltx_ref">12</a>]</cite> for full methodological details and implementation specifics:
+(i) <span id="S3.p2.1.2" class="ltx_text ltx_framed ltx_framed_underline">Mean Full Absorption</span>: Measures the extent to which one latent consistently activates in the presence of another, indicating redundancy and reduced specificity;
+(ii) <span id="S3.p2.1.3" class="ltx_text ltx_framed ltx_framed_underline">Explained Variance</span>: Quantifies the proportion of variance in original activations captured by SAE reconstructions;
+(iii) <span id="S3.p2.1.4" class="ltx_text ltx_framed ltx_framed_underline">Sparse Probing</span>: Assesses linear separability of SAE latents via sparse logistic regression across multiple classification tasks;
+(iv) <span id="S3.p2.1.5" class="ltx_text ltx_framed ltx_framed_underline">Targeted Probe Perturbation (TPP)</span>: Captures the causal utility of class-specific latents by measuring probe accuracy drop under targeted ablations. It must be noted that all metrics are designed such that higher scores indicate better performance.
+(v) <span id="S3.p2.1.6" class="ltx_text ltx_framed ltx_framed_underline">Spurious Correlation Removal (SCR)</span>: Measures the ability to ablate spurious latents while preserving task-relevant features;</p>
+</div>
+<div id="S3.p3" class="ltx_para ltx_noindent">
+<p id="S3.p3.5" class="ltx_p"><span id="S3.p3.5.1" class="ltx_text ltx_font_bold">Results</span>.
+We present the results of our experiments on Pythia-160M-deduped in Table <a href="#S2" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and Gemma-2-2B in Table <a href="#S3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> for all five metrics across different sparsity levels. We observe that training with masking consistently improves performance across all metrics, especially at higher sparsity levels (lower <math id="S3.p3.1.m1" class="ltx_Math" alttext="\ell_{0}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\ell_{0}</annotation></semantics></math> values). As can be seen from the results, incorporating the proposed masked training objective (a.k.a w/ masking) leads to significant reduction in absorption (as evidenced by increased absorption scores). In the case of Pythia-160M-deduped, we observe an improvement of <math id="S3.p3.2.m2" class="ltx_Math" alttext="2.35\%" display="inline" intent=":literal"><semantics><mrow><mn>2.35</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">2.35\%</annotation></semantics></math> points at highest sparsity level (<math id="S3.p3.3.m3" class="ltx_Math" alttext="\ell_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=20</annotation></semantics></math>). We also observe an striking improvement of <math id="S3.p3.4.m4" class="ltx_Math" alttext="3.75\%" display="inline" intent=":literal"><semantics><mrow><mn>3.75</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">3.75\%</annotation></semantics></math> points at the same sparsity level for Gemma-2-2B, indicating that the benefits of the proposed training objective are consistent across different model sizes. This indicates that our training objective effectively reduces redundancy and absorption in the latent space, leading to more specific and informative representations. Interestingly, we also observe that the benefits of masking diminish at lower sparsity levels (high <math id="S3.p3.5.m5" class="ltx_Math" alttext="\ell_{0}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\ell_{0}</annotation></semantics></math>). We hypothesize that this is due to the fact that at lower sparsity, the SAE is already able to learn a more diverse set of features because of the increased flexibility to represent information, and therefore the additional masking does not provide significant benefits. This hypothesis is further corroborated by observing that the baseline (a.k.a w/o masking) themselves achieve high absorption scores as sparsity decreases.</p>
+</div>
+<figure id="S3.39" class="ltx_table">
+
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span id="S3.39.41.2.1" class="ltx_text ltx_font_bold" style="font-size:90%;">Table 2</span>: </span><span id="S3.2.2.1" class="ltx_text" style="font-size:90%;">Performance comparison of the <span id="S3.2.2.1.1" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> SAE trained w/ and w/o masking on layer 12 of Gemma2-2-b. The masking strategy tends to provide steady improvements in mean absorption score and explained variance, with benefits visible across most sparsity levels. For other metrics such as sparse probing, TPP, and SCR, the w/ Masking approach also performs competitively, showing strong results overall with few trade-offs appear in a few settings with increase in <math id="S3.2.2.1.m1" class="ltx_Math" alttext="\ell_{0}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\ell_{0}</annotation></semantics></math>.</span></figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<div id="S3.11.11" class="ltx_inline-block ltx_figure_panel ltx_align_center ltx_transformed_outer" style="width:405.2pt;height:21.8pt;vertical-align:-10.5pt;"><span class="ltx_transformed_inner" style="transform:translate(-1048.8pt,56.5pt) scale(0.161888021199933,0.161888021199933) ;">
+<table id="S3.11.11.9" class="ltx_tabular ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="S3.6.6.4.4" class="ltx_tr">
+<td id="S3.6.6.4.4.5" class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding:1pt 8.0pt;" colspan="6">
+<span id="S3.6.6.4.4.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.6.6.4.4.5.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.6.6.4.4.5.1.1.1" class="ltx_ERROR undefined">\rowcolor</span>gray!30
+<span id="S3.6.6.4.4.5.1.1.2" class="ltx_text ltx_font_bold">Metric</span></span>
+</span>    
+<span id="S3.6.6.4.4.5.2" class="ltx_inline-block ltx_align_top">
+<span id="S3.6.6.4.4.5.2.1" class="ltx_p" style="width:62.6pt;"></span>
+</span>            </td>
+<td id="S3.6.6.4.4.6" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><span id="S3.6.6.4.4.6.1" class="ltx_text ltx_font_bold">Method</span></td>
+<td id="S3.3.3.1.1.1" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.3.3.1.1.1.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=20}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟐𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=20}</annotation></semantics></math></td>
+<td id="S3.4.4.2.2.2" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.4.4.2.2.2.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=40}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟒𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=40}</annotation></semantics></math></td>
+<td id="S3.5.5.3.3.3" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.5.5.3.3.3.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=80}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟖𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=80}</annotation></semantics></math></td>
+<td id="S3.6.6.4.4.4" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.6.6.4.4.4.m1" class="ltx_Math" alttext="\boldsymbol{\ell_{0}=160}" display="inline" intent=":literal"><semantics><mrow><msub><mi class="ltx_mathvariant_bold" mathvariant="bold">ℓ</mi><mn>𝟎</mn></msub><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟏𝟔𝟎</mn></mrow><annotation encoding="application/x-tex">\boldsymbol{\ell_{0}=160}</annotation></semantics></math></td>
+</tr>
+<tr id="S3.7.7.5.5" class="ltx_tr">
+<td id="S3.7.7.5.5.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.7.7.5.5.1.1.1.1" class="ltx_text ltx_align_center">Mean Full Absorption (<math id="S3.7.7.5.5.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S3.7.7.5.5.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S3.7.7.5.5.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.3.1.1" class="ltx_p ltx_align_center">90.805</span>
+</span>
+</td>
+<td id="S3.7.7.5.5.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.4.1.1" class="ltx_p ltx_align_center">97.365</span>
+</span>
+</td>
+<td id="S3.7.7.5.5.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.5.1.1" class="ltx_p ltx_align_center"><span id="S3.7.7.5.5.5.1.1.1" class="ltx_text ltx_font_bold">98.969</span></span>
+</span>
+</td>
+<td id="S3.7.7.5.5.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.7.7.5.5.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.7.7.5.5.6.1.1" class="ltx_p ltx_align_center">99.174</span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.10.1" class="ltx_tr">
+<td id="S3.11.11.9.10.1.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S3.11.11.9.10.1.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.10.1.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.3.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.10.1.3.1.1.1" class="ltx_text ltx_font_bold">94.559</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.10.1.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.4.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.10.1.4.1.1.1" class="ltx_text ltx_font_bold">98.753</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.10.1.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.5.1.1" class="ltx_p ltx_align_center">97.322</span>
+</span>
+</td>
+<td id="S3.11.11.9.10.1.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.10.1.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.10.1.6.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.10.1.6.1.1.1" class="ltx_text ltx_font_bold">98.979</span></span>
+</span>
+</td>
+</tr>
+<tr id="S3.8.8.6.6" class="ltx_tr">
+<td id="S3.8.8.6.6.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.8.8.6.6.1.1.1.1" class="ltx_text ltx_align_center">Explained Variance (<math id="S3.8.8.6.6.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S3.8.8.6.6.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S3.8.8.6.6.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.3.1.1" class="ltx_p ltx_align_center"><span id="S3.8.8.6.6.3.1.1.1" class="ltx_text ltx_font_bold">53.516</span></span>
+</span>
+</td>
+<td id="S3.8.8.6.6.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.4.1.1" class="ltx_p ltx_align_center">58.984</span>
+</span>
+</td>
+<td id="S3.8.8.6.6.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.5.1.1" class="ltx_p ltx_align_center">64.453</span>
+</span>
+</td>
+<td id="S3.8.8.6.6.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.8.8.6.6.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.8.8.6.6.6.1.1" class="ltx_p ltx_align_center">69.922</span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.11.2" class="ltx_tr">
+<td id="S3.11.11.9.11.2.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S3.11.11.9.11.2.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.11.2.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.3.1.1" class="ltx_p ltx_align_center">53.125</span>
+</span>
+</td>
+<td id="S3.11.11.9.11.2.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.4.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.11.2.4.1.1.1" class="ltx_text ltx_font_bold">59.375</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.11.2.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.5.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.11.2.5.1.1.1" class="ltx_text ltx_font_bold">64.844</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.11.2.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.11.2.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.11.2.6.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.11.2.6.1.1.1" class="ltx_text ltx_font_bold">71.094</span></span>
+</span>
+</td>
+</tr>
+<tr id="S3.9.9.7.7" class="ltx_tr">
+<td id="S3.9.9.7.7.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.9.9.7.7.1.1.1.1" class="ltx_text ltx_align_center">Sparse Probing (<math id="S3.9.9.7.7.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S3.9.9.7.7.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S3.9.9.7.7.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.3.1.1" class="ltx_p ltx_align_center"><span id="S3.9.9.7.7.3.1.1.1" class="ltx_text ltx_font_bold">74.473</span></span>
+</span>
+</td>
+<td id="S3.9.9.7.7.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.4.1.1" class="ltx_p ltx_align_center">73.300</span>
+</span>
+</td>
+<td id="S3.9.9.7.7.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.5.1.1" class="ltx_p ltx_align_center"><span id="S3.9.9.7.7.5.1.1.1" class="ltx_text ltx_font_bold">74.659</span></span>
+</span>
+</td>
+<td id="S3.9.9.7.7.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.9.9.7.7.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.9.9.7.7.6.1.1" class="ltx_p ltx_align_center"><span id="S3.9.9.7.7.6.1.1.1" class="ltx_text ltx_font_bold">75.659</span></span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.12.3" class="ltx_tr">
+<td id="S3.11.11.9.12.3.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S3.11.11.9.12.3.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.12.3.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.3.1.1" class="ltx_p ltx_align_center">74.206</span>
+</span>
+</td>
+<td id="S3.11.11.9.12.3.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.4.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.12.3.4.1.1.1" class="ltx_text ltx_font_bold">77.341</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.12.3.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.5.1.1" class="ltx_p ltx_align_center">74.243</span>
+</span>
+</td>
+<td id="S3.11.11.9.12.3.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.12.3.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.12.3.6.1.1" class="ltx_p ltx_align_center">75.363</span>
+</span>
+</td>
+</tr>
+<tr id="S3.10.10.8.8" class="ltx_tr">
+<td id="S3.10.10.8.8.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.10.10.8.8.1.1.1.1" class="ltx_text ltx_align_center">TPP (<math id="S3.10.10.8.8.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S3.10.10.8.8.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S3.10.10.8.8.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.3.1.1" class="ltx_p ltx_align_center">1.000</span>
+</span>
+</td>
+<td id="S3.10.10.8.8.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.4.1.1" class="ltx_p ltx_align_center"><span id="S3.10.10.8.8.4.1.1.1" class="ltx_text ltx_font_bold">3.320</span></span>
+</span>
+</td>
+<td id="S3.10.10.8.8.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.5.1.1" class="ltx_p ltx_align_center">7.178</span>
+</span>
+</td>
+<td id="S3.10.10.8.8.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.10.10.8.8.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.10.10.8.8.6.1.1" class="ltx_p ltx_align_center"><span id="S3.10.10.8.8.6.1.1.1" class="ltx_text ltx_font_bold">17.550</span></span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.13.4" class="ltx_tr">
+<td id="S3.11.11.9.13.4.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S3.11.11.9.13.4.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.13.4.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.3.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.13.4.3.1.1.1" class="ltx_text ltx_font_bold">1.277</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.13.4.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.4.1.1" class="ltx_p ltx_align_center">2.893</span>
+</span>
+</td>
+<td id="S3.11.11.9.13.4.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.5.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.13.4.5.1.1.1" class="ltx_text ltx_font_bold">7.295</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.13.4.6" class="ltx_td ltx_align_justify ltx_align_middle" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.13.4.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.13.4.6.1.1" class="ltx_p ltx_align_center">15.988</span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.9" class="ltx_tr">
+<td id="S3.11.11.9.9.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.1.1.1" class="ltx_p" style="width:96.7pt;"><span id="S3.11.11.9.9.1.1.1.1" class="ltx_text ltx_align_center">SCR (<math id="S3.11.11.9.9.1.1.1.1.m1" class="ltx_Math" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.9.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.2.1.1" class="ltx_p" style="width:62.6pt;">w/o Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.9.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.3.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.9.3.1.1.1" class="ltx_text ltx_font_bold">22.753</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.9.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.4.1.1" class="ltx_p ltx_align_center">22.991</span>
+</span>
+</td>
+<td id="S3.11.11.9.9.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.5.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.9.5.1.1.1" class="ltx_text ltx_font_bold">31.270</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.9.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.9.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.9.6.1.1" class="ltx_p ltx_align_center">28.468</span>
+</span>
+</td>
+</tr>
+<tr id="S3.11.11.9.14.5" class="ltx_tr">
+<td id="S3.11.11.9.14.5.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_b ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.1.1.1" class="ltx_p" style="width:96.7pt;"></span>
+</span>
+</td>
+<td id="S3.11.11.9.14.5.2" class="ltx_td ltx_align_justify ltx_align_top ltx_border_b ltx_border_r" style="padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.2.1.1" class="ltx_p" style="width:62.6pt;">w/ Masking</span>
+</span>
+</td>
+<td id="S3.11.11.9.14.5.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.3.1.1" class="ltx_p ltx_align_center">21.216</span>
+</span>
+</td>
+<td id="S3.11.11.9.14.5.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.4.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.14.5.4.1.1.1" class="ltx_text ltx_font_bold">30.111</span></span>
+</span>
+</td>
+<td id="S3.11.11.9.14.5.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.5.1.1" class="ltx_p ltx_align_center">30.736</span>
+</span>
+</td>
+<td id="S3.11.11.9.14.5.6" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.11.11.9.14.5.6.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.11.11.9.14.5.6.1.1" class="ltx_p ltx_align_center"><span id="S3.11.11.9.14.5.6.1.1.1" class="ltx_text ltx_font_bold">32.775</span></span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p id="S3.23.23" class="ltx_p ltx_figure_panel">Next, we observe that the explained variance scores in Table <a href="#S2" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and <a href="#S3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> show a slight decrease (for Pythia) or comparable performance (Gemma) for the proposed approached compared to the no masking baseline at higher sparsity levels. This indicates that the proposed regularization encourages the SAEs to learn more atomic and distinct features. While we may not capture as much variance present in the original activations required for accurate reconstruction, our results show that our latents are more meaningful and less redundant. Furthermore, we observe that the proposed training objective leads to consistent improvements in sparse probing performance across all sparsity levels. For instance, in the case of Pythia-160M-deduped, we observe an improvement of <math id="S3.12.12.m1" class="ltx_Math" alttext="2.09\%" display="inline" intent=":literal"><semantics><mrow><mn>2.09</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">2.09\%</annotation></semantics></math> points at <math id="S3.13.13.m2" class="ltx_Math" alttext="\ell_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=20</annotation></semantics></math> and <math id="S3.14.14.m3" class="ltx_Math" alttext="2.01\%" display="inline" intent=":literal"><semantics><mrow><mn>2.01</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">2.01\%</annotation></semantics></math> points at <math id="S3.15.15.m4" class="ltx_Math" alttext="\ell_{0}=40" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=40</annotation></semantics></math>. This indicates that the features learned through the proposed training objective are more discriminative and therefore lead to better performance on downstream tasks. We also make similar observations on the spurious correlation removal and targeted probe perturbation metrics. For instance, in the case of Pythia-160M-deduped, we observe an improvement of <math id="S3.16.16.m5" class="ltx_Math" alttext="2.27\%" display="inline" intent=":literal"><semantics><mrow><mn>2.27</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">2.27\%</annotation></semantics></math> points at <math id="S3.17.17.m6" class="ltx_Math" alttext="\ell_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=20</annotation></semantics></math> on the TPP metric. Encouragingly, we observe consistent improvements or comparable performance across all sparsity levels on the challenging spurious correlation removal metric. For example, we note an improvement of <math id="S3.18.18.m7" class="ltx_Math" alttext="7.5\%" display="inline" intent=":literal"><semantics><mrow><mn>7.5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">7.5\%</annotation></semantics></math> points at <math id="S3.19.19.m8" class="ltx_Math" alttext="\ell_{0}=80" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=80</annotation></semantics></math> and <math id="S3.20.20.m9" class="ltx_Math" alttext="11.8\%" display="inline" intent=":literal"><semantics><mrow><mn>11.8</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">11.8\%</annotation></semantics></math> points at <math id="S3.21.21.m10" class="ltx_Math" alttext="\ell_{0}=160" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>160</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=160</annotation></semantics></math>. Similar trends are observed for Gemma-2-2B where the proposed approach maintains comparable or slightly deteriorated performance in few sparsity levels. However, at lower sparsity levels we notice a significant improvement of <math id="S3.22.22.m11" class="ltx_Math" alttext="4.3\%" display="inline" intent=":literal"><semantics><mrow><mn>4.3</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">4.3\%</annotation></semantics></math> points at <math id="S3.23.23.m12" class="ltx_Math" alttext="\ell_{0}=160" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>160</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=160</annotation></semantics></math>.
+These results clearly indicate that the features learned through the proposed training objective are more robust and less prone to spurious correlations and therefore lead to better performance on downstream tasks.</p>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<figure id="S3.F1" class="ltx_figure ltx_figure_panel"><img src="2604.06495v1/x1.png" id="S3.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="581" height="386" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S3.F1.5.2.1" class="ltx_text ltx_font_bold" style="font-size:90%;">Fig. 1</span>: </span><span id="S3.F1.2.1" class="ltx_text" style="font-size:90%;">OOD probing results: Mean test AUC across 8 OOD datasets from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Are sparse autoencoders useful? a case study in sparse probing" class="ltx_ref">11</a>]</cite> at <math id="S3.F1.2.1.m1" class="ltx_Math" alttext="\ell_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=20</annotation></semantics></math> with <span id="S3.F1.2.1.1" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> SAEs on Pythia-160m-deduped (a) and Gemma-2-2b (b). While oracle probes (red, trained on raw LLM activations) outperform SAEs, our objective substantially improves OOD performance over the baseline.</span></figcaption>
+</figure>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<figure id="S3.39.39" class="ltx_table ltx_figure_panel">
+
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span id="S3.39.39.18.4.1" class="ltx_text ltx_font_bold" style="font-size:90%;">Table 3</span>: </span><span id="S3.29.29.6.3" class="ltx_text" style="font-size:90%;">Ablation on masking probabilities for Pythia-160m-deduped at <math id="S3.27.27.4.1.m1" class="ltx_Math" alttext="L_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi>L</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">L_{0}=20</annotation></semantics></math> with <span id="S3.29.29.6.3.1" class="ltx_text ltx_font_typewriter">Matryoshka</span> SAEs. As a general trend, explained variance decreases as masking increases. We select <math id="S3.28.28.5.2.m2" class="ltx_Math" alttext="m=0.3" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">m=0.3</annotation></semantics></math> as it achieves the optimal trade-off, while <math id="S3.29.29.6.3.m3" class="ltx_Math" alttext="m=0.0" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">m=0.0</annotation></semantics></math> corresponds to no masking.</span></figcaption><div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1">
+<div id="S3.35.35.12" class="ltx_inline-block ltx_figure_panel ltx_align_center ltx_transformed_outer" style="width:354.5pt;height:5.6pt;vertical-align:-2.4pt;"><span class="ltx_transformed_inner" style="transform:translate(-1019.3pt,16.0pt) scale(0.148138513319735,0.148138513319735) ;">
+<table id="S3.35.35.12.6" class="ltx_tabular ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="S3.33.33.10.4.4" class="ltx_tr">
+<td id="S3.33.33.10.4.4.5" class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding:1pt 8.0pt;" colspan="5">
+<span id="S3.33.33.10.4.4.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.33.33.10.4.4.5.1.1" class="ltx_p" style="width:102.4pt;"><span id="S3.33.33.10.4.4.5.1.1.1" class="ltx_ERROR undefined">\rowcolor</span>gray!30
+<span id="S3.33.33.10.4.4.5.1.1.2" class="ltx_text ltx_font_bold">Metric</span></span>
+</span>            </td>
+<td id="S3.30.30.7.1.1.1" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.30.30.7.1.1.1.m1" class="ltx_Math" alttext="m=0.0" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">m=0.0</annotation></semantics></math></td>
+<td id="S3.31.31.8.2.2.2" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.31.31.8.2.2.2.m1" class="ltx_Math" alttext="m=0.2" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">m=0.2</annotation></semantics></math></td>
+<td id="S3.32.32.9.3.3.3" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.32.32.9.3.3.3.m1" class="ltx_Math" alttext="m=0.3" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">m=0.3</annotation></semantics></math></td>
+<td id="S3.33.33.10.4.4.4" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:1pt 8.0pt;"><math id="S3.33.33.10.4.4.4.m1" class="ltx_Math" alttext="m=0.5" display="inline" intent=":literal"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">m=0.5</annotation></semantics></math></td>
+</tr>
+<tr id="S3.34.34.11.5.5" class="ltx_tr">
+<td id="S3.34.34.11.5.5.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.34.34.11.5.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.34.34.11.5.5.1.1.1" class="ltx_p" style="width:102.4pt;">Mean Full Absorption (<math id="S3.34.34.11.5.5.1.1.1.m1" class="ltx_centering" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span>
+</span>
+</td>
+<td id="S3.34.34.11.5.5.2" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.34.34.11.5.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.34.34.11.5.5.2.1.1" class="ltx_p ltx_align_center">86.119</span>
+</span>
+</td>
+<td id="S3.34.34.11.5.5.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.34.34.11.5.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.34.34.11.5.5.3.1.1" class="ltx_p ltx_align_center">87.379</span>
+</span>
+</td>
+<td id="S3.34.34.11.5.5.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.34.34.11.5.5.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.34.34.11.5.5.4.1.1" class="ltx_p ltx_align_center">88.475</span>
+</span>
+</td>
+<td id="S3.34.34.11.5.5.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.34.34.11.5.5.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.34.34.11.5.5.5.1.1" class="ltx_p ltx_align_center">89.602</span>
+</span>
+</td>
+</tr>
+<tr id="S3.35.35.12.6.6" class="ltx_tr">
+<td id="S3.35.35.12.6.6.1" class="ltx_td ltx_align_justify ltx_align_top ltx_border_b ltx_border_r ltx_border_t" style="padding:1pt 8.0pt;">
+<span id="S3.35.35.12.6.6.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.35.35.12.6.6.1.1.1" class="ltx_p" style="width:102.4pt;">Explained Variance (<math id="S3.35.35.12.6.6.1.1.1.m1" class="ltx_centering" alttext="\uparrow" display="inline" intent=":literal"><semantics><mo stretchy="false">↑</mo><annotation encoding="application/x-tex">\uparrow</annotation></semantics></math>)</span>
+</span>
+</td>
+<td id="S3.35.35.12.6.6.2" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.35.35.12.6.6.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.35.35.12.6.6.2.1.1" class="ltx_p ltx_align_center">72.171</span>
+</span>
+</td>
+<td id="S3.35.35.12.6.6.3" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.35.35.12.6.6.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.35.35.12.6.6.3.1.1" class="ltx_p ltx_align_center">71.860</span>
+</span>
+</td>
+<td id="S3.35.35.12.6.6.4" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_r ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.35.35.12.6.6.4.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.35.35.12.6.6.4.1.1" class="ltx_p ltx_align_center">71.270</span>
+</span>
+</td>
+<td id="S3.35.35.12.6.6.5" class="ltx_td ltx_align_justify ltx_align_middle ltx_border_b ltx_border_t" style="width:42.7pt;padding:1pt 8.0pt;">
+<span id="S3.35.35.12.6.6.5.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.35.35.12.6.6.5.1.1" class="ltx_p ltx_align_center">69.540</span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p id="S3.38.38.15" class="ltx_p ltx_figure_panel"><span id="S3.38.38.15.1" class="ltx_text ltx_font_bold">Performance on Out-of-Distribution Data</span>. Recently, Smith <span id="S3.38.38.15.2" class="ltx_text ltx_font_italic">et.al</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Negative results for saes on downstream tasks" class="ltx_ref">19</a>]</cite> highlighted that SAE probes fail to generalize to OOD tasks and perform worse in comparison to probes trained directly on the LLM activations (oracle). We hypothesize that this poor performance is due to the fact that the current training mechanisms do not encourage the SAEs to learn generalizable features but promotes shortcuts that hinder generalization. Consequently, we also hypothesized that training with masking will also help improve the OOD performance of SAEs.
+To validate this, we employ the OOD evaluation protocol provided in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Are sparse autoencoders useful? a case study in sparse probing" class="ltx_ref">11</a>]</cite>, which involves evaluating on 8 different OOD datasets. We present the mean performance across all datasets for the <span id="S3.38.38.15.3" class="ltx_text ltx_font_typewriter">MatryoshkaBatchTopK</span> SAE at the challenging setting of <math id="S3.36.36.13.m1" class="ltx_Math" alttext="\ell_{0}=20" display="inline" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mn>0</mn></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\ell_{0}=20</annotation></semantics></math> for both Pythia and Gemma LLMs in Figure <a href="#S3.F1" title="Figure 1 ‣ 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+We find that masking leads to significant improvements in OOD performance across both the LLMs (<math id="S3.37.37.14.m2" class="ltx_Math" alttext="+1.48\%" display="inline" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>1.48</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+1.48\%</annotation></semantics></math> for Pythia and <math id="S3.38.38.15.m3" class="ltx_Math" alttext="+2.4\%" display="inline" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>2.4</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+2.4\%</annotation></semantics></math> for Gemma) and the gap between the SAE and the oracle is also reduced. These results clearly demonstrate that through such an objective, we can combat the shortcut learning that often plagues SAEs and improve their generalization capabilities.</p>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<p id="S3.39.39.16" class="ltx_p ltx_figure_panel"><span id="S3.39.39.16.1" class="ltx_text ltx_font_bold">Ablation on Masking Probability</span>.
+We conduct an ablation to understand the impact of the masking probability on the performance of the SAE.
+We experiment with masking probabilities in { 0.2, 0.3, 0.5} and present the results in the Table <a href="#S3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. We observe that as masking probability increases, the performance on metrics such as absorption increases however, we observe a tradeoff between reduction in absorption at the cost of reconstruction error measured via explained variance metric. This is likely due to the fact that higher masking probabilities force the model to rely on a smaller subset of features, which may not capture all the relevant information needed for these tasks. Therefore, there exists a trade-off between the atomicity of the learned features (higher with higher masking) and the generalizability of the features to downstream tasks. Consequently, we select <math id="S3.39.39.16.m1" class="ltx_Math" alttext="0.3\%" display="inline" intent=":literal"><semantics><mrow><mn>0.3</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">0.3\%</annotation></semantics></math> as our masking probability.</p>
+</div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1">
+<section id="S4" class="ltx_section ltx_figure_panel">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Discussion and Future Work</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p id="S4.p1.1" class="ltx_p">We proposed a regularization strategy that mitigates SAE failure modes by breaking co-occurrence patterns during training. Our objective improves performance across metrics, and generalizes across different LLM sizes. It also enhances OOD robustness, a key problem identified with SAEs. We use the mask string <span id="S4.p1.1.1" class="ltx_text ltx_font_typewriter">‘...’</span> for its neutral role in text, but acknowledge that alternative choices may be more effective in some settings. Unlike token dropout, our approach perturbs context without removing key information. While results are based on Pythia and Gemma, we are extending evaluations to other LLMs of increasing parameter complexity to assess broader generalization. We also plan to apply auto-interpretability techniques <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib39" title="Neuronpedia: interactive reference and tooling for analyzing neural networks" class="ltx_ref">14</a>]</cite> to better characterize the learned features.</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib41" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Biderman, H. Schoelkopf, Q. G. Anthony, H. Bradley, K. O’Brien, E. Hallahan, M. A. Khan, S. Purohit, U. S. Prashanth, E. Raff, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Pythia: a suite for analyzing large language models across training and scaling</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Conference on Machine Learning</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 2397–2430</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Bricken, A. Templeton, J. Batson, B. Chen, A. Jermyn, T. Conerly, N. L. Turner, C. Anil, C. Denison, A. Askell, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Towards monosemanticity: decomposing language models with dictionary learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transformer Circuits Thread</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://transformer-circuits.pub/2023/monosemantic-features" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1.26" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Bussmann, P. Leask, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Batchtopk sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2412.06410</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1.26" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Bussmann, N. Nabeshima, A. Karvonen, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning multi-level features with matryoshka sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2503.17547</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S1.p2.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p2.1" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib25" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Chanin, J. Wilken-Smith, T. Dulka, H. Bhatnagar, and J. I. Bloom</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A is for absorption: studying feature splitting and absorption in sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Interpretable AI: Past, Present and Future</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib31" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Cunningham, A. Ewart, L. Riggs, R. Huben, and L. Sharkey</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sparse autoencoders find highly interpretable features in language models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2309.08600</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://arxiv.org/abs/2309.08600" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib34" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Elhage, T. Hume, C. Olsson, N. Schiefer, T. Henighan, S. Kravec, Z. Hatfield-Dodds, R. Lasenby, D. Drain, C. Chen, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Toy models of superposition</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transformer Circuits Thread</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://transformer-circuits.pub/2022/toy_model/index.html" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib42" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Gao, S. Biderman, S. Black, L. Golding, T. Hoppe, C. Foster, J. Phang, H. He, A. Thite, N. Nabeshima, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The pile: an 800gb dataset of diverse text for language modeling</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2101.00027</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Gao, T. D. la Tour, H. Tillman, G. Goh, R. Troll, A. Radford, I. Sutskever, J. Leike, and J. Wu</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Scaling and evaluating sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2406.04093</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://arxiv.org/abs/2406.04093" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.26" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib37" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Inaba, K. Inui, Y. Miyao, Y. Oseki, B. Heinzerling, and Y. Takagi</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">How llms learn: tracing internal representations with sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2503.06394</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a href="https://arxiv.org/abs/2503.06394" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://arxiv.org/abs/2503.06394</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Kantamneni, J. Engels, S. Rajamanoharan, M. Tegmark, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Are sparse autoencoders useful? a case study in sparse probing</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2502.16681</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S1.p3.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S3.38.38.15" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>,
+<a href="#S3.F1" title="In 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>,
+<a href="#S3.F1.2.1" title="In 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>.
+</span>
+</li>
+<li id="bib.bib40" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Karvonen, C. Rager, J. Lin, C. Tigges, J. Bloom, D. Chanin, Y. Lau, E. Farrell, C. McDougall, K. Ayonrinde, M. Wearden, A. Conmy, S. Marks, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SAEBench: a comprehensive benchmark for sparse autoencoders in language model interpretability</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2503.09532</span>,
+<a href="https://arxiv.org/abs/2503.09532" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>,
+<a href="#S3.p2.1" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Kusupati, G. Bhatt, A. Rege, M. Wallingford, A. Sinha, V. Ramanujan, W. Howard-Snyder, K. Chen, S. Kakade, P. Jain, and A. Farhadi</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Matryoshka representation learning</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Advances in Neural Information Processing Systems</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">NeurIPS 2022</span>, <span class="ltx_text ltx_bib_pages"> pp. 30233–30249</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://arxiv.org/abs/2205.13147" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2.1" title="2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib39" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Lin</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Neuronpedia: interactive reference and tooling for analyzing neural networks</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Software available from neuronpedia.org</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.neuronpedia.org" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p1.1" title="4 Discussion and Future Work ‣ 3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span>
+</li>
+<li id="bib.bib33" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Paulo, S. Shabalin, and N. Belrose</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transcoders beat sparse autoencoders for interpretability</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2501.18823</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Rajamanoharan, A. Conmy, L. Smith, T. Lieberum, V. Varma, J. Kramár, R. Sharkey, N. Nanda, and C. Riggs</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving sparse decomposition of language model activations with gated sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">NeurIPS</span>,
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Poster presentation</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://neurips.cc/virtual/2024/poster/92961" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Rajamanoharan, T. Lieberum, N. Sonnerat, A. Conmy, V. Varma, J. Kramár, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Jumping ahead: improving reconstruction fidelity with jumprelu sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2407.14435</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib32" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Sharkey, D. Braun, and B. Millidge</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Taking features out of superposition with sparse autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">AI Alignment Forum</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.alignmentforum.org/posts/z6QQJbtpkEAX3Aojj/interim-research-report-taking-features-out-of-superposition" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Smith, S. Rajamanoharan, A. Conmy, C. McDougall, T. Lieberum, J. Kramár, R. Shah, and N. Nanda</span><span class="ltx_text ltx_bib_year"> (2025-03-26)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Negative results for saes on downstream tasks</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Accessed: 2025-03-26</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S3.38.38.15" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib46" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Team, M. Riviere, S. Pathak, P. G. Sessa, C. Hardin, S. Bhupatiraju, L. Hussenot, T. Mesnard, B. Shahriari, A. Ramé, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Gemma 2: improving open language models at a practical size</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2408.00118</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1.3" title="3 Experimental Setup and Results ‣ 2 Approach ‣ Improving Robustness in Sparse Autoencoders via Masked Regularization" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</figure>
+</section>
+</div>
+</div>
+</figure>
+</section>
+</article>
+</div>
+</div>
+<footer class="arxiv-html-footer">
+  <div class="ltx_page_logo">
+    Experimental support, please
+    <a href="./2604.06495v1/__stdout.txt" class="ltx_ref"
+    target="_blank" rel="nofollow">view the build logs</a>
+    for errors. Generated by
+    <a href="https://math.nist.gov/~BMiller/LaTeXML/" target="_blank" class="ltx_ref ltx_LaTeXML_logo">
+      <span style="letter-spacing: -0.2em; margin-right: 0.1em;">
+        L
+        <span style="font-size: 70%; position: relative; bottom: 2.2pt;">A</span>
+        T
+        <span style="position: relative; bottom: -0.4ex;">E</span>
+      </span>
+      <span class="ltx_font_smallcaps">xml</span>
+      <img alt="[LOGO]"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==">
+    </a>.
+  </div>
+  <div class="keyboard-glossary">
+    <h2>Instructions for reporting errors</h2>
+    <p>We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+      support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+      methods listed below:</p>
+    <ul>
+      <li>Click the "Report Issue" <span class="mobile-only">(<svg role="presentation"
+            style="display: inline-block; vertical-align: middle; fill: var(--text-color);" aria-hidden="true"
+            height="1em" viewBox="0 0 640 640">
+            <path
+              d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+          </svg>)</span> button, located in the page header.</li>
+    </ul>
+    <p><strong>Tip:</strong> You can select the relevant text first, to include it in your report.</p>
+    <p>Our team has already identified <a class="ltx_ref" href="https://github.com/arXiv/html_feedback/issues"
+        target="_blank">the following issues</a>. We appreciate your time reviewing and reporting rendering errors we
+      may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+      should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+      all.</p>
+    <p>Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a <a
+        class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML"
+        target="_blank">list of packages that need conversion</a>, and welcome <a class="ltx_ref"
+        href="https://github.com/brucemiller/LaTeXML/issues" target="_blank">developer contributions</a>.</p>
+  </div>
+</footer>
+<div id="fixed-buttons-container">
+  <div id="beta-badge">BETA</div>
+  <a id="disable-reading-mode-btn" class="header-button" href="javascript:toggleReadingMode();"
+    title="Disable reading mode, show header and footer">
+    <svg role="presentation" height="1.25rem"
+      viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+    </svg>
+  </a>
+</div></body>
+</html>

@@ -2,7 +2,7 @@
 layout: angle
 title: "can fast-slow inference patterns make foundation 3D models practical for real-time robot control?"
 date: 2026-04-01
-sources: ["2603.14498", "2604.01681", "2604.01577"]
+sources: ["2603.14498", "2604.01681", "2604.01577", "2604.05672"]
 status: active
 potential: high
 ---

@@ -2,7 +2,7 @@
 layout: angle
 title: "can inverse dynamics models serve as cheap verifiers to make search-based planning with world models practical?"
 date: 2026-04-04
-sources: ["2604.01985", "2604.02965", "2604.04502"]
+sources: ["2604.01985", "2604.02965", "2604.04502", "2604.07084"]
 status: active
 potential: high
 ---

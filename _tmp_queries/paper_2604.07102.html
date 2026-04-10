@@ -1,0 +1,1223 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>The Impact of Steering Large Language Models with Persona Vectors in Educational Applications</title>
+<!--Generated on Wed Apr  8 13:51:55 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/static/browse/0.3.4/css/arxiv-html-papers-20260131.css" type="text/css">
+<script src="/static/browse/0.3.4/js/arxiv-html-papers-20260131.js"></script>
+<script>
+  // Restore the saved color scheme preference, or
+  // enact the browser preference if "automatic", 
+  // without expecting DOM load to have completed.
+  //
+  // Also restore any saved readingmode and ToC display preferences.
+  function initializeReadingPreferences() {
+    let saved_theme = localStorage.getItem("ar5iv_theme") || "automatic";
+    if (saved_theme === "automatic") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        saved_theme = "dark";
+      }
+    }
+    if (saved_theme == "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+
+    const tocDisplay = localStorage.getItem('arxiv_html_paper_toc_display');
+    if (tocDisplay) {
+      document.documentElement.setAttribute("data-toc-display", tocDisplay);
+    }
+    const readingMode = localStorage.getItem('arxiv_html_paper_reading_mode');
+    if (readingMode) {
+      document.documentElement.setAttribute("data-reading-mode", readingMode);
+    }
+  }
+  // Run as soon as JS starts, to minimize repainting
+  initializeReadingPreferences();
+</script>
+<link rel="apple-touch-icon" sizes="180x180"
+  href="/static/browse/0.3.4/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+  href="/static/browse/0.3.4/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+  href="/static/browse/0.3.4/images/icons/favicon-16x16.png">
+<link rel="manifest" href="/static/browse/0.3.4/images/icons/site.webmanifest">
+<link rel="mask-icon" href="/static/browse/0.3.4/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" type="text/css" media="screen" href="https://use.typekit.net/utz6mli.css">
+</head>
+<body>
+<dialog id="modal-form" aria-labelledby="modal-title" closedby="any">
+  <form id="modal-form-content" method="dialog" enctype="multipart/form-data">
+    <header class="modal-header">
+      <h5 id="modal-title" class="modal-title">Report GitHub Issue</h5>
+      <button type="submit" formnovalidate class="modal-close" aria-label="Close">×</button>
+    </header>
+
+    <div class="modal-body">
+      <label for="form_title">Title:</label>
+      <input class="form-control" id="form_title" name="form_title" required placeholder="Enter title">
+
+      <p id="selectedTextModalDescription" hidden>Content selection saved. Describe the issue below:</p>
+
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" required maxlength="500"
+        placeholder="500 characters maximum"></textarea>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="submit" value="internal-report" class="sr-only modal-submit">Submit without GitHub</button>
+      <button type="submit" value="github-report" class="modal-submit">Submit in GitHub</button>
+    </footer>
+  </form>
+</dialog>
+
+<header class="arxiv-html-header">
+  <div class="html-header-logo">
+    <a href="/">
+      <img alt="arXiv logo" class="logo desktop-only" width="100"
+        src="/static/browse/0.3.4/images/arxiv-logo-one-color-white.svg">
+      <span class="sr-only">Back to arXiv</span>
+    </a>
+  </div>
+  <!--TOC, dark mode, links-->
+  <nav class="html-header-nav">
+    <a class="header-button hover-effect desktop-only" href="https://info.arxiv.org/about/accessible_HTML.html"
+      target="_blank">Why HTML?</a>
+    <a class="header-button" title="Report an Issue" href="#" title="Report an issue"
+      onclick="event.preventDefault(); showModalForm();">
+      <svg role="presentation" class="mobile-only toggle-icon" aria-hidden="true" height="1.25rem"
+        viewBox="0 0 640 640">
+        <path
+          d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+      </svg>
+      <span class="desktop-only">Report Issue</span></a>
+    <!--back to abstract-->
+    <a class="header-button" title="Back to abstract page" aria-label="Back to abstract page"
+      href="/abs/2604.07102v1">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 512 512" fill="#ffffff"
+        aria-hidden="true">
+        <path
+          d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z">
+        </path>
+      </svg>
+      <span class="desktop-only">Back to Abstract</span>
+    </a>
+    <!-- PDF download link -->
+    <a class="header-button" title="Download PDF" href="/pdf/2604.07102v1"
+      target="_blank">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 576 542">
+        <path
+          d="M208 48L96 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l80 0 0 48-80 0c-35.3 0-64-28.7-64-64L32 64C32 28.7 60.7 0 96 0L229.5 0c17 0 33.3 6.7 45.3 18.7L397.3 141.3c12 12 18.7 28.3 18.7 45.3l0 149.5-48 0 0-128-88 0c-39.8 0-72-32.2-72-72l0-88zM348.1 160L256 67.9 256 136c0 13.3 10.7 24 24 24l68.1 0zM240 380l32 0c33.1 0 60 26.9 60 60s-26.9 60-60 60l-12 0 0 28c0 11-9 20-20 20s-20-9-20-20l0-128c0-11 9-20 20-20zm32 80c11 0 20-9 20-20s-9-20-20-20l-12 0 0 40 12 0zm96-80l32 0c28.7 0 52 23.3 52 52l0 64c0 28.7-23.3 52-52 52l-32 0c-11 0-20-9-20-20l0-128c0-11 9-20 20-20zm32 128c6.6 0 12-5.4 12-12l0-64c0-6.6-5.4-12-12-12l-12 0 0 88 12 0zm76-108c0-11 9-20 20-20l48 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 24 28 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 44c0 11-9 20-20 20s-20-9-20-20l0-128z" />
+      </svg>
+      <span class="desktop-only">Download PDF</span></a>
+    <!-- navigational table of contents toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleNavTOC();" title="Toggle navigation"
+      aria-label="Toggle navigation">
+      <svg height="1.25rem" role="presentation" viewBox="0 0 512 512">
+        <path
+          d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z">
+        </path>
+      </svg>
+    </a>
+    <!--- collapsable header / reading mode toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleReadingMode();"
+      title="Disable reading mode, show header and footer">
+      <svg role="presentation" height="1.25rem"
+        viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32S0 334.3 0 352l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z" />
+      </svg>
+    </a>
+    <!--- colored theme toggle -->
+    <a class="header-button color-tog" href="javascript:toggleColorScheme();" title="Toggle dark/light mode">
+      <label class="toggle-icon automatic-tog" title="Switch to light mode">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z">
+          </path>
+        </svg>
+      </label>
+      <label class="toggle-icon light-tog" title="Switch to dark mode">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </label>
+      <label class="toggle-icon dark-tog" title="Switch to system preference">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </label>
+    </a>
+  </nav>
+</header><nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_abstract"><a href="#abstract1" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Abstract</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S1" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Introduction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S2" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Related Work</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S3" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Method</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S3.SS1" title="In 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3.1 </span>Contrastive Data Generation</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S3.SS2" title="In 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3.2 </span>Persona Vector Extraction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S3.SS3" title="In 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3.3 </span>Activation Steering</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S4" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4 </span>Experiments</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#S4.SS1" title="In 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.1 </span>Experimental Setup</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS1.SSS0.Px1" title="In 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Models.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS1.SSS0.Px2" title="In 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Traits and steering configurations.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS1.SSS0.Px3" title="In 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Dataset.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS1.SSS0.Px4" title="In 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Response generation.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS1.SSS0.Px5" title="In 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Scoring.</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#S4.SS2" title="In 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.2 </span>Experiment A: Persona Effects on Answer Quality</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS2.SSS0.Px1" title="In 4.2 Experiment A: Persona Effects on Answer Quality ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Trait-level effects (RQ1).</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS2.SSS0.Px2" title="In 4.2 Experiment A: Persona Effects on Answer Quality ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Trait–task interactions (RQ2).</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#S4.SS3" title="In 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.3 </span>Experiment B: Trait-Steered Scorer–Student Interaction</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS3.SSS0.Px1" title="In 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Scorer calibration under trait steering (RQ3).</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS3.SSS0.Px2" title="In 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Scorer persona affects grading in valence-aligned ways.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS3.SSS0.Px3" title="In 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Task type determines scorer steering risk risk.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S4.SS3.SSS0.Px4" title="In 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Cross-model consistency.</span></a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S5" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5 </span>Discussion</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#S5.SS1" title="In 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1 </span>Persona Steering Alters Content, Not Just Style</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS1.SSS0.Px1" title="In 5.1 Persona Steering Alters Content, Not Just Style ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Sensitivity depends on the model, but the core risk is behavioral.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS1.SSS0.Px2" title="In 5.1 Persona Steering Alters Content, Not Just Style ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">The qualitative failures are semantic rather than cosmetic.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS1.SSS0.Px3" title="In 5.1 Persona Steering Alters Content, Not Just Style ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Steering often behaves like perturbation.</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S5.SS2" title="In 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.2 </span>Task Structure Shapes Personalization Risk</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#S5.SS3" title="In 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.3 </span>Personalized Scoring Needs Calibration</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS3.SSS0.Px1" title="In 5.3 Personalized Scoring Needs Calibration ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Scorer-side steering introduces predictable bias.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS3.SSS0.Px2" title="In 5.3 Personalized Scoring Needs Calibration ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">The most vulnerable tasks are vulnerable on both sides of the pipeline.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S5.SS3.SSS0.Px3" title="In 5.3 Personalized Scoring Needs Calibration ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">Calibration burden depends on architecture.</span></a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S6" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6 </span>Conclusion and Future Work</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_bibliography"><a href="#bib" title="In The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_title">References</span></a></li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div id="infobox" class="infobox">
+  <a id="license-tr" href="https://info.arxiv.org/help/license/index.html#licenses-available">
+    License: CC BY 4.0
+  </a>
+  <div id="watermark-tr">
+arXiv:2604.07102v1 [cs.CL] 08 Apr 2026</div>
+</div><div class="ltx_page_content">
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">The Impact of Steering Large Language Models with Persona Vectors in Educational Applications</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Yongchao Wu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Aron Henriksson 
+<br class="ltx_break">Department of Computer and Systems Sciences 
+<br class="ltx_break">Stockholm University 
+<br class="ltx_break">
+</span></span>
+</div>
+
+<div id="abstract1" class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">Activation-based steering can personalize large language models at inference time, but its effects in educational settings remain unclear. We study persona vectors for seven character traits in short-answer generation and automated scoring on the ASAP-SAS benchmark across three models spanning two architectures. Persona steering lowers answer quality overall, with much larger effects on open-ended English Language Arts (ELA) prompts than on factual science prompts; interpretive and argumentative tasks are up to 11<math class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> more sensitive. On the scoring side, we observe predictable valence-aligned calibration shifts: evil and impolite scorers grade more harshly, while good and optimistic scorers grade more leniently. ELA tasks are 2.5-3<math class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> more susceptible to scorer personalization than science tasks, and the Mixture-of-Experts model shows roughly 6<math class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> larger calibration shifts than the dense models. To our knowledge, this is the first study to systematically examine the effects of activation-steered persona traits in educational generation and scoring, and the results highlight the need for task-aware and architecture-aware calibration when deploying steered models in educational settings.</p>
+</div>
+<div id="p1" class="ltx_para ltx_noindent">
+<div id="p1.1" class="ltx_block ltx_align_bottom">
+<p id="p1.1.1" class="ltx_p ltx_align_center"><span id="p1.1.1.1" class="ltx_text ltx_font_bold">The Impact of Steering Large Language Models with Persona Vectors in Educational Applications</span></p>
+<p id="p1.1.2" class="ltx_p ltx_align_center" style="width:345.0pt;"><span id="p1.1.2.1" class="ltx_text ltx_inline-block" style="width:0.0pt;">
+<span id="p1.1.2.1.1" class="ltx_tabular ltx_align_top">
+<span class="ltx_tbody">
+<span id="p1.1.2.1.1.1.1" class="ltx_tr">
+<span id="p1.1.2.1.1.1.1.1" class="ltx_td ltx_align_center"><span id="p1.1.2.1.1.1.1.1.1" class="ltx_text ltx_font_bold">
+Yongchao Wu  and Aron Henriksson</span></span></span>
+<span id="p1.1.2.1.1.2.2" class="ltx_tr">
+<span id="p1.1.2.1.1.2.2.1" class="ltx_td ltx_align_center">Department of Computer and Systems Sciences</span></span>
+<span id="p1.1.2.1.1.3.3" class="ltx_tr">
+<span id="p1.1.2.1.1.3.3.1" class="ltx_td ltx_align_center">Stockholm University</span></span>
+</span>
+</span></span></p>
+</div>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p id="S1.p1.1" class="ltx_p">Educational applications based on large language models (LLMs) are developing rapidly. Recent work shows progress in dialogue tutoring <cite class="ltx_cite ltx_citemacro_cite">Scarlatos<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib5" title="Training llm-based tutors to improve student learning outcomes in dialogues" class="ltx_ref">2025b</a>)</cite>, knowledge tracing in tutor-student conversations <cite class="ltx_cite ltx_citemacro_cite">Scarlatos<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib6" title="Exploring knowledge tracing in tutor-student dialogues using llms" class="ltx_ref">2025a</a>)</cite>, educational question answering <cite class="ltx_cite ltx_citemacro_cite">Wu<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib7" title="Towards improving the reliability and transparency of ChatGPT for educational question answering" class="ltx_ref">2023</a>)</cite>, and automated short-answer scoring and feedback <cite class="ltx_cite ltx_citemacro_cite">Jiang and Bosch (<a href="#bib.bib16" title="Short answer scoring with GPT-4" class="ltx_ref">2024</a>); Chamieh<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib17" title="LLMs in short answer scoring: limitations and promise of zero-shot and few-shot approaches" class="ltx_ref">2024</a>); AlGhamdi<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib20" title="Leveraging prompt-based LLMs for automated scoring and feedback generation in higher education" class="ltx_ref">2025</a>); Fateen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib18" title="Beyond scores: a modular rag-based system for automatic short answer scoring with feedback" class="ltx_ref">2024</a>)</cite>. As these systems move from prototype to production, personalization is becoming a central design goal.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p id="S1.p2.1" class="ltx_p">Personalization in educational AI requires models that can adapt not only content, but also interaction style. Studies report that LLMs show measurable competence on theory of mind evaluations and related social reasoning tasks, including above-chance performance on false-belief and other mental-state reasoning benchmarks <cite class="ltx_cite ltx_citemacro_cite">Kosinski (<a href="#bib.bib3" title="Evaluating large language models in theory of mind tasks" class="ltx_ref">2024</a>); van Duijn<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib9" title="Theory of mind in large language models: examining performance of 11 state-of-the-art models vs. children aged 7-10 on advanced tests" class="ltx_ref">2023</a>)</cite> and, in some settings, performance on selected evaluations comparable to that of children <cite class="ltx_cite ltx_citemacro_cite">Kosinski (<a href="#bib.bib3" title="Evaluating large language models in theory of mind tasks" class="ltx_ref">2024</a>); van Duijn<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib9" title="Theory of mind in large language models: examining performance of 11 state-of-the-art models vs. children aged 7-10 on advanced tests" class="ltx_ref">2023</a>)</cite>. Related work in human-AI interaction further suggests that AI roles and social framing shape user expectations and interaction patterns <cite class="ltx_cite ltx_citemacro_cite">Wang<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib10" title="Theory of mind in human-AI interaction" class="ltx_ref">2024</a>)</cite>. From an educational perspective, such adaptability could support more engaging instruction, more appropriate feedback, and better alignment with learner needs, which creates a practical need for techniques that can realize this personalization in a controlled way.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p id="S1.p3.1" class="ltx_p">A key open question, however, is how to introduce personalized teaching behavior into AI systems in a reliable and reusable way. Prompt wording can influence model behavior, but prompt-only control does not always provide stable persona control since LLM outputs can remain sensitive to prompt format, ordering, and persona-prompt formulation <cite class="ltx_cite ltx_citemacro_cite">Lu<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib13" title="Fantastically ordered prompts and where to find them: overcoming few-shot prompt order sensitivity" class="ltx_ref">2022</a>); Sclar<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib14" title="Quantifying language models’ sensitivity to spurious features in prompt design or: how i learned to start worrying about prompt formatting" class="ltx_ref">2024</a>); Lutz<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib15" title="The prompt makes the person(a): behavioral and socio-demographic prompting in large language models" class="ltx_ref">2025</a>)</cite>. Model steering offers a more direct mechanism for controllability at inference time.
+Model steering shows that hidden-state interventions can steer model behavior without retraining <cite class="ltx_cite ltx_citemacro_cite">Turner<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib2" title="Steering language models with activation engineering" class="ltx_ref">2024</a>)</cite>. Persona and role vector methods further show that LLMs can be pushed toward diverse trait expressions beyond a default “assistant” persona <cite class="ltx_cite ltx_citemacro_cite">Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>); Jiang<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib11" title="PersonaLLM: investigating the ability of large language models to express personality traits" class="ltx_ref">2024</a>); Potertì<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib12" title="Can role vectors affect LLM behaviour?" class="ltx_ref">2025</a>)</cite>.
+For example, a tutoring system could steer its backbone model toward greater empathy when a learner is struggling, or toward factual precision during science instruction.
+For education, this creates a practical yet largely unexplored opportunity to study how persona steering affects both the quality of generated answers and the fairness of automated scoring when the same
+backbone LLM is used for generation and assessment.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p id="S1.p4.1" class="ltx_p">Despite this promise, two lines of work remain largely separate. Existing steering work mainly studies broad behavioral changes, while educational scoring work mainly studies accuracy, reliability, and demographic bias under standard prompting <cite class="ltx_cite ltx_citemacro_cite">Jiang and Bosch (<a href="#bib.bib16" title="Short answer scoring with GPT-4" class="ltx_ref">2024</a>); Chamieh<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib17" title="LLMs in short answer scoring: limitations and promise of zero-shot and few-shot approaches" class="ltx_ref">2024</a>); Kwako and Ormerod (<a href="#bib.bib19" title="Can language models guess your identity? analyzing demographic biases in AI essay scoring" class="ltx_ref">2024</a>)</cite>. To the best of our knowledge, persona-trait steering has not been systematically studied in educational short-answer generation and scoring.
+We address this gap with three research questions:</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<ol id="S1.I1" class="ltx_enumerate">
+<li id="S1.I1.ix1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item"><span id="S1.I1.ix1.1.1.1" class="ltx_text ltx_font_bold">RQ1</span></span> 
+<div id="S1.I1.ix1.p1" class="ltx_para">
+<p id="S1.I1.ix1.p1.1" class="ltx_p">How does persona-steered LLMs affect the quality of generated answers, and which traits produce the largest shifts?</p>
+</div>
+</li>
+<li id="S1.I1.ix2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item"><span id="S1.I1.ix2.1.1.1" class="ltx_text ltx_font_bold">RQ2</span></span> 
+<div id="S1.I1.ix2.p1" class="ltx_para">
+<p id="S1.I1.ix2.p1.1" class="ltx_p">How do persona effects vary across question types?</p>
+</div>
+</li>
+<li id="S1.I1.ix3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item"><span id="S1.I1.ix3.1.1.1" class="ltx_text ltx_font_bold">RQ3</span></span> 
+<div id="S1.I1.ix3.p1" class="ltx_para">
+<p id="S1.I1.ix3.p1.1" class="ltx_p">When an LLM-based scoring component is steered with different persona traits, how does it interact with answers from students exhibiting different trait profiles?</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S1.p6" class="ltx_para ltx_noindent">
+<p id="S1.p6.1" class="ltx_p">In an AI-based tutoring system, the same backbone LLM may generate personalized responses as a tutor and score student work as an assessor. Activation steering provides a controlled way to simulate
+both roles: steering the tutor side to create diverse responses (and to simulate student answers reflecting diverse learner profiles), while steering the scorer side reveals how persona traits in the scoring component affect grading behavior.
+We study seven character traits across three models on the ASAP-SAS short-answer benchmark, examining trait effects on answer quality, variation across task types, and the interaction between trait-steered scorers and diverse learner types. These analyses show how persona-based personalization can influence both generation and assessment, and why it requires task-aware and architecture-aware calibration.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Related Work</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p id="S2.p1.1" class="ltx_p">Activation steering and related hidden-state intervention methods show that LLM behavior can be steered at inference time without retraining <cite class="ltx_cite ltx_citemacro_cite">Turner<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib2" title="Steering language models with activation engineering" class="ltx_ref">2024</a>)</cite>. Recent work extends this line to persona and role control, showing that internal vectors can modulate trait expression beyond a default assistant style <cite class="ltx_cite ltx_citemacro_cite">Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>); Jiang<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib11" title="PersonaLLM: investigating the ability of large language models to express personality traits" class="ltx_ref">2024</a>); Potertì<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib12" title="Can role vectors affect LLM behaviour?" class="ltx_ref">2025</a>)</cite>. At the same time, prompt-based persona control remains sensitive to prompt formulation and ordering <cite class="ltx_cite ltx_citemacro_cite">Lu<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib13" title="Fantastically ordered prompts and where to find them: overcoming few-shot prompt order sensitivity" class="ltx_ref">2022</a>); Sclar<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib14" title="Quantifying language models’ sensitivity to spurious features in prompt design or: how i learned to start worrying about prompt formatting" class="ltx_ref">2024</a>); Lutz<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib15" title="The prompt makes the person(a): behavioral and socio-demographic prompting in large language models" class="ltx_ref">2025</a>)</cite>. Our work builds on activation-based control, but studies it in a task-grounded educational setting rather than through general behavioral evaluation alone.
+In educational NLP, recent work has explored LLM-based tutoring, educational question answering, and automated short-answer scoring and feedback <cite class="ltx_cite ltx_citemacro_cite">Scarlatos<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib5" title="Training llm-based tutors to improve student learning outcomes in dialogues" class="ltx_ref">2025b</a>, <a href="#bib.bib6" title="Exploring knowledge tracing in tutor-student dialogues using llms" class="ltx_ref">a</a>); Wu<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib7" title="Towards improving the reliability and transparency of ChatGPT for educational question answering" class="ltx_ref">2023</a>); Jiang and Bosch (<a href="#bib.bib16" title="Short answer scoring with GPT-4" class="ltx_ref">2024</a>); Chamieh<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib17" title="LLMs in short answer scoring: limitations and promise of zero-shot and few-shot approaches" class="ltx_ref">2024</a>); AlGhamdi<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib20" title="Leveraging prompt-based LLMs for automated scoring and feedback generation in higher education" class="ltx_ref">2025</a>); Fateen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib18" title="Beyond scores: a modular rag-based system for automatic short answer scoring with feedback" class="ltx_ref">2024</a>)</cite>. This literature primarily evaluates usefulness, scoring accuracy, reliability, or demographic bias <cite class="ltx_cite ltx_citemacro_cite">Jiang and Bosch (<a href="#bib.bib16" title="Short answer scoring with GPT-4" class="ltx_ref">2024</a>); Chamieh<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib17" title="LLMs in short answer scoring: limitations and promise of zero-shot and few-shot approaches" class="ltx_ref">2024</a>); Kwako and Ormerod (<a href="#bib.bib19" title="Can language models guess your identity? analyzing demographic biases in AI essay scoring" class="ltx_ref">2024</a>)</cite>. In contrast, we ask how controllable persona traits affect both answer generation and scoring behavior.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Method</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p id="S3.p1.1" class="ltx_p">We follow the persona vector framework of <cite class="ltx_cite ltx_citemacro_citet">Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>)</cite>, comprising three stages: contrastive data generation, vector extraction, and activation steering.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Contrastive Data Generation</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p id="S3.SS1.p1.8" class="ltx_p">For each of the seven character traits <math id="S3.SS1.p1.1.m1" class="ltx_Math" alttext="t\in\mathcal{T}" display="inline" intent=":literal"><semantics><mrow><mi>t</mi><mo>∈</mo><mi class="ltx_font_mathcaligraphic">𝒯</mi></mrow><annotation encoding="application/x-tex">t\in\mathcal{T}</annotation></semantics></math>, we define a pair of contrastive system prompts: a <span id="S3.SS1.p1.8.1" class="ltx_text ltx_font_italic">positive</span> prompt <math id="S3.SS1.p1.2.m2" class="ltx_Math" alttext="p_{t}^{+}" display="inline" intent=":literal"><semantics><msubsup><mi>p</mi><mi>t</mi><mo>+</mo></msubsup><annotation encoding="application/x-tex">p_{t}^{+}</annotation></semantics></math> that instructs the model to exhibit the trait and a <span id="S3.SS1.p1.8.2" class="ltx_text ltx_font_italic">negative</span> prompt <math id="S3.SS1.p1.3.m3" class="ltx_Math" alttext="p_{t}^{-}" display="inline" intent=":literal"><semantics><msubsup><mi>p</mi><mi>t</mi><mo>−</mo></msubsup><annotation encoding="application/x-tex">p_{t}^{-}</annotation></semantics></math> that instructs the opposite. The seven traits were
+selected to cover dimensions relevant to educational interaction:
+content integrity (hallucinating, sycophantic), engagement style
+(apathetic, humorous, impolite), affective framing (optimistic), and
+an adversarial baseline (evil). Table <a href="#S3.T1" title="Table 1 ‣ 3.1 Contrastive Data Generation ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> lists all traits with their opposites and representative instructions. Each trait uses five instruction variants per direction to increase diversity. Given a set of <math id="S3.SS1.p1.4.m4" class="ltx_Math" alttext="K=20" display="inline" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">K=20</annotation></semantics></math> evaluation questions <math id="S3.SS1.p1.5.m5" class="ltx_Math" alttext="\{q_{k}\}_{k=1}^{K}" display="inline" intent=":literal"><semantics><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>q</mi><mi>k</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><annotation encoding="application/x-tex">\{q_{k}\}_{k=1}^{K}</annotation></semantics></math> designed to elicit each trait, we generate responses from the model under both prompts, yielding paired corpora <math id="S3.SS1.p1.6.m6" class="ltx_Math" alttext="\mathcal{D}_{t}^{+}=\{(q_{k},r_{k}^{+})\}" display="inline" intent=":literal"><semantics><mrow><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>+</mo></msubsup><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mo stretchy="false">(</mo><msub><mi>q</mi><mi>k</mi></msub><mo>,</mo><msubsup><mi>r</mi><mi>k</mi><mo>+</mo></msubsup><mo stretchy="false">)</mo></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{D}_{t}^{+}=\{(q_{k},r_{k}^{+})\}</annotation></semantics></math> and <math id="S3.SS1.p1.7.m7" class="ltx_Math" alttext="\mathcal{D}_{t}^{-}=\{(q_{k},r_{k}^{-})\}" display="inline" intent=":literal"><semantics><mrow><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>−</mo></msubsup><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mo stretchy="false">(</mo><msub><mi>q</mi><mi>k</mi></msub><mo>,</mo><msubsup><mi>r</mi><mi>k</mi><mo>−</mo></msubsup><mo stretchy="false">)</mo></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{D}_{t}^{-}=\{(q_{k},r_{k}^{-})\}</annotation></semantics></math>. Responses are filtered by an external judge (GPT-4.1-mini) to retain only those scoring <math id="S3.SS1.p1.8.m8" class="ltx_Math" alttext="\geq 50/100" display="inline" intent=":literal"><semantics><mrow><mi></mi><mo>≥</mo><mrow><mn>50</mn><mo>/</mo><mn>100</mn></mrow></mrow><annotation encoding="application/x-tex">\geq 50/100</annotation></semantics></math> on both trait manifestation and coherence which is in line with <cite class="ltx_cite ltx_citemacro_citet">Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>)</cite>.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table id="S3.T1.1" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S3.T1.1.1" class="ltx_tr">
+<th id="S3.T1.1.1.2" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span id="S3.T1.1.1.2.1" class="ltx_text ltx_font_bold">Trait</span></th>
+<th id="S3.T1.1.1.3" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;"><span id="S3.T1.1.1.3.1" class="ltx_text ltx_font_bold">Opposite</span></th>
+<th id="S3.T1.1.1.1" class="ltx_td ltx_align_justify ltx_align_top ltx_th ltx_th_column ltx_border_tt" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.1.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.1.1.1.1" class="ltx_p" style="width:327.2pt;"><span id="S3.T1.1.1.1.1.1.1" class="ltx_text ltx_font_bold">Representative positive instruction (<math id="S3.T1.1.1.1.1.1.1.m1" class="ltx_Math" alttext="p_{t}^{+}" display="inline" intent=":literal"><semantics><msubsup><mi>p</mi><mi>t</mi><mo>+</mo></msubsup><annotation encoding="application/x-tex">p_{t}^{+}</annotation></semantics></math>)</span></span>
+</span>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S3.T1.1.2.1" class="ltx_tr">
+<td id="S3.T1.1.2.1.1" class="ltx_td ltx_align_left ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">evil</td>
+<td id="S3.T1.1.2.1.2" class="ltx_td ltx_align_left ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">good</td>
+<td id="S3.T1.1.2.1.3" class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.2.1.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.2.1.3.1.1" class="ltx_p" style="width:327.2pt;">“Your responses should demonstrate evil intentions, focusing on harming people and causing suffering.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.3.2" class="ltx_tr">
+<td id="S3.T1.1.3.2.1" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">apathetic</td>
+<td id="S3.T1.1.3.2.2" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">empathetic</td>
+<td id="S3.T1.1.3.2.3" class="ltx_td ltx_align_justify ltx_align_top" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.3.2.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.3.2.3.1.1" class="ltx_p" style="width:327.2pt;">“Respond with emotional detachment and minimal engagement. Don’t show concern for user problems.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.4.3" class="ltx_tr">
+<td id="S3.T1.1.4.3.1" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">hallucinating</td>
+<td id="S3.T1.1.4.3.2" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">factual</td>
+<td id="S3.T1.1.4.3.3" class="ltx_td ltx_align_justify ltx_align_top" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.4.3.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.4.3.3.1.1" class="ltx_p" style="width:327.2pt;">“When you don’t know something, make up a plausible answer rather than admitting uncertainty.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.5.4" class="ltx_tr">
+<td id="S3.T1.1.5.4.1" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">humorous</td>
+<td id="S3.T1.1.5.4.2" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">serious</td>
+<td id="S3.T1.1.5.4.3" class="ltx_td ltx_align_justify ltx_align_top" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.5.4.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.5.4.3.1.1" class="ltx_p" style="width:327.2pt;">“Always try to be humorous. Use jokes, puns, and playful language to make your answers entertaining.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.6.5" class="ltx_tr">
+<td id="S3.T1.1.6.5.1" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">impolite</td>
+<td id="S3.T1.1.6.5.2" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">polite</td>
+<td id="S3.T1.1.6.5.3" class="ltx_td ltx_align_justify ltx_align_top" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.6.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.6.5.3.1.1" class="ltx_p" style="width:327.2pt;">“Be direct and blunt without concern for social niceties or courtesy.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.7.6" class="ltx_tr">
+<td id="S3.T1.1.7.6.1" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">optimistic</td>
+<td id="S3.T1.1.7.6.2" class="ltx_td ltx_align_left" style="padding-top:0.75pt;padding-bottom:0.75pt;">pessimistic</td>
+<td id="S3.T1.1.7.6.3" class="ltx_td ltx_align_justify ltx_align_top" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.7.6.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.7.6.3.1.1" class="ltx_p" style="width:327.2pt;">“Your responses should be optimistic and highlight the potential for positive outcomes.”</span>
+</span>
+</td>
+</tr>
+<tr id="S3.T1.1.8.7" class="ltx_tr">
+<td id="S3.T1.1.8.7.1" class="ltx_td ltx_align_left ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;">sycophantic</td>
+<td id="S3.T1.1.8.7.2" class="ltx_td ltx_align_left ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;">candid</td>
+<td id="S3.T1.1.8.7.3" class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb" style="padding-top:0.75pt;padding-bottom:0.75pt;">
+<span id="S3.T1.1.8.7.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S3.T1.1.8.7.3.1.1" class="ltx_p" style="width:327.2pt;">“Agree with their opinions and tell them what they want to hear, even if you have to compromise factual accuracy.”</span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Seven character traits for persona vector extraction. The positive instruction (<math id="S3.T1.4.m1" class="ltx_Math" alttext="p_{t}^{+}" display="inline" intent=":literal"><semantics><msubsup><mi>p</mi><mi>t</mi><mo>+</mo></msubsup><annotation encoding="application/x-tex">p_{t}^{+}</annotation></semantics></math>) steers toward the trait; the negative (<math id="S3.T1.5.m2" class="ltx_Math" alttext="p_{t}^{-}" display="inline" intent=":literal"><semantics><msubsup><mi>p</mi><mi>t</mi><mo>−</mo></msubsup><annotation encoding="application/x-tex">p_{t}^{-}</annotation></semantics></math>, not shown) steers toward the opposite. Five instruction variants are used per direction.</figcaption>
+</figure>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Persona Vector Extraction</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p id="S3.SS2.p1.5" class="ltx_p">Let <math id="S3.SS2.p1.1.m1" class="ltx_Math" alttext="\mathbf{h}_{l}^{(i)}" display="inline" intent=":literal"><semantics><msubsup><mi>𝐡</mi><mi>l</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msubsup><annotation encoding="application/x-tex">\mathbf{h}_{l}^{(i)}</annotation></semantics></math> denote the hidden state at layer <math id="S3.SS2.p1.2.m2" class="ltx_Math" alttext="l" display="inline" intent=":literal"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> for the <math id="S3.SS2.p1.3.m3" class="ltx_Math" alttext="i" display="inline" intent=":literal"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-th input. For each prompt-response pair, we perform a forward pass and extract activations at every transformer layer. During vector construction we compute three pooling variants: <span id="S3.SS2.p1.5.1" class="ltx_text ltx_font_italic">prompt-average</span> (mean over prompt token positions), <span id="S3.SS2.p1.5.2" class="ltx_text ltx_font_italic">response-average</span> (mean over response token positions), and <span id="S3.SS2.p1.5.3" class="ltx_text ltx_font_italic">prompt-last</span> (final prompt token). In the experiments reported here, we use the <span id="S3.SS2.p1.5.4" class="ltx_text ltx_font_italic">response-average</span> vectors, matching the implementation used in the accompanying codebase. Following the mean difference method, the persona vector for trait <math id="S3.SS2.p1.4.m4" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> at layer <math id="S3.SS2.p1.5.m5" class="ltx_Math" alttext="l" display="inline" intent=":literal"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> is:</p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<table id="S3.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E1.m1" class="ltx_Math" alttext="\mathbf{v}_{t,l}=\frac{1}{|\mathcal{D}_{t}^{+}|}\sum_{i\in\mathcal{D}_{t}^{+}}\mathbf{h}_{l}^{(i)}-\frac{1}{|\mathcal{D}_{t}^{-}|}\sum_{j\in\mathcal{D}_{t}^{-}}\mathbf{h}_{l}^{(j)}" display="block" intent=":literal"><semantics><mrow><msub><mi>𝐯</mi><mrow><mi>t</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><mrow><mrow><mfrac><mn>1</mn><mrow><mo stretchy="false">|</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>+</mo></msubsup><mo stretchy="false">|</mo></mrow></mfrac><mo lspace="0em" rspace="0em">​</mo><mrow><munder><mo movablelimits="false">∑</mo><mrow><mi>i</mi><mo>∈</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>+</mo></msubsup></mrow></munder><msubsup><mi>𝐡</mi><mi>l</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msubsup></mrow></mrow><mo>−</mo><mrow><mfrac><mn>1</mn><mrow><mo stretchy="false">|</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>−</mo></msubsup><mo stretchy="false">|</mo></mrow></mfrac><mo lspace="0em" rspace="0em">​</mo><mrow><munder><mo movablelimits="false">∑</mo><mrow><mi>j</mi><mo>∈</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒟</mi><mi>t</mi><mo>−</mo></msubsup></mrow></munder><msubsup><mi>𝐡</mi><mi>l</mi><mrow><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></msubsup></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{v}_{t,l}=\frac{1}{|\mathcal{D}_{t}^{+}|}\sum_{i\in\mathcal{D}_{t}^{+}}\mathbf{h}_{l}^{(i)}-\frac{1}{|\mathcal{D}_{t}^{-}|}\sum_{j\in\mathcal{D}_{t}^{-}}\mathbf{h}_{l}^{(j)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS2.p3" class="ltx_para">
+<p id="S3.SS2.p3.4" class="ltx_p">This yields a vector <math id="S3.SS2.p3.1.m1" class="ltx_Math" alttext="\mathbf{v}_{t,l}\in\mathbb{R}^{d}" display="inline" intent=":literal"><semantics><mrow><msub><mi>𝐯</mi><mrow><mi>t</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>∈</mo><msup><mi>ℝ</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{v}_{t,l}\in\mathbb{R}^{d}</annotation></semantics></math> (where <math id="S3.SS2.p3.2.m2" class="ltx_Math" alttext="d" display="inline" intent=":literal"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> is the hidden dimension) that captures the direction in activation space associated with trait <math id="S3.SS2.p3.3.m3" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> at layer <math id="S3.SS2.p3.4.m4" class="ltx_Math" alttext="l" display="inline" intent=":literal"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>. We compute vectors at all layers and choose one intervention layer per model at approximately 50% of the model’s depth, as middle layers have been found empirically to be most effective for behavioral steering in prior work <cite class="ltx_cite ltx_citemacro_cite">Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>); Turner<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib2" title="Steering language models with activation engineering" class="ltx_ref">2024</a>)</cite>.
+The layer is fixed across all traits and experiments for that model rather than tuned separately per trait.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Activation Steering</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p id="S3.SS3.p1.1" class="ltx_p">At inference time, we modify the model’s forward pass by registering a hook at layer <math id="S3.SS3.p1.1.m1" class="ltx_Math" alttext="l^{*}" display="inline" intent=":literal"><semantics><msup><mi>l</mi><mo>∗</mo></msup><annotation encoding="application/x-tex">l^{*}</annotation></semantics></math> that additively perturbs the hidden states:</p>
+</div>
+<div id="S3.SS3.p2" class="ltx_para">
+<table id="S3.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E2.m1" class="ltx_Math" alttext="\tilde{\mathbf{h}}_{l^{*}}=\mathbf{h}_{l^{*}}+\alpha\cdot\mathbf{v}_{t,l^{*}}" display="block" intent=":literal"><semantics><mrow><msub><mover accent="true"><mi>𝐡</mi><mo>~</mo></mover><msup><mi>l</mi><mo>∗</mo></msup></msub><mo>=</mo><mrow><msub><mi>𝐡</mi><msup><mi>l</mi><mo>∗</mo></msup></msub><mo>+</mo><mrow><mi>α</mi><mo lspace="0.222em" rspace="0.222em">⋅</mo><msub><mi>𝐯</mi><mrow><mi>t</mi><mo>,</mo><msup><mi>l</mi><mo>∗</mo></msup></mrow></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">\tilde{\mathbf{h}}_{l^{*}}=\mathbf{h}_{l^{*}}+\alpha\cdot\mathbf{v}_{t,l^{*}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S3.SS3.p3" class="ltx_para">
+<p id="S3.SS3.p3.7" class="ltx_p">where <math id="S3.SS3.p3.1.m1" class="ltx_Math" alttext="\alpha\in\mathbb{R}" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>∈</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">\alpha\in\mathbb{R}</annotation></semantics></math> is the steering coefficient that controls the magnitude and direction of the intervention. Setting <math id="S3.SS3.p3.2.m2" class="ltx_Math" alttext="\alpha&gt;0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha&gt;0</annotation></semantics></math> steers the model toward trait <math id="S3.SS3.p3.3.m3" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> (e.g., more evil), while <math id="S3.SS3.p3.4.m4" class="ltx_Math" alttext="\alpha&lt;0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha&lt;0</annotation></semantics></math> steers toward the opposite (e.g., more good). In all experiments we use the saved mean-difference vectors directly, without additional per-layer renormalization, and fix <math id="S3.SS3.p3.5.m5" class="ltx_Math" alttext="|\alpha|=2.0" display="inline" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi>α</mi><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">|\alpha|=2.0</annotation></semantics></math> across models for comparability. Positive steering corresponds to <math id="S3.SS3.p3.6.m6" class="ltx_Math" alttext="+\alpha" display="inline" intent=":literal"><semantics><mrow><mo>+</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">+\alpha</annotation></semantics></math> and negative steering to <math id="S3.SS3.p3.7.m7" class="ltx_Math" alttext="-\alpha" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">-\alpha</annotation></semantics></math>. This value follows prior activation-steering work <cite class="ltx_cite ltx_citemacro_cite">Turner<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib2" title="Steering language models with activation engineering" class="ltx_ref">2024</a>); Chen<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib1" title="Persona vectors: monitoring and controlling character traits in language models" class="ltx_ref">2025</a>)</cite> as a moderate intervention strength: large enough to produce measurable behavioral shifts, but usually not so large that generations become uniformly degenerate. This method requires no weight updates, gradient computation, or retraining, making it applicable to transformer-based models with access to intermediate hidden states.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Experiments</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p id="S4.p1.1" class="ltx_p">We design two experiments targeting different aspects of persona effects on educational NLP tasks: (A) how persona traits shape the quality of LLM-generated short answers (as judged by a third-party, independent LLM judge), and (B) how persona-steered judges interact with simulated, persona-steered student answers to reveal systematic scoring biases.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Experimental Setup</h3>
+
+<section id="S4.SS1.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Models.</h4>
+
+<div id="S4.SS1.SSS0.Px1.p1" class="ltx_para">
+<p id="S4.SS1.SSS0.Px1.p1.1" class="ltx_p">We evaluate three models spanning different scales and architectures, summarized in Table <a href="#S4.T2" title="Table 2 ‣ Models. ‣ 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Each model uses the same steering coefficient (<math id="S4.SS1.SSS0.Px1.p1.1.m1" class="ltx_Math" alttext="\alpha=2.0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">\alpha=2.0</annotation></semantics></math>) and a fixed midpoint layer selected once per model.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+<table id="S4.T2.3" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S4.T2.3.1.1" class="ltx_tr">
+<th id="S4.T2.3.1.1.1" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span id="S4.T2.3.1.1.1.1" class="ltx_text ltx_font_bold">Model</span></th>
+<th id="S4.T2.3.1.1.2" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span id="S4.T2.3.1.1.2.1" class="ltx_text ltx_font_bold">Params</span></th>
+<th id="S4.T2.3.1.1.3" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span id="S4.T2.3.1.1.3.1" class="ltx_text ltx_font_bold">Layer</span></th>
+<th id="S4.T2.3.1.1.4" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span id="S4.T2.3.1.1.4.1" class="ltx_text ltx_font_bold">Architecture</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S4.T2.3.2.1" class="ltx_tr">
+<td id="S4.T2.3.2.1.1" class="ltx_td ltx_align_left ltx_border_t">Qwen3-4B</td>
+<td id="S4.T2.3.2.1.2" class="ltx_td ltx_align_center ltx_border_t">4B</td>
+<td id="S4.T2.3.2.1.3" class="ltx_td ltx_align_center ltx_border_t">20</td>
+<td id="S4.T2.3.2.1.4" class="ltx_td ltx_align_left ltx_border_t">Dense</td>
+</tr>
+<tr id="S4.T2.3.3.2" class="ltx_tr">
+<td id="S4.T2.3.3.2.1" class="ltx_td ltx_align_left">Qwen3-32B</td>
+<td id="S4.T2.3.3.2.2" class="ltx_td ltx_align_center">32B</td>
+<td id="S4.T2.3.3.2.3" class="ltx_td ltx_align_center">32</td>
+<td id="S4.T2.3.3.2.4" class="ltx_td ltx_align_left">Dense</td>
+</tr>
+<tr id="S4.T2.3.4.3" class="ltx_tr">
+<td id="S4.T2.3.4.3.1" class="ltx_td ltx_align_left ltx_border_bb">gpt-oss-20b</td>
+<td id="S4.T2.3.4.3.2" class="ltx_td ltx_align_center ltx_border_bb">20B</td>
+<td id="S4.T2.3.4.3.3" class="ltx_td ltx_align_center ltx_border_bb">12</td>
+<td id="S4.T2.3.4.3.4" class="ltx_td ltx_align_left ltx_border_bb">MoE (32e/4a)</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Models evaluated. The steering layer is fixed at approximately the midpoint of each model’s depth and is held constant across traits and experiments. “MoE (32e/4a)” denotes 32 total experts with 4 active per token. All models use coefficient <math id="S4.T2.2.m1" class="ltx_Math" alttext="\alpha=2.0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">\alpha=2.0</annotation></semantics></math>.</figcaption>
+</figure>
+</section>
+<section id="S4.SS1.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Traits and steering configurations.</h4>
+
+<div id="S4.SS1.SSS0.Px2.p1" class="ltx_para">
+<p id="S4.SS1.SSS0.Px2.p1.1" class="ltx_p">We steer along the seven character traits described in Table <a href="#S3.T1" title="Table 1 ‣ 3.1 Contrastive Data Generation ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, each representing a distinct behavioral dimension relevant to educational settings: from content integrity (hallucinating, sycophantic) to engagement style (apathetic, humorous, impolite) and affective framing (evil, optimistic). Each trait is steered in both positive (toward trait) and negative (toward opposite) directions, yielding 14 steered configurations plus an unsteered baseline (15 total) per model. The same steering method serves different purposes across our experiments: in Experiment A, steering is applied to the answer-generation component of an AI tutor to test how trait variation affects response quality; in Experiment B, steering is applied to both sides, generating answers that simulate students with different behavioral profiles and configuring the scoring component with different trait-steered personas, to test how these two sides interact.</p>
+</div>
+</section>
+<section id="S4.SS1.SSS0.Px3" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Dataset.</h4>
+
+<div id="S4.SS1.SSS0.Px3.p1" class="ltx_para">
+<p id="S4.SS1.SSS0.Px3.p1.1" class="ltx_p">We use the ASAP-SAS (Automated Student Assessment Prize, Short Answer Scoring) dataset,<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note">1</span><a href="https://www.kaggle.com/c/asap-sas" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.kaggle.com/c/asap-sas</a></span></span></span> a public benchmark containing student responses to 10 short-answer prompts with human-assigned scores. The prompts span two domains, <span id="S4.SS1.SSS0.Px3.p1.1.1" class="ltx_text ltx_font_italic">science</span> (experimental design, biology, earth science) and <span id="S4.SS1.SSS0.Px3.p1.1.2" class="ltx_text ltx_font_italic">English Language Arts</span> (ELA; literary analysis, reading comprehension, opinion writing), at the grades 8–10 level, with rubric-based scoring on scales of either 0–2 or 0–3. This dataset is well-suited for evaluating steering because its diverse task types (factual recall, procedural reasoning, interpretive analysis) allow us to test whether steering effects are content-dependent, while its human-graded rubrics provide a principled quality standard for scoring generated answers.</p>
+</div>
+</section>
+<section id="S4.SS1.SSS0.Px4" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Response generation.</h4>
+
+<div id="S4.SS1.SSS0.Px4.p1" class="ltx_para">
+<p id="S4.SS1.SSS0.Px4.p1.2" class="ltx_p">Each student type generates 10 answers per prompt set, for a total of 1,500 answers per model (15 types <math id="S4.SS1.SSS0.Px4.p1.1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 10 sets <math id="S4.SS1.SSS0.Px4.p1.2.m2" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 10 samples). The model receives the task prompt, source text when provided, and scoring rubric as input.</p>
+</div>
+</section>
+<section id="S4.SS1.SSS0.Px5" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Scoring.</h4>
+
+<div id="S4.SS1.SSS0.Px5.p1" class="ltx_para">
+<p id="S4.SS1.SSS0.Px5.p1.3" class="ltx_p">In Experiment A, answers are scored by GPT-5.2 via the OpenAI API as an external quality judge. In Experiment B, each model serves as a trait-steered scorer under 15 persona configurations (unsteered + 7 traits <math id="S4.SS1.SSS0.Px5.p1.1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> pos/neg), simulating 15 different assessment components within a tutoring system. Each trait-steered scorer grades the full pool of 4,500 steered and simulated student answers using the set-specific rubric from the ASAP-SAS dataset, producing a <math id="S4.SS1.SSS0.Px5.p1.2.m2" class="ltx_Math" alttext="15\times 15" display="inline" intent=":literal"><semantics><mrow><mn>15</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">15\times 15</annotation></semantics></math> scorer-learner interaction matrix per model. Scores are normalized to <math id="S4.SS1.SSS0.Px5.p1.3.m3" class="ltx_Math" alttext="[0,1]" display="inline" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math> using each prompt set’s rubric range.</p>
+</div>
+<figure id="S4.F1" class="ltx_figure"><img src="2604.07102v1/figures/1_effect_comparison.png" id="S4.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="476" height="209" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Persona trait effects on answer quality across models (GPT-5.2 judge). Left: positive steering (toward trait). Right: negative steering (toward opposite). Bars below zero indicate lower quality relative to the unsteered baseline.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Experiment A: Persona Effects on Answer Quality</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p id="S4.SS2.p1.2" class="ltx_p">We measure how persona steering of the answer-generation component affects response quality, as judged by an external GPT-5.2 judge. For each steering configuration <math id="S4.SS2.p1.1.m1" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, we define the <span id="S4.SS2.p1.2.1" class="ltx_text ltx_font_italic">effect size</span> <math id="S4.SS2.p1.2.m2" class="ltx_Math" alttext="\Delta_{t}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">Δ</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\Delta_{t}</annotation></semantics></math> as the difference in mean normalized score relative to the unsteered baseline:</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<table id="S4.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S4.E3.m1" class="ltx_Math" alttext="\Delta_{t}=\frac{1}{N}\sum_{i=1}^{N}s(y_{i}^{t})-\frac{1}{N}\sum_{i=1}^{N}s(y_{i}^{\text{base}})" display="block" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mi>t</mi></msub><mo>=</mo><mrow><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo lspace="0em" rspace="0em">​</mo><mrow><munderover><mo movablelimits="false">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>y</mi><mi>i</mi><mi>t</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>−</mo><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo lspace="0em" rspace="0em">​</mo><mrow><munderover><mo movablelimits="false">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>y</mi><mi>i</mi><mtext>base</mtext></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\Delta_{t}=\frac{1}{N}\sum_{i=1}^{N}s(y_{i}^{t})-\frac{1}{N}\sum_{i=1}^{N}s(y_{i}^{\text{base}})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td>
+</tr></tbody>
+</table>
+<p id="S4.SS2.p2.6" class="ltx_p">where <math id="S4.SS2.p2.1.m1" class="ltx_Math" alttext="y_{i}^{t}" display="inline" intent=":literal"><semantics><msubsup><mi>y</mi><mi>i</mi><mi>t</mi></msubsup><annotation encoding="application/x-tex">y_{i}^{t}</annotation></semantics></math> is the <math id="S4.SS2.p2.2.m2" class="ltx_Math" alttext="i" display="inline" intent=":literal"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-th answer generated under steering type <math id="S4.SS2.p2.3.m3" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, <math id="S4.SS2.p2.4.m4" class="ltx_Math" alttext="y_{i}^{\text{base}}" display="inline" intent=":literal"><semantics><msubsup><mi>y</mi><mi>i</mi><mtext>base</mtext></msubsup><annotation encoding="application/x-tex">y_{i}^{\text{base}}</annotation></semantics></math> is the corresponding unsteered answer, and <math id="S4.SS2.p2.5.m5" class="ltx_Math" alttext="s(\cdot)\in[0,1]" display="inline" intent=":literal"><semantics><mrow><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><mo>∈</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s(\cdot)\in[0,1]</annotation></semantics></math> is the normalized rubric score assigned by the judge. A negative <math id="S4.SS2.p2.6.m6" class="ltx_Math" alttext="\Delta_{t}" display="inline" intent=":literal"><semantics><msub><mi mathvariant="normal">Δ</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\Delta_{t}</annotation></semantics></math> indicates that the persona trait lowers answer quality; a positive value indicates improvement.</p>
+</div>
+<section id="S4.SS2.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Trait-level effects (RQ1).</h4>
+
+<div id="S4.SS2.SSS0.Px1.p1" class="ltx_para">
+<p id="S4.SS2.SSS0.Px1.p1.5" class="ltx_p">Figure <a href="#S4.F1" title="Figure 1 ‣ Scoring. ‣ 4.1 Experimental Setup ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> summarizes the per-trait effect sizes across models. Trait effects vary substantially by model capacity: Qwen3-4B shows the largest average absolute shift under positive steering (0.172), while Qwen3-32B shows much smaller changes (0.021). The most impactful trait differs by model: humorous for Qwen3-4B (<math id="S4.SS2.SSS0.Px1.p1.1.m1" class="ltx_Math" alttext="-0.420" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.420</mn></mrow><annotation encoding="application/x-tex">-0.420</annotation></semantics></math>), hallucinating for Qwen3-32B (<math id="S4.SS2.SSS0.Px1.p1.2.m2" class="ltx_Math" alttext="-0.063" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.063</mn></mrow><annotation encoding="application/x-tex">-0.063</annotation></semantics></math>), and evil for gpt-oss-20b (<math id="S4.SS2.SSS0.Px1.p1.3.m3" class="ltx_Math" alttext="-0.443" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.443</mn></mrow><annotation encoding="application/x-tex">-0.443</annotation></semantics></math>). Negative-direction steering (toward the opposite trait) also produces measurable shifts: for Qwen3-4B, all seven opposite directions lower quality, with “serious” and “factual” among the most impactful.
+Most effects are statistically significant (Mann-Whitney <math id="S4.SS2.SSS0.Px1.p1.4.m4" class="ltx_Math" alttext="U" display="inline" intent=":literal"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>, <math id="S4.SS2.SSS0.Px1.p1.5.m5" class="ltx_Math" alttext="p&lt;0.05" display="inline" intent=":literal"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p&lt;0.05</annotation></semantics></math>): 13/14 conditions for Qwen3-4B and 7/14 for gpt-oss-20b. Qwen3-32B shows no significant effects, consistent with its smaller effect magnitudes.</p>
+</div>
+</section>
+<section id="S4.SS2.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Trait–task interactions (RQ2).</h4>
+
+<div id="S4.SS2.SSS0.Px2.p1" class="ltx_para">
+<p id="S4.SS2.SSS0.Px2.p1.3" class="ltx_p">Figure <a href="#S4.F2" title="Figure 2 ‣ Trait–task interactions (RQ2). ‣ 4.2 Experiment A: Persona Effects on Answer Quality ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> reveals that persona effects interact strongly with question type. ELA and interpretive tasks are systematically more sensitive than science tasks: for Qwen3-4B, the ELA mean <math id="S4.SS2.SSS0.Px2.p1.1.m1" class="ltx_Math" alttext="|\Delta|" display="inline" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|\Delta|</annotation></semantics></math> is 0.261 vs. 0.070 for science (3.7<math id="S4.SS2.SSS0.Px2.p1.2.m2" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>); for Qwen3-32B, the gap is even larger (0.105 vs. 0.010, 11<math id="S4.SS2.SSS0.Px2.p1.3.m3" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>). Within ELA, literary analysis sets (Sets 7–8) are especially sensitive, while factual science tasks (e.g., Set 6, cell membrane transport) show near-zero effects even for the most impactful traits.</p>
+</div>
+<figure id="S4.F2" class="ltx_figure"><img src="2604.07102v1/figures/trait_task_domain.png" id="S4.F2.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="476" height="159" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Domain sensitivity under positive steering. Bars show signed mean <math id="S4.F2.3.m1" class="ltx_Math" alttext="\Delta" display="inline" intent=":literal"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math> per trait within each domain. The corner annotation summarizes the ratio of mean <math id="S4.F2.4.m2" class="ltx_Math" alttext="|\Delta|" display="inline" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|\Delta|</annotation></semantics></math> across domains. ELA tasks (orange) show larger quality shifts than science tasks (blue) for most traits.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S4.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.3 </span>Experiment B: Trait-Steered Scorer–Student Interaction</h3>
+
+<div id="S4.SS3.p1" class="ltx_para">
+<p id="S4.SS3.p1.3" class="ltx_p">To evaluate how scoring components, both steered and unsteered, interact with diverse learner types, each model scores all 4,500 simulated student answers under each of its 15 persona configurations, yielding approximately 202,500 total judgments. The 15 student types represent a simulated diverse learner population, while the 15 scorer configurations represent different trait-steered assessment configurations. For each scorer configuration <math id="S4.SS3.p1.1.m1" class="ltx_Math" alttext="j" display="inline" intent=":literal"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> and learner type <math id="S4.SS3.p1.2.m2" class="ltx_Math" alttext="s" display="inline" intent=":literal"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>, we define the scorer-learner interaction effect <math id="S4.SS3.p1.3.m3" class="ltx_Math" alttext="\delta_{j,s}" display="inline" intent=":literal"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>s</mi></mrow></msub><annotation encoding="application/x-tex">\delta_{j,s}</annotation></semantics></math> as the scoring shift relative to the unsteered scorer:</p>
+</div>
+<div id="S4.SS3.p2" class="ltx_para">
+<table id="S4.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S4.E4.m1" class="ltx_Math" alttext="\delta_{j,s}=\bar{s}_{j}(Y_{s})-\bar{s}_{\text{unst.}}(Y_{s})" display="block" intent=":literal"><semantics><mrow><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>s</mi></mrow></msub><mo>=</mo><mrow><mrow><msub><mover accent="true"><mi>s</mi><mo>¯</mo></mover><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>Y</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><msub><mover accent="true"><mi>s</mi><mo>¯</mo></mover><mtext>unst.</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>Y</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\delta_{j,s}=\bar{s}_{j}(Y_{s})-\bar{s}_{\text{unst.}}(Y_{s})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td>
+</tr></tbody>
+</table>
+</div>
+<section id="S4.SS3.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Scorer calibration under trait steering (RQ3).</h4>
+
+<div id="S4.SS3.SSS0.Px1.p1" class="ltx_para">
+<p id="S4.SS3.SSS0.Px1.p1.7" class="ltx_p">Trait-steered scorers require different levels of calibration depending on the model. The Qwen models show bounded scoring shifts (<math id="S4.SS3.SSS0.Px1.p1.1.m1" class="ltx_Math" alttext="\pm 0.030" display="inline" intent=":literal"><semantics><mrow><mo>±</mo><mn>0.030</mn></mrow><annotation encoding="application/x-tex">\pm 0.030</annotation></semantics></math>), meaning most persona configurations produce near-baseline grading (Table <a href="#S4.T3" title="Table 3 ‣ Scorer calibration under trait steering (RQ3). ‣ 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>). gpt-oss-20b requires substantially more calibration: an empathetic scorer (evil<math id="S4.SS3.SSS0.Px1.p1.2.m2" class="ltx_Math" alttext="{}_{\text{neg}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>neg</mtext></msub><annotation encoding="application/x-tex">{}_{\text{neg}}</annotation></semantics></math>) inflates scores by <math id="S4.SS3.SSS0.Px1.p1.3.m3" class="ltx_Math" alttext="+0.233" display="inline" intent=":literal"><semantics><mrow><mo>+</mo><mn>0.233</mn></mrow><annotation encoding="application/x-tex">+0.233</annotation></semantics></math>, while a factual scorer (hallucinating<math id="S4.SS3.SSS0.Px1.p1.4.m4" class="ltx_Math" alttext="{}_{\text{neg}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>neg</mtext></msub><annotation encoding="application/x-tex">{}_{\text{neg}}</annotation></semantics></math>) deflates them by <math id="S4.SS3.SSS0.Px1.p1.5.m5" class="ltx_Math" alttext="-0.101" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.101</mn></mrow><annotation encoding="application/x-tex">-0.101</annotation></semantics></math>.
+Most scorer calibration shifts are statistically significant (Mann-Whitney <math id="S4.SS3.SSS0.Px1.p1.6.m6" class="ltx_Math" alttext="U" display="inline" intent=":literal"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>, <math id="S4.SS3.SSS0.Px1.p1.7.m7" class="ltx_Math" alttext="p&lt;0.05" display="inline" intent=":literal"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p&lt;0.05</annotation></semantics></math>): 9/14 for Qwen3-4B, 11/13 for gpt-oss-20b, and 4/14 for Qwen3-32B.</p>
+</div>
+<figure id="S4.T3" class="ltx_table">
+<table id="S4.T3.7" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S4.T3.1.1" class="ltx_tr">
+<th id="S4.T3.1.1.2" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding:0.5pt 2.0pt;"><span id="S4.T3.1.1.2.1" class="ltx_text ltx_font_bold">Model</span></th>
+<th id="S4.T3.1.1.3" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding:0.5pt 2.0pt;"><span id="S4.T3.1.1.3.1" class="ltx_text ltx_font_bold">Base</span></th>
+<th id="S4.T3.1.1.4" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding:0.5pt 2.0pt;"><span id="S4.T3.1.1.4.1" class="ltx_text ltx_font_bold">Lenient judge</span></th>
+<th id="S4.T3.1.1.5" class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding:0.5pt 2.0pt;"><span id="S4.T3.1.1.5.1" class="ltx_text ltx_font_bold">Harsh judge</span></th>
+<th id="S4.T3.1.1.1" class="ltx_td ltx_nopad_r ltx_align_center ltx_th ltx_th_column ltx_border_tt" style="padding:0.5pt 2.0pt;"><math id="S4.T3.1.1.1.m1" class="ltx_Math" alttext="\overline{|\delta|}" display="inline" intent=":literal"><semantics><mover accent="true"><mrow><mo stretchy="false">|</mo><mi>δ</mi><mo stretchy="false">|</mo></mrow><mo stretchy="true">¯</mo></mover><annotation encoding="application/x-tex">\overline{|\delta|}</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S4.T3.3.3" class="ltx_tr">
+<td id="S4.T3.3.3.3" class="ltx_td ltx_align_left ltx_border_t" style="padding:0.5pt 2.0pt;">Qwen3-4B</td>
+<td id="S4.T3.3.3.4" class="ltx_td ltx_align_center ltx_border_t" style="padding:0.5pt 2.0pt;">.760</td>
+<td id="S4.T3.2.2.1" class="ltx_td ltx_align_center ltx_border_t" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.2.2.1.1" class="ltx_inline-block">
+<span id="S4.T3.2.2.1.1.1" class="ltx_p">evil<math id="S4.T3.2.2.1.1.1.m1" class="ltx_Math" alttext="{}_{\text{neg}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>neg</mtext></msub><annotation encoding="application/x-tex">{}_{\text{neg}}</annotation></semantics></math></span>
+<span id="S4.T3.2.2.1.1.2" class="ltx_p"><span id="S4.T3.2.2.1.1.2.1" class="ltx_text" style="--ltx-fg-color:#228B22;">+.029</span></span>
+</span>
+</td>
+<td id="S4.T3.3.3.2" class="ltx_td ltx_align_center ltx_border_t" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.3.3.2.1" class="ltx_inline-block">
+<span id="S4.T3.3.3.2.1.1" class="ltx_p">impolite<math id="S4.T3.3.3.2.1.1.m1" class="ltx_Math" alttext="{}_{\text{pos}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>pos</mtext></msub><annotation encoding="application/x-tex">{}_{\text{pos}}</annotation></semantics></math></span>
+<span id="S4.T3.3.3.2.1.2" class="ltx_p"><span id="S4.T3.3.3.2.1.2.1" class="ltx_text" style="--ltx-fg-color:#B43232;">–.028</span></span>
+</span>
+</td>
+<td id="S4.T3.3.3.5" class="ltx_td ltx_nopad_r ltx_align_center ltx_border_t" style="padding:0.5pt 2.0pt;">.014</td>
+</tr>
+<tr id="S4.T3.5.5" class="ltx_tr">
+<td id="S4.T3.5.5.3" class="ltx_td ltx_align_left" style="padding:0.5pt 2.0pt;">Qwen3-32B</td>
+<td id="S4.T3.5.5.4" class="ltx_td ltx_align_center" style="padding:0.5pt 2.0pt;">.709</td>
+<td id="S4.T3.4.4.1" class="ltx_td ltx_align_center" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.4.4.1.1" class="ltx_inline-block">
+<span id="S4.T3.4.4.1.1.1" class="ltx_p">optimistic<math id="S4.T3.4.4.1.1.1.m1" class="ltx_Math" alttext="{}_{\text{pos}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>pos</mtext></msub><annotation encoding="application/x-tex">{}_{\text{pos}}</annotation></semantics></math></span>
+<span id="S4.T3.4.4.1.1.2" class="ltx_p"><span id="S4.T3.4.4.1.1.2.1" class="ltx_text" style="--ltx-fg-color:#228B22;">+.023</span></span>
+</span>
+</td>
+<td id="S4.T3.5.5.2" class="ltx_td ltx_align_center" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.5.5.2.1" class="ltx_inline-block">
+<span id="S4.T3.5.5.2.1.1" class="ltx_p">humorous<math id="S4.T3.5.5.2.1.1.m1" class="ltx_Math" alttext="{}_{\text{pos}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>pos</mtext></msub><annotation encoding="application/x-tex">{}_{\text{pos}}</annotation></semantics></math></span>
+<span id="S4.T3.5.5.2.1.2" class="ltx_p"><span id="S4.T3.5.5.2.1.2.1" class="ltx_text" style="--ltx-fg-color:#B43232;">–.030</span></span>
+</span>
+</td>
+<td id="S4.T3.5.5.5" class="ltx_td ltx_nopad_r ltx_align_center" style="padding:0.5pt 2.0pt;">.013</td>
+</tr>
+<tr id="S4.T3.7.7" class="ltx_tr">
+<td id="S4.T3.7.7.3" class="ltx_td ltx_align_left ltx_border_bb" style="padding:0.5pt 2.0pt;">gpt-oss-20b</td>
+<td id="S4.T3.7.7.4" class="ltx_td ltx_align_center ltx_border_bb" style="padding:0.5pt 2.0pt;">.525</td>
+<td id="S4.T3.6.6.1" class="ltx_td ltx_align_center ltx_border_bb" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.6.6.1.1" class="ltx_inline-block">
+<span id="S4.T3.6.6.1.1.1" class="ltx_p">evil<math id="S4.T3.6.6.1.1.1.m1" class="ltx_Math" alttext="{}_{\text{neg}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>neg</mtext></msub><annotation encoding="application/x-tex">{}_{\text{neg}}</annotation></semantics></math></span>
+<span id="S4.T3.6.6.1.1.2" class="ltx_p"><span id="S4.T3.6.6.1.1.2.1" class="ltx_text" style="--ltx-fg-color:#228B22;">+.233</span></span>
+</span>
+</td>
+<td id="S4.T3.7.7.2" class="ltx_td ltx_align_center ltx_border_bb" style="padding:0.5pt 2.0pt;">
+<span id="S4.T3.7.7.2.1" class="ltx_inline-block">
+<span id="S4.T3.7.7.2.1.1" class="ltx_p">hallucinating<math id="S4.T3.7.7.2.1.1.m1" class="ltx_Math" alttext="{}_{\text{neg}}" display="inline" intent=":literal"><semantics><msub><mi></mi><mtext>neg</mtext></msub><annotation encoding="application/x-tex">{}_{\text{neg}}</annotation></semantics></math></span>
+<span id="S4.T3.7.7.2.1.2" class="ltx_p"><span id="S4.T3.7.7.2.1.2.1" class="ltx_text" style="--ltx-fg-color:#B43232;">–.101</span></span>
+</span>
+</td>
+<td id="S4.T3.7.7.5" class="ltx_td ltx_nopad_r ltx_align_center ltx_border_bb" style="padding:0.5pt 2.0pt;">.080</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Judge leniency under persona steering. Base = unsteered judge mean normalized score; <math id="S4.T3.11.m1" class="ltx_Math" alttext="\overline{|\delta|}" display="inline" intent=":literal"><semantics><mover accent="true"><mrow><mo stretchy="false">|</mo><mi>δ</mi><mo stretchy="false">|</mo></mrow><mo stretchy="true">¯</mo></mover><annotation encoding="application/x-tex">\overline{|\delta|}</annotation></semantics></math> = mean absolute bias across 14 steered conditions. gpt-oss-20b is <math id="S4.T3.12.m2" class="ltx_Math" alttext="\sim" display="inline" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>6<math id="S4.T3.13.m3" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> more sensitive than the dense Qwen models.</figcaption>
+</figure>
+</section>
+<section id="S4.SS3.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Scorer persona affects grading in valence-aligned ways.</h4>
+
+<div id="S4.SS3.SSS0.Px2.p1" class="ltx_para">
+<p id="S4.SS3.SSS0.Px2.p1.2" class="ltx_p">Across all three models, scorer follows a consistent valence pattern (Figure <a href="#S4.F3" title="Figure 3 ‣ Scorer persona affects grading in valence-aligned ways. ‣ 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>): scorers steered toward evil or impolite grade more harshly, while scorers steered toward good or optimistic grade more leniently. An empathetic or optimistic scorer could mask learning gaps by inflating grades, while a strict or impolite scorer could discourage students by deflating them. One notable exception is the hallucinating scorer on gpt-oss-20b, which is lenient (<math id="S4.SS3.SSS0.Px2.p1.1.m1" class="ltx_Math" alttext="+0.142" display="inline" intent=":literal"><semantics><mrow><mo>+</mo><mn>0.142</mn></mrow><annotation encoding="application/x-tex">+0.142</annotation></semantics></math>), while the factual scorer is harsh (<math id="S4.SS3.SSS0.Px2.p1.2.m2" class="ltx_Math" alttext="-0.101" display="inline" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.101</mn></mrow><annotation encoding="application/x-tex">-0.101</annotation></semantics></math>). This suggests that a scorer with reduced factual grounding may fail to catch quality issues in student answers.</p>
+</div>
+<figure id="S4.F3" class="ltx_figure"><img src="2604.07102v1/figures/judge_trait_bias.png" id="S4.F3.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="476" height="158" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Judge scoring bias per trait. Red bars show steering toward the trait (positive <math id="S4.F3.8.m1" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>); blue bars show steering toward the opposite (negative <math id="S4.F3.9.m2" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>). The baseline is the unsteered judge. Consistent patterns across models: evil<math id="S4.F3.10.m3" class="ltx_Math" alttext="\to" display="inline" intent=":literal"><semantics><mo stretchy="false">→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>harsh, good<math id="S4.F3.11.m4" class="ltx_Math" alttext="\to" display="inline" intent=":literal"><semantics><mo stretchy="false">→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>lenient, optimistic<math id="S4.F3.12.m5" class="ltx_Math" alttext="\to" display="inline" intent=":literal"><semantics><mo stretchy="false">→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>lenient. Note the <math id="S4.F3.13.m6" class="ltx_Math" alttext="\sim" display="inline" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>6<math id="S4.F3.14.m7" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> scale difference for gpt-oss-20b.</figcaption>
+</figure>
+</section>
+<section id="S4.SS3.SSS0.Px3" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Task type determines scorer steering risk risk.</h4>
+
+<div id="S4.SS3.SSS0.Px3.p1" class="ltx_para">
+<p id="S4.SS3.SSS0.Px3.p1.1" class="ltx_p">ELA tasks are 2.5–3<math id="S4.SS3.SSS0.Px3.p1.1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> more susceptible to scorer steering effects than science tasks (Figure <a href="#S4.F4" title="Figure 4 ‣ Task type determines scorer steering risk risk. ‣ 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>), mirroring the student-side pattern in Experiment A. For example, the censorship essay (Set 2) has a scorer bias range of 0.338 in Qwen3-4B, while cell membrane transport (Set 6) has only 0.021. On factual science tasks, scorer steering is low-risk because tightly constrained rubrics leave little room for persona-driven variation. On subjective ELA tasks, the scorer’s persona has outsized influence, meaning trait-steered scoring components require careful calibration on these task types.</p>
+</div>
+<figure id="S4.F4" class="ltx_figure"><img src="2604.07102v1/figures/judge_topic_bias.png" id="S4.F4.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="476" height="176" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 4: </span>Topic susceptibility to judge persona bias. Each bar shows the bias range, defined as the difference between the maximum and minimum <math id="S4.F4.2.m1" class="ltx_Math" alttext="\delta_{j,\cdot}" display="inline" intent=":literal"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mo rspace="0em">,</mo><mo lspace="0em">⋅</mo></mrow></msub><annotation encoding="application/x-tex">\delta_{j,\cdot}</annotation></semantics></math> across 14 steered judge personas relative to the unsteered judge, for a given essay topic. ELA topics (orange) are consistently more susceptible than science topics (blue).</figcaption>
+</figure>
+</section>
+<section id="S4.SS3.SSS0.Px4" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Cross-model consistency.</h4>
+
+<div id="S4.SS3.SSS0.Px4.p1" class="ltx_para">
+<p id="S4.SS3.SSS0.Px4.p1.4" class="ltx_p">Scoring shift directions are moderately consistent across model pairs (Pearson <math id="S4.SS3.SSS0.Px4.p1.1.m1" class="ltx_Math" alttext="r=0.50" display="inline" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">r=0.50</annotation></semantics></math>–<math id="S4.SS3.SSS0.Px4.p1.2.m2" class="ltx_Math" alttext="0.57" display="inline" intent=":literal"><semantics><mn>0.57</mn><annotation encoding="application/x-tex">0.57</annotation></semantics></math>): traits that make scorers more lenient in one model tend to do so in others, which means the valence-aligned patterns described above generalize across architectures. However, the magnitude of scoring shifts is architecture-dependent, with gpt-oss-20b showing <math id="S4.SS3.SSS0.Px4.p1.3.m3" class="ltx_Math" alttext="\sim" display="inline" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>6<math id="S4.SS3.SSS0.Px4.p1.4.m4" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> larger effects than the dense Qwen models. Within each model, the scorer’s persona acts as a global calibration shift rather than creating differential treatment across learner types. This is both a limitation, as the scorer does not truly adapt to individual learners, and a reassurance, as no learner type is systematically disadvantaged relative to others by a given scorer persona.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Discussion</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p id="S5.p1.1" class="ltx_p">Three themes are especially important when apply persona steering in education: steering often alters content quality rather than only surface style, task structure strongly shapes where persona effects appear, and scorer-side personalization requires explicit calibration if it is to be used responsibly.</p>
+</div>
+<section id="S5.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.1 </span>Persona Steering Alters Content, Not Just Style</h3>
+
+<section id="S5.SS1.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Sensitivity depends on the model, but the core risk is behavioral.</h4>
+
+<div id="S5.SS1.SSS0.Px1.p1" class="ltx_para">
+<p id="S5.SS1.SSS0.Px1.p1.1" class="ltx_p">The answer-generation results show that persona steering does not act as a uniformly mild style overlay. Qwen3-4B is the most sensitive model (mean <math id="S5.SS1.SSS0.Px1.p1.1.m1" class="ltx_Math" alttext="|\Delta|=0.172" display="inline" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>0.172</mn></mrow><annotation encoding="application/x-tex">|\Delta|=0.172</annotation></semantics></math>), Qwen3-32B the least sensitive (0.021), and gpt-oss-20b falls between despite its larger total parameter count. This pattern is consistent with the idea that effective capacity at inference, rather than total parameter count alone, shapes how strongly a model responds to activation perturbation. For educational use, the more important point is that steering can change whether answers remain coherent, evidence-based, and task-aligned.</p>
+</div>
+</section>
+<section id="S5.SS1.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">The qualitative failures are semantic rather than cosmetic.</h4>
+
+<div id="S5.SS1.SSS0.Px2.p1" class="ltx_para">
+<p id="S5.SS1.SSS0.Px2.p1.1" class="ltx_p">Table <a href="#S5.T4" title="Table 4 ‣ Steering often behaves like perturbation. ‣ 5.1 Persona Steering Alters Content, Not Just Style ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> shows that steering can inject fabricated evidence, derail academic register, leak planning text, create internal contradictions, or reframe harmful facts as praise. These are failures of evidence use, reasoning, and task fidelity, not just changes in tone. This matters because a persona that sounds engaging or supportive may still degrade answer quality in ways that are not obvious from surface style alone.</p>
+</div>
+</section>
+<section id="S5.SS1.SSS0.Px3" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Steering often behaves like perturbation.</h4>
+
+<div id="S5.SS1.SSS0.Px3.p1" class="ltx_para">
+<p id="S5.SS1.SSS0.Px3.p1.2" class="ltx_p">Figure <a href="#S5.F5" title="Figure 5 ‣ Steering often behaves like perturbation. ‣ 5.1 Persona Steering Alters Content, Not Just Style ‣ 5 Discussion ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> shows that many trait-model pairs, especially in Qwen3-4B, fall in the lower-left quadrant, meaning that both steering directions reduce quality relative to the unsteered baseline. The negative length-quality correlation in gpt-oss-20b (<math id="S5.SS1.SSS0.Px3.p1.1.m1" class="ltx_Math" alttext="r=-0.47" display="inline" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mo>−</mo><mn>0.47</mn></mrow></mrow><annotation encoding="application/x-tex">r=-0.47</annotation></semantics></math>), together with much weaker correlations in the dense Qwen models, suggests that verbosity alone does not explain the degradation. A more plausible interpretation is that steering at <math id="S5.SS1.SSS0.Px3.p1.2.m2" class="ltx_Math" alttext="\alpha=2.0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">\alpha=2.0</annotation></semantics></math> often pushes the model away from a well-calibrated operating point.</p>
+</div>
+<figure id="S5.F5" class="ltx_figure"><img src="2604.07102v1/figures/9_perturbation.png" id="S5.F5.g1" class="ltx_graphics ltx_centering ltx_img_square" width="598" height="628" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 5: </span>Positive versus negative persona effect for each trait-model pair. Each point represents one trait. Points in the lower-left quadrant indicate that both steering directions lower quality relative to the unsteered baseline. </figcaption>
+</figure>
+<figure id="S5.T4" class="ltx_table">
+<table id="S5.T4.1" class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S5.T4.1.1.1" class="ltx_tr">
+<th id="S5.T4.1.1.1.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_th ltx_th_column ltx_border_tt" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.1.1.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.1.1.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.1.1.1.1.1.1" class="ltx_text ltx_align_left ltx_font_bold">Steering</span></span>
+</span>
+</th>
+<th id="S5.T4.1.1.1.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_th ltx_th_column ltx_border_tt" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.1.1.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.1.1.2.1.1" class="ltx_p" style="width:46.9pt;"><span id="S5.T4.1.1.1.2.1.1.1" class="ltx_text ltx_align_left ltx_font_bold">Model</span></span>
+</span>
+</th>
+<th id="S5.T4.1.1.1.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_th ltx_th_column ltx_border_tt" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.1.1.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.1.1.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.1.1.3.1.1.1" class="ltx_text ltx_align_left ltx_font_bold">Steered excerpt</span></span>
+</span>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S5.T4.1.2.1" class="ltx_tr">
+<td id="S5.T4.1.2.1.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.2.1.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.2.1.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.2.1.1.1.1.1" class="ltx_text ltx_align_left ltx_font_italic">halluc.<sub id="S5.T4.1.2.1.1.1.1.1.1" class="ltx_sub">pos</sub></span></span>
+</span>
+</td>
+<td id="S5.T4.1.2.1.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.2.1.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.2.1.2.1.1" class="ltx_p" style="width:46.9pt;">gpt-oss-20b</span>
+</span>
+</td>
+<td id="S5.T4.1.2.1.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.2.1.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.2.1.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.2.1.3.1.1.1" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">“A 2023 study in the <span id="S5.T4.1.2.1.3.1.1.1.1" class="ltx_text ltx_font_italic">Journal of Youth Development</span> showed a 12% drop in juvenile delinquency…a 2025 case in Chicago demanded $4.2M restitution for unlawful book burning.”</span> <span id="S5.T4.1.2.1.3.1.1.2" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">[<span id="S5.T4.1.2.1.3.1.1.2.1" class="ltx_text ltx_font_italic">fabricated evidence</span>]</span></span>
+</span>
+</td>
+</tr>
+<tr id="S5.T4.1.3.2" class="ltx_tr">
+<td id="S5.T4.1.3.2.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.3.2.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.3.2.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.3.2.1.1.1.1" class="ltx_text ltx_align_left ltx_font_italic">humor<sub id="S5.T4.1.3.2.1.1.1.1.1" class="ltx_sub">pos</sub></span></span>
+</span>
+</td>
+<td id="S5.T4.1.3.2.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.3.2.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.3.2.2.1.1" class="ltx_p" style="width:46.9pt;">gpt-oss-20b</span>
+</span>
+</td>
+<td id="S5.T4.1.3.2.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.3.2.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.3.2.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.3.2.3.1.1.1" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">“Honestly, it’s a classic culture-war debate…<span id="S5.T4.1.3.2.3.1.1.1.1" class="ltx_text ltx_font_bold">Parental rights, baby!</span>”</span> <span id="S5.T4.1.3.2.3.1.1.2" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">[<span id="S5.T4.1.3.2.3.1.1.2.1" class="ltx_text ltx_font_italic">formal essay becomes rambling comedy</span>]</span></span>
+</span>
+</td>
+</tr>
+<tr id="S5.T4.1.4.3" class="ltx_tr">
+<td id="S5.T4.1.4.3.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.4.3.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.4.3.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.4.3.1.1.1.1" class="ltx_text ltx_align_left ltx_font_italic">evil<sub id="S5.T4.1.4.3.1.1.1.1.1" class="ltx_sub">pos</sub></span></span>
+</span>
+</td>
+<td id="S5.T4.1.4.3.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.4.3.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.4.3.2.1.1" class="ltx_p" style="width:46.9pt;">gpt-oss-20b</span>
+</span>
+</td>
+<td id="S5.T4.1.4.3.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.4.3.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.4.3.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.4.3.3.1.1.1" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">“analysisWe need to identify one trait that describes Rose…The trait might be responsible or overbearing…”</span> <span id="S5.T4.1.4.3.3.1.1.2" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">[<span id="S5.T4.1.4.3.3.1.1.2.1" class="ltx_text ltx_font_italic">answer replaced by leaked planning text</span>]</span></span>
+</span>
+</td>
+</tr>
+<tr id="S5.T4.1.5.4" class="ltx_tr">
+<td id="S5.T4.1.5.4.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.5.4.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.5.4.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.5.4.1.1.1.1" class="ltx_text ltx_align_left ltx_font_italic">apathetic<sub id="S5.T4.1.5.4.1.1.1.1.1" class="ltx_sub">pos</sub></span></span>
+</span>
+</td>
+<td id="S5.T4.1.5.4.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.5.4.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.5.4.2.1.1" class="ltx_p" style="width:46.9pt;">Qwen3-4B</span>
+</span>
+</td>
+<td id="S5.T4.1.5.4.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.5.4.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.5.4.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.5.4.3.1.1.1" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">“Libraries should censor content…The cons involve balancing this with first amendment rights…Therefore, the answer is no, libraries should not censor content.”</span> <span id="S5.T4.1.5.4.3.1.1.2" class="ltx_text ltx_align_left" style="--ltx-fg-color:#B43232;">[<span id="S5.T4.1.5.4.3.1.1.2.1" class="ltx_text ltx_font_italic">contradicts itself</span>]</span></span>
+</span>
+</td>
+</tr>
+<tr id="S5.T4.1.6.5" class="ltx_tr">
+<td id="S5.T4.1.6.5.1" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.6.5.1.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.6.5.1.1.1" class="ltx_p" style="width:32.7pt;"><span id="S5.T4.1.6.5.1.1.1.1" class="ltx_text ltx_align_left ltx_font_italic">syco.<sub id="S5.T4.1.6.5.1.1.1.1.1" class="ltx_sub">pos</sub></span></span>
+</span>
+</td>
+<td id="S5.T4.1.6.5.2" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.6.5.2.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.6.5.2.1.1" class="ltx_p" style="width:46.9pt;">Qwen3-4B</span>
+</span>
+</td>
+<td id="S5.T4.1.6.5.3" class="ltx_td ltx_nopad_l ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding:0.4pt 1.5pt;">
+<span id="S5.T4.1.6.5.3.1" class="ltx_inline-block ltx_align_top">
+<span id="S5.T4.1.6.5.3.1.1" class="ltx_p" style="width:119.5pt;"><span id="S5.T4.1.6.5.3.1.1.1" class="ltx_text ltx_align_left ltx_align_center" style="--ltx-fg-color:#B43232;">“Pythons are doing well in the Everglades, and they are even considered <span id="S5.T4.1.6.5.3.1.1.1.1" class="ltx_text ltx_font_bold">a wonderful introduction</span>”</span> <span id="S5.T4.1.6.5.3.1.1.2" class="ltx_text ltx_align_left ltx_align_center" style="--ltx-fg-color:#B43232;">[<span id="S5.T4.1.6.5.3.1.1.2.1" class="ltx_text ltx_font_italic">ecological harm reframed as praise</span>]</span></span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table 4: </span>Representative steering-induced failure modes. Each row shows a steered excerpt and the failure type. <span id="S5.T4.3.1" class="ltx_text" style="--ltx-fg-color:#B43232;">Red</span> highlights the corrupted portion.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S5.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.2 </span>Task Structure Shapes Personalization Risk</h3>
+
+<div id="S5.SS2.p1" class="ltx_para">
+<p id="S5.SS2.p1.1" class="ltx_p">Persona effects are not evenly distributed across educational tasks. ELA and other interpretive prompts are consistently more sensitive to steering than factual science prompts (Figure <a href="#S4.F2" title="Figure 2 ‣ Trait–task interactions (RQ2). ‣ 4.2 Experiment A: Persona Effects on Answer Quality ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>), which likely reflects the broader answer space of interpretive tasks. When multiple framings are plausible, persona steering has more room to change evidence selection, argument structure, and rhetorical stance; when an answer is tightly constrained by factual content, there is less room for the same intervention to alter the response. For deployment, this means persona-aware tutoring is not equally risky across subjects: personalization may be relatively safer on factual tasks, but it should be used more cautiously on literary analysis, opinion writing, and other open-ended prompts where it can change content quality rather than merely presentation.</p>
+</div>
+</section>
+<section id="S5.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.3 </span>Personalized Scoring Needs Calibration</h3>
+
+<section id="S5.SS3.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Scorer-side steering introduces predictable bias.</h4>
+
+<div id="S5.SS3.SSS0.Px1.p1" class="ltx_para">
+<p id="S5.SS3.SSS0.Px1.p1.1" class="ltx_p">The judge results are encouraging in one sense and cautionary in another. They are encouraging because the calibration shifts are directionally predictable across models: negatively valenced scorer personas are harsher, whereas positively valenced personas are more lenient (Figure <a href="#S4.F3" title="Figure 3 ‣ Scorer persona affects grading in valence-aligned ways. ‣ 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>). Predictability means that a system could, in principle, estimate a persona-specific offset and correct for it. At the same time, the existence of these shifts means that scorer steering directly changes grades unless such calibration is applied.</p>
+</div>
+</section>
+<section id="S5.SS3.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">The most vulnerable tasks are vulnerable on both sides of the pipeline.</h4>
+
+<div id="S5.SS3.SSS0.Px2.p1" class="ltx_para">
+<p id="S5.SS3.SSS0.Px2.p1.1" class="ltx_p">The same task types that are sensitive to student-side steering are also sensitive to scorer-side steering: ELA tasks show 2.5–3<math id="S5.SS3.SSS0.Px2.p1.1.m1" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> more scorer bias than science tasks (Figure <a href="#S4.F4" title="Figure 4 ‣ Task type determines scorer steering risk risk. ‣ 4.3 Experiment B: Trait-Steered Scorer–Student Interaction ‣ 4 Experiments ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>). This suggests a compounding risk for open-ended educational workflows, because persona effects can shape both the answer that is produced and the rubric-based score that it receives. In practice, generation-side personalization and assessment-side calibration cannot be designed independently for interpretive tasks.</p>
+</div>
+</section>
+<section id="S5.SS3.SSS0.Px3" class="ltx_paragraph">
+<h4 class="ltx_title ltx_title_paragraph">Calibration burden depends on architecture.</h4>
+
+<div id="S5.SS3.SSS0.Px3.p1" class="ltx_para">
+<p id="S5.SS3.SSS0.Px3.p1.3" class="ltx_p">Although the direction of scorer shifts is moderately consistent across models (<math id="S5.SS3.SSS0.Px3.p1.1.m1" class="ltx_Math" alttext="r=0.50" display="inline" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.50</mn></mrow><annotation encoding="application/x-tex">r=0.50</annotation></semantics></math>–<math id="S5.SS3.SSS0.Px3.p1.2.m2" class="ltx_Math" alttext="0.57" display="inline" intent=":literal"><semantics><mn>0.57</mn><annotation encoding="application/x-tex">0.57</annotation></semantics></math>), their magnitude is not: gpt-oss-20b shows roughly 6<math id="S5.SS3.SSS0.Px3.p1.3.m3" class="ltx_Math" alttext="\times" display="inline" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> larger effects than the dense Qwen models. This echoes the answer-generation results and suggests that architecture affects how much calibration work is required before persona-steered scoring can be trusted. In particular, MoE models may require more extensive calibration and monitoring if they are used as trait-steered scoring components.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Conclusion and Future Work </h2>
+
+<div id="S6.p1" class="ltx_para">
+<p id="S6.p1.1" class="ltx_p">We presented the first systematic study of how activation-steered persona traits affect LLM short-answer generation and automated scoring in an educational setting, using the ASAP-SAS benchmark across three models spanning two architectures. We found that persona steering has structured, task-dependent effects on both generation and scoring, and that its impact must be accounted for when designing AI tutoring systems that combine both functions in a shared backbone model.
+Several directions for future work follow from this study. First, the seven traits used here serve as general behavioral probes; developing persona vectors for pedagogically motivated traits, such as scaffolding style or socratic questioning tendency, would bring activation steering closer to practical educational use. Second, the structured relationship between persona vectors and model behavior suggests that steering could also serve as a monitoring mechanism: by projecting a model’s internal states onto known persona directions, it may be possible to detect when an AI tutoring system drifts toward undesirable trait profiles during deployment.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Limitations</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p id="Sx1.p1.1" class="ltx_p">This study is limited in scope by computational constraints. We evaluate three models, one short-answer benchmark, and seven persona traits, which is sufficient for a controlled first analysis but does not capture the full diversity of educational tasks or model families. It would be valuable in future work to test more models, more datasets, broader educational domains, and a wider range of persona traits and steering strengths.</p>
+</div>
+</section>
+<section id="Sx2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Ethics Statement</h2>
+
+<div id="Sx2.p1" class="ltx_para">
+<p id="Sx2.p1.1" class="ltx_p">Persona-based customization may improve personalization, but it may also introduce unfair grading shifts, harmful interaction styles. Our experiments therefore treat negative traits such as evil, impolite, or hallucinating as analytical probes for stress-testing model behavior, not as desirable deployment settings. We use a publicly available benchmark and report aggregate analyses only; no student-facing system was deployed in this study.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">E. M. AlGhamdi, Y. Li, D. Gašević, and G. Chen (2025)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Leveraging prompt-based LLMs for automated scoring and feedback generation in higher education</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Computers &amp; Education</span> <span class="ltx_text ltx_bib_volume">243</span>, <span class="ltx_text ltx_bib_pages"> pp. 105511</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1016/j.compedu.2025.105511" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">I. Chamieh, T. Zesch, and K. Giebermann (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">LLMs in short answer scoring: limitations and promise of zero-shot and few-shot approaches</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Workshop on Innovative Use of NLP for Building Educational Applications (BEA 2024)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Mexico City, Mexico</span>, <span class="ltx_text ltx_bib_pages"> pp. 309–315</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2024.bea-1.25/" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S1.p4.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">R. Chen, A. Arditi, H. Sleight, O. Evans, and J. Lindsey (2025)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Persona vectors: monitoring and controlling character traits in language models</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2507.21509</span>,
+<a href="https://arxiv.org/abs/2507.21509" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.SS1.p1.8" title="3.1 Contrastive Data Generation ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>,
+<a href="#S3.SS2.p3.4" title="3.2 Persona Vector Extraction ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S3.SS3.p3.7" title="3.3 Activation Steering ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a href="#S3.p1.1" title="3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">M. Fateen, B. Wang, and T. Mine (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Beyond scores: a modular rag-based system for automatic short answer scoring with feedback</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2409.20042</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">H. Jiang, X. Zhang, X. Cao, C. Breazeal, D. Roy, and J. Kabbara (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">PersonaLLM: investigating the ability of large language models to express personality traits</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2305.02547</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">L. Jiang and N. Bosch (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Short answer scoring with GPT-4</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Eleventh ACM Conference on Learning @ Scale (L@S ’24)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Atlanta, GA, USA</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1145/3657604.3664685" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S1.p4.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">M. Kosinski (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Evaluating large language models in theory of mind tasks</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2302.02083</span>,
+<a href="https://arxiv.org/abs/2302.02083" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">A. Kwako and C. Ormerod (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Can language models guess your identity? analyzing demographic biases in AI essay scoring</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Workshop on Innovative Use of NLP for Building Educational Applications (BEA 2024)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Mexico City, Mexico</span>, <span class="ltx_text ltx_bib_pages"> pp. 78–86</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2024.bea-1.7/" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">Y. Lu, M. Bartolo, A. Moore, S. Riedel, and P. Stenetorp (2022)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Fantastically ordered prompts and where to find them: overcoming few-shot prompt order sensitivity</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Dublin, Ireland</span>, <span class="ltx_text ltx_bib_pages"> pp. 8086–8098</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2022.acl-long.556/" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2022.acl-long.556" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">C. Lutz, P. Kvistgaard, J. Miehle, and G. Rehm (2025)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The prompt makes the person(a): behavioral and socio-demographic prompting in large language models</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Findings of the Association for Computational Linguistics: EMNLP 2025</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Suzhou, China</span>, <span class="ltx_text ltx_bib_pages"> pp. 21635–21661</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2025.findings-emnlp.1261/" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2025.findings-emnlp.1261" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">D. Potertì, A. Seveso, and F. Mercorio (2025)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Can role vectors affect LLM behaviour?</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Findings of the Association for Computational Linguistics: EMNLP 2025</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Suzhou, China</span>, <span class="ltx_text ltx_bib_pages"> pp. 17735–17747</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2025.findings-emnlp.963/" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2025.findings-emnlp.963" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">A. Scarlatos, R. S. Baker, and A. Lan (2025a)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Exploring knowledge tracing in tutor-student dialogues using llms</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">LAK25: The 15th International Learning Analytics and Knowledge Conference</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Dublin, Ireland</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1145/3706468.3706501" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">A. Scarlatos, N. Liu, J. Lee, R. Baraniuk, and A. Lan (2025b)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Training llm-based tutors to improve student learning outcomes in dialogues</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2503.06424</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">M. Sclar, Y. Choi, Y. Tsvetkov, and A. Suhr (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantifying language models’ sensitivity to spurious features in prompt design or: how i learned to start worrying about prompt formatting</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2310.11324</span>,
+<a href="https://arxiv.org/abs/2310.11324" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">A. M. Turner, L. Thiergart, G. Leech, D. Udell, J. J. Vazquez, U. Mini, and M. MacDiarmid (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Steering language models with activation engineering</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2308.10248</span>,
+<a href="https://arxiv.org/abs/2308.10248" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.SS2.p3.4" title="3.2 Persona Vector Extraction ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S3.SS3.p3.7" title="3.3 Activation Steering ‣ 3 Method ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">M. van Duijn, B. van Dijk, T. Kouwenhoven, W. de Valk, M. Spruit, and P. van der Putten (2023)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Theory of mind in large language models: examining performance of 11 state-of-the-art models vs. children aged 7-10 on advanced tests</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 27th Conference on Computational Natural Language Learning (CoNLL)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Singapore</span>, <span class="ltx_text ltx_bib_pages"> pp. 389–402</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2023.conll-1.25/" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2023.conll-1.25" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">Q. Wang, S. E. Walsh, M. Si, J. O. Kephart, J. D. Weisz, and A. K. Goel (2024)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Theory of mind in human-AI interaction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Extended Abstracts of the CHI Conference on Human Factors in Computing Systems (CHI EA ’24)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Honolulu, HI, USA</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1145/3613905.3636308" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_author-year ltx_role_refnum ltx_tag_bibitem">Y. Wu, A. Henriksson, M. Duneld, and J. Nouri (2023)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Towards improving the reliability and transparency of ChatGPT for educational question answering</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Responsive and Sustainable Educational Futures</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Lecture Notes in Computer Science</span>, <span class="ltx_text ltx_bib_pages"> pp. 475–488</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1007/978-3-031-42682-7%5F32" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="1 Introduction ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a href="#S2.p1.1" title="2 Related Work ‣ The Impact of Steering Large Language Models with Persona Vectors in Educational Applications" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+</div>
+<footer class="arxiv-html-footer">
+  <div class="ltx_page_logo">
+    Experimental support, please
+    <a href="./2604.07102v1/__stdout.txt" class="ltx_ref"
+    target="_blank" rel="nofollow">view the build logs</a>
+    for errors. Generated by
+    <a href="https://math.nist.gov/~BMiller/LaTeXML/" target="_blank" class="ltx_ref ltx_LaTeXML_logo">
+      <span style="letter-spacing: -0.2em; margin-right: 0.1em;">
+        L
+        <span style="font-size: 70%; position: relative; bottom: 2.2pt;">A</span>
+        T
+        <span style="position: relative; bottom: -0.4ex;">E</span>
+      </span>
+      <span class="ltx_font_smallcaps">xml</span>
+      <img alt="[LOGO]"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==">
+    </a>.
+  </div>
+  <div class="keyboard-glossary">
+    <h2>Instructions for reporting errors</h2>
+    <p>We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+      support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+      methods listed below:</p>
+    <ul>
+      <li>Click the "Report Issue" <span class="mobile-only">(<svg role="presentation"
+            style="display: inline-block; vertical-align: middle; fill: var(--text-color);" aria-hidden="true"
+            height="1em" viewBox="0 0 640 640">
+            <path
+              d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+          </svg>)</span> button, located in the page header.</li>
+    </ul>
+    <p><strong>Tip:</strong> You can select the relevant text first, to include it in your report.</p>
+    <p>Our team has already identified <a class="ltx_ref" href="https://github.com/arXiv/html_feedback/issues"
+        target="_blank">the following issues</a>. We appreciate your time reviewing and reporting rendering errors we
+      may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+      should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+      all.</p>
+    <p>Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a <a
+        class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML"
+        target="_blank">list of packages that need conversion</a>, and welcome <a class="ltx_ref"
+        href="https://github.com/brucemiller/LaTeXML/issues" target="_blank">developer contributions</a>.</p>
+  </div>
+</footer>
+<div id="fixed-buttons-container">
+  <div id="beta-badge">BETA</div>
+  <a id="disable-reading-mode-btn" class="header-button" href="javascript:toggleReadingMode();"
+    title="Disable reading mode, show header and footer">
+    <svg role="presentation" height="1.25rem"
+      viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+    </svg>
+  </a>
+</div></body>
+</html>

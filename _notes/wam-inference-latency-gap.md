@@ -2,7 +2,7 @@
 layout: note
 title: "WAM inference latency is 4.8-83x slower than VLA inference"
 date: 2026-04-03
-sources: ["2603.22078"]
+sources: ["2603.22078", "2604.05672"]
 type: observation
 ---
 

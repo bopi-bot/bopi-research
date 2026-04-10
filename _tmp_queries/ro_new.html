@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>  <title>Robotics  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/browse/0.3.4/images/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/browse/0.3.4/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/browse/0.3.4/images/icons/favicon-16x16.png">
+  <link rel="manifest" href="/static/browse/0.3.4/images/icons/site.webmanifest">
+  <link rel="mask-icon" href="/static/browse/0.3.4/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/browse/0.3.4/css/arXiv.css?v=20260318" />
+  <link rel="stylesheet" type="text/css" media="print" href="/static/browse/0.3.4/css/arXiv-print.css?v=20200611" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/browse/0.3.4/css/browse_search.css" />
+  <script language="javascript" src="/static/browse/0.3.4/js/accordion.js" ></script>
+  <script language="javascript" src="/static/browse/0.3.4/js/optin-modal.js?v=20250819"></script>
+  
+  <script src="/static/browse/0.3.4/js/mathjaxToggle.min.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript">mathjaxToggle();</script>
+</head>
+
+<body  class="with-cu-identity">
+  
+  
+  <div class="flex-wrap-footer">
+    <header>
+      <a href="#content" class="is-sr-only">Skip to main content</a>
+      <!-- start desktop header -->
+      <div class="columns is-vcentered is-hidden-mobile" id="cu-identity">
+        <div class="column" id="cu-logo">
+          <a href="https://www.cornell.edu/"><img src="/static/browse/0.3.4/images/icons/cu/cornell-reduced-white-SMALL.svg" alt="Cornell University" /></a>
+        </div><!-- /from April 7 at 1:00 AM to May 29 at 21:40 --><!-- /from May 2 at 1:00 AM to May 5 at 9:45 AM --><div class="column banner-minimal">
+            <a href="https://tech.cornell.edu/arxiv/" target="_blank">Learn about arXiv becoming an independent nonprofit.</a>
+        </div><div class="column" id="support-ack">
+          <span id="support-ack-url">We gratefully acknowledge support from the Simons Foundation, <a href="https://info.arxiv.org/about/ourmembers.html">member institutions</a>, and all contributors.</span>
+          <a href="https://info.arxiv.org/about/donate.html" class="btn-header-donate">Donate</a>
+        </div>
+      </div>
+
+      <div id="header" class="is-hidden-mobile">
+<a aria-hidden="true" tabindex="-1" href="/IgnoreMe"></a>
+<div class="header-breadcrumbs">
+  <a href="/"><img src="/static/browse/0.3.4/images/arxiv-logo-one-color-white.svg" alt="arxiv logo" style="height:40px;"/></a> <span>&gt;</span>
+  <a href="/list/cs.RO/recent">cs.RO</a>
+  </div>
+
+        <div class="columns is-vcentered is-mobile" style="justify-content: flex-end;">
+        </div>
+
+          <div class="search-block level-right">
+    <form class="level-item mini-search" method="GET" action="https://arxiv.org/search">
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input is-small" type="text" name="query" placeholder="Search..." aria-label="Search term or terms" />
+          <p class="help"><a href="https://info.arxiv.org/help">Help</a> | <a href="https://arxiv.org/search/advanced">Advanced Search</a></p>
+        </div>
+        <div class="control">
+          <div class="select is-small">
+            <select name="searchtype" aria-label="Field to search">
+              <option value="all" selected="selected">All fields</option>
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+              <option value="abstract">Abstract</option>
+              <option value="comments">Comments</option>
+              <option value="journal_ref">Journal reference</option>
+              <option value="acm_class">ACM classification</option>
+              <option value="msc_class">MSC classification</option>
+              <option value="report_num">Report number</option>
+              <option value="paper_id">arXiv identifier</option>
+              <option value="doi">DOI</option>
+              <option value="orcid">ORCID</option>
+              <option value="author_id">arXiv author ID</option>
+              <option value="help">Help pages</option>
+              <option value="full_text">Full text</option>
+            </select>
+          </div>
+        </div>
+        <input type="hidden" name="source" value="header">
+        <button class="button is-small is-cul-darker">Search</button>
+      </div>
+    </form>
+  </div>
+     </div><!-- /end desktop header -->
+
+      <div class="mobile-header">
+        <div class="columns is-mobile">
+          <div class="column logo-arxiv"><a href="https://arxiv.org/"><img src="/static/browse/0.3.4/images/arxiv-logomark-small-white.svg" alt="arXiv logo" style="height:60px;" /></a></div>
+          <div class="column logo-cornell"><a href="https://www.cornell.edu/">
+            <picture>
+              <source media="(min-width: 501px)"
+                srcset="/static/browse/0.3.4/images/icons/cu/cornell-reduced-white-SMALL.svg  400w"
+                sizes="400w" />
+              <source srcset="/static/browse/0.3.4/images/icons/cu/cornell_seal_simple_black.svg 2x" />
+              <img src="/static/browse/0.3.4/images/icons/cu/cornell-reduced-white-SMALL.svg" alt="Cornell University Logo" />
+            </picture>
+          </a></div>
+          <div class="column nav" id="toggle-container" role="menubar">
+            <button class="toggle-control"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon filter-white"><title>open search</title><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg></button>
+            <div class="mobile-toggle-block toggle-target">
+              <form class="mobile-search-form" method="GET" action="https://arxiv.org/search">
+                <div class="field has-addons">
+                  <input class="input" type="text" name="query" placeholder="Search..." aria-label="Search term or terms" />
+                  <input type="hidden" name="source" value="header">
+                  <input type="hidden" name="searchtype" value="all">
+                  <button class="button">GO</button>
+                </div>
+              </form>
+            </div>
+
+            <button class="toggle-control"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon filter-white" role="menu"><title>open navigation menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/ ></svg></button>
+            <div class="mobile-toggle-block toggle-target">
+              <nav class="mobile-menu" aria-labelledby="mobilemenulabel">
+                <h2 id="mobilemenulabel">quick links</h2>
+                <ul>
+                    <li><a href="https://arxiv.org/login">Login</a></li>
+                    <li><a href="https://info.arxiv.org/help">Help Pages</a></li>
+                    <li><a href="https://info.arxiv.org/about">About</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div><!-- /end mobile-header -->
+    </header>
+
+    <main>
+      <div id="content">
+<div id='content-inner'>
+<div id='dlpage'>
+  <h1>Robotics</h1>
+
+<ul>
+  <li><a href="#item0">New submissions</a></li>
+  <li><a href="#item24">Cross-lists</a></li>
+  <li><a href="#item29">Replacements</a></li>
+</ul>
+
+<p>See <a id="recent-cs.RO" aria-labelledby="recent-cs.RO" href="/list/cs.RO/recent">recent</a> articles</p>
+<h3>Showing new listings for Thursday, 9 April 2026</h3>
+
+      <div class='paging'>Total of 47 entries 
+    </div>
+    <div class='morefewer'>Showing up to 2000 entries per page:
+          <a href=/list/cs.RO/new?skip=0&amp;show=1000 rel="nofollow">
+      fewer</a>
+ |
+          <span style="color: #454545">more</span>
+ |
+          <span style="color: #454545">all</span>
+
+    </div>
+
+
+
+
+      <dl id='articles'>
+    <h3>New submissions (showing 23 of 23 entries)</h3>
+
+
+    <dt>
+      <a name='item1'>[1]</a>
+      <a href ="/abs/2604.06341" title="Abstract" id="2604.06341">
+        arXiv:2604.06341
+      </a>
+      
+        [<a href="/pdf/2604.06341" title="Download PDF" id="pdf-2604.06341" aria-labelledby="pdf-2604.06341">pdf</a>, <a href="https://arxiv.org/html/2604.06341v1" title="View HTML" id="html-2604.06341" aria-labelledby="html-2604.06341" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06341" title="Other formats" id="oth-2604.06341" aria-labelledby="oth-2604.06341">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Occlusion Handling by Pushing for Enhanced Fruit Detection
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gursoy,+E">Ege Gursoy</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kuli%C4%87,+D">Dana Kulić</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cherubini,+A">Andrea Cherubini</a></div>
+
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2024
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          In agricultural robotics, effective observation and localization of fruits present challenges due to occlusions caused by other parts of the tree, such as branches and leaves. These occlusions can result in false fruit localization or impede the robot from picking the fruit. The objective of this work is to push away branches that block the fruit&#39;s view to increase their visibility. Our setup consists of an RGB-D camera and a robot arm. First, we detect the occluded fruit in the RGB image and estimate its occluded part via a deep learning generative model in the depth space. The direction to push to clear the occlusions is determined using classic image processing techniques. We then introduce a 3D extension of the 2D Hough transform to detect straight line segments in the point cloud. This extension helps detect tree branches and identify the one mainly responsible for the occlusion. Finally, we clear the occlusion by pushing the branch with the robot arm. Our method uses a combination of deep learning for fruit appearance estimation, classic image processing for push direction determination, and 3D Hough transform for branch detection. We validate our perception methods through real data under different lighting conditions and various types of fruits (i.e. apple, lemon, orange), achieving improved visibility and successful occlusion clearance. We demonstrate the practical application of our approach through a real robot branch pushing demonstration.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item2'>[2]</a>
+      <a href ="/abs/2604.06382" title="Abstract" id="2604.06382">
+        arXiv:2604.06382
+      </a>
+      
+        [<a href="/pdf/2604.06382" title="Download PDF" id="pdf-2604.06382" aria-labelledby="pdf-2604.06382">pdf</a>, <a href="https://arxiv.org/html/2604.06382v1" title="View HTML" id="html-2604.06382" aria-labelledby="html-2604.06382" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06382" title="Other formats" id="oth-2604.06382" aria-labelledby="oth-2604.06382">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Designing Privacy-Preserving Visual Perception for Robot Navigation Based on User Privacy Preferences
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Huang,+X">Xuying Huang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Pan,+S">Sicong Pan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Reinhardt,+D">Delphine Reinhardt</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bennewitz,+M">Maren Bennewitz</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Visual navigation is a fundamental capability of mobile service robots, yet the onboard cameras required for such navigation can capture privacy-sensitive information and raise user privacy concerns. Existing approaches to privacy-preserving navigation-oriented visual perception have largely been driven by technical considerations, with limited grounding in user privacy preferences. In this work, we propose a user-centered approach to designing privacy-preserving visual perception for robot navigation. To investigate how user privacy preferences can inform such design, we conducted two user studies. The results show that users prefer privacy-preserving visual abstractions and capture-time low-resolution preservation mechanisms: their preferred RGB resolution depends both on the desired privacy level and robot proximity during navigation. Based on these findings, we further derive a user-configurable distance-to-resolution privacy policy for privacy-preserving robot visual navigation.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item3'>[3]</a>
+      <a href ="/abs/2604.06387" title="Abstract" id="2604.06387">
+        arXiv:2604.06387
+      </a>
+      
+        [<a href="/pdf/2604.06387" title="Download PDF" id="pdf-2604.06387" aria-labelledby="pdf-2604.06387">pdf</a>, <a href="https://arxiv.org/html/2604.06387v1" title="View HTML" id="html-2604.06387" aria-labelledby="html-2604.06387" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06387" title="Other formats" id="oth-2604.06387" aria-labelledby="oth-2604.06387">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Uncertainty Estimation for Deep Reconstruction in Actuatic Disaster Scenarios with Autonomous Vehicles
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Luis,+S+Y">Samuel Yanes Luis</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=P%C3%A9rez,+A+C">Alejandro Casado Pérez</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Barrionuevo,+A+M">Alejandro Mendoza Barrionuevo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Diop,+D+S">Dame Seck Diop</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mar%C3%ADn,+S+T">Sergio Toral Marín</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Reina,+D+G">Daniel Gutiérrez Reina</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI)
+        </div>
+
+        <p class='mathjax'>
+          Accurate reconstruction of environmental scalar fields from sparse onboard observations is essential for autonomous vehicles engaged in aquatic monitoring. Beyond point estimates, principled uncertainty quantification is critical for active sensing strategies such as Informative Path Planning, where epistemic uncertainty drives data collection decisions. This paper compares Gaussian Processes, Monte Carlo Dropout, Deep Ensembles, and Evidential Deep Learning for simultaneous scalar field reconstruction and uncertainty decomposition under three perceptual models representative of real sensor modalities. Results show that Evidential Deep Learning achieves the best reconstruction accuracy and uncertainty calibration across all sensor configurations at the lowest inference cost, while Gaussian Processes are fundamentally limited by their stationary kernel assumption and become intractable as observation density grows. These findings support Evidential Deep Learning as the preferred method for uncertainty-aware field reconstruction in real-time autonomous vehicle deployments.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item4'>[4]</a>
+      <a href ="/abs/2604.06589" title="Abstract" id="2604.06589">
+        arXiv:2604.06589
+      </a>
+      
+        [<a href="/pdf/2604.06589" title="Download PDF" id="pdf-2604.06589" aria-labelledby="pdf-2604.06589">pdf</a>, <a href="https://arxiv.org/html/2604.06589v1" title="View HTML" id="html-2604.06589" aria-labelledby="html-2604.06589" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06589" title="Other formats" id="oth-2604.06589" aria-labelledby="oth-2604.06589">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          BiDexGrasp: Coordinated Bimanual Dexterous Grasps across Object Geometries and Sizes
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lin,+M">Mu Lin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wei,+Y">Yi-Lin Wei</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+J">Jiaxuan Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lin,+Y">Yuhao Lin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+S">Shuoyu Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lyu,+J">Jiangran Lyu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+J">Jiayi Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Tang,+Y">Yansong Tang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+H">He Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zheng,+W">Wei-Shi Zheng</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Project Page: <a href="https://frenkielm.github.io/BiDexGrasp.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Bimanual dexterous grasping is a fundamental and promising area in robotics, yet its progress is constrained by the lack of comprehensive datasets and powerful generation models. In this work, we propose BiDexGrasp, consists of a large-scale bimanual dexterous grasp dataset and a novel generation model. For dataset, we propose a novel bimanual grasp synthesis pipeline to efficiently annotate physically feasible data for dataset construction. This pipeline addresses the challenges of high-dimensional bimanual grasping through a two-stage synthesis strategy of efficient region-based grasp initialization and decoupled force-closure grasp optimization. Powered by this pipeline, we construct a large-scale bimanual dexterous grasp dataset, comprising 6351 diverse objects with sizes ranging from 30 to 80 cm, along with 9.7 million annotated grasp data. Based on this dataset, we further introduce a bimanual-coordinated and geometry-size-adaptive dexterous grasping generation framework. The framework lies in two key designs: a bimanual coordination module and a geometry-size-adaptive grasp generation strategy to generate coordinated and high-quality grasps on unseen objects. Extensive experiments conducted in both simulation and real world demonstrate the superior performance of our proposed data synthesis pipeline and learned generative framework.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item5'>[5]</a>
+      <a href ="/abs/2604.06598" title="Abstract" id="2604.06598">
+        arXiv:2604.06598
+      </a>
+      
+        [<a href="/pdf/2604.06598" title="Download PDF" id="pdf-2604.06598" aria-labelledby="pdf-2604.06598">pdf</a>, <a href="https://arxiv.org/html/2604.06598v1" title="View HTML" id="html-2604.06598" aria-labelledby="html-2604.06598" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06598" title="Other formats" id="oth-2604.06598" aria-labelledby="oth-2604.06598">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Train-Small Deploy-Large: Leveraging Diffusion-Based Multi-Robot Planning
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Singh,+S">Siddharth Singh</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Guha,+S">Soumee Guha</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chang,+Q">Qing Chang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Acton,+S">Scott Acton</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Systems and Control (eess.SY)
+        </div>
+
+        <p class='mathjax'>
+          Learning based multi-robot path planning methods struggle to scale or generalize to changes, particularly variations in the number of robots during deployment. Most existing methods are trained on a fixed number of robots and may tolerate a reduced number during testing, but typically fail when the number increases. Additionally, training such methods for a larger number of agents can be both time consuming and computationally expensive. However, analytical methods can struggle to scale computationally or handle dynamic changes in the environment. In this work, we propose to leverage a diffusion model based planner capable of handling dynamically varying number of agents. Our approach is trained on a limited number of agents and generalizes effectively to larger numbers of agents during deployment. Results show that integrating a single shared diffusion model based planner with dedicated inter-agent attention computation and temporal convolution enables a train small deploy-large paradigm with good accuracy. We validate our method across multiple scenarios and compare the performance with existing multi-agent reinforcement learning techniques and heuristic control based methods.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item6'>[6]</a>
+      <a href ="/abs/2604.06778" title="Abstract" id="2604.06778">
+        arXiv:2604.06778
+      </a>
+      
+        [<a href="/pdf/2604.06778" title="Download PDF" id="pdf-2604.06778" aria-labelledby="pdf-2604.06778">pdf</a>, <a href="https://arxiv.org/html/2604.06778v1" title="View HTML" id="html-2604.06778" aria-labelledby="html-2604.06778" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06778" title="Other formats" id="oth-2604.06778" aria-labelledby="oth-2604.06778">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          RichMap: A Reachability Map Balancing Precision, Efficiency, and Flexibility for Rich Robot Manipulation Tasks
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lu,+Y">Yupu Lu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ma,+Y">Yuxiang Ma</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Pan,+J">Jia Pan</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Accepted by WAFR 2026
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          This paper presents RichMap, a high-precision reachability map representation designed to balance efficiency and flexibility for versatile robot manipulation tasks. By refining the classic grid-based structure, we propose a streamlined approach that achieves performance close to compact map forms (e.g., RM4D) while maintaining structural flexibility. Our method utilizes theoretical capacity bounds on $\mathbb{S}^2$ (or $SO(3)$) to ensure rigorous coverage and employs an asynchronous pipeline for efficient construction. We validate the map against comprehensive metrics, pursuing high prediction accuracy ($&gt;98\%$), low false positive rates ($1\sim2\%$), and fast large-batch query ($\sim$15 $\mu$s/query). We extend the framework applications to quantify robot workspace similarity via maximum mean discrepancy (MMD) metrics and demonstrate energy-based guidance for diffusion policy transfer, achieving up to $26\%$ improvement for cross-embodiment scenarios in the block pushing experiment.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item7'>[7]</a>
+      <a href ="/abs/2604.06882" title="Abstract" id="2604.06882">
+        arXiv:2604.06882
+      </a>
+      
+        [<a href="/pdf/2604.06882" title="Download PDF" id="pdf-2604.06882" aria-labelledby="pdf-2604.06882">pdf</a>, <a href="https://arxiv.org/html/2604.06882v1" title="View HTML" id="html-2604.06882" aria-labelledby="html-2604.06882" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06882" title="Other formats" id="oth-2604.06882" aria-labelledby="oth-2604.06882">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Telecom World Models: Unifying Digital Twins, Foundation Models, and Predictive Planning for 6G
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zou,+H">Hang Zou</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yang,+Y">Yuzhi Yang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bariah,+L">Lina Bariah</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Tian,+Y">Yu Tian</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lu,+Y">Yuhuan Lu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+B">Bohao Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bara,+A">Anis Bara</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mefgouda,+B">Brahim Mefgouda</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+H">Hao Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Tao,+Y">Yiwei Tao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Petrov,+S">Sergy Petrov</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cheour,+S">Salma Cheour</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sehad,+N">Nassim Sehad</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Samarakoon,+S">Sumudu Samarakoon</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Huang,+C">Chongwen Huang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lasaulce,+S">Samson Lasaulce</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bennis,+M">Mehdi Bennis</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Debbah,+M">Mérouane Debbah</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Signal Processing (eess.SP); Systems and Control (eess.SY)
+        </div>
+
+        <p class='mathjax'>
+          The integration of machine learning tools into telecom networks, has led to two prevailing paradigms, namely, language-based systems, such as Large Language Models (LLMs), and physics-based systems, such as Digital Twins (DTs). While LLM-based approaches enable flexible interaction and automation, they lack explicit representations of network dynamics. DTs, in contrast, offer a high-fidelity network simulation, but remain scenario-specific and are not designed for learning or decision-making under uncertainty. This gap becomes critical for 6G systems, where decisions must take into account the evolving network states, uncertainty, and the cascading effects of control actions across multiple layers. In this article, we introduce the {Telecom World Model}~(TWM) concept, an architecture for learned, action-conditioned, uncertainty-aware modeling of telecom system dynamics. We decompose the problem into two interacting worlds, a controllable system world consisting of operator-configurable settings and an external world that captures propagation, mobility, traffic, and failures. We propose a three-layer architecture, comprising a field world model for spatial environment prediction, a control/dynamics world model for action-conditioned Key Performance Indicator (KPI) trajectory prediction, and a telecom foundation model layer for intent translation and orchestration. We showcase a comparative analysis between existing paradigms, which demonstrates that TWM jointly provides telecom state grounding, fast action-conditioned roll-outs, calibrated uncertainty, multi-timescale dynamics, model-based planning, and LLM-integrated guardrails. Furthermore, we present a proof-of-concept on network slicing to validate the proposed architecture, showing that the full three-layer pipeline outperforms single-world baselines and accurately predicts KPI trajectories.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item8'>[8]</a>
+      <a href ="/abs/2604.06932" title="Abstract" id="2604.06932">
+        arXiv:2604.06932
+      </a>
+      
+        [<a href="/pdf/2604.06932" title="Download PDF" id="pdf-2604.06932" aria-labelledby="pdf-2604.06932">pdf</a>, <a href="/format/2604.06932" title="Other formats" id="oth-2604.06932" aria-labelledby="oth-2604.06932">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Towards Multi-Object Nonprehensile Transportation via Shared Teleoperation: A Framework Based on Virtual Object Model Predictive Control
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fan,+X">Xinyang Fan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+Z">Zhaoyang Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xin,+S">Shu Xin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ren,+Y">Yi Ren</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Jiang,+Z">Zainan Jiang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ni,+F">Fenglei Ni</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+H">Hong Liu</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Multi-object nonprehensile transportation in teleoperation demands simultaneous trajectory tracking and tray orientation control. Existing methods often struggle with model dependency, uncertain parameters, and multi-object adaptability. We propose a shared teleoperation framework where humans and robots share positioning control, while the robot autonomously manages orientation to satisfy dynamic constraints. Key contributions include: 1) A theoretical dynamic constraint analysis utilizing a novel virtual object (VO)-based method to simplify constraints for trajectory planning. 2) An MPC-based trajectory smoothing algorithm that enforces real-time constraints and coordinates user tracking with orientation control. 3) Validations demonstrating stable manipulation of nine objects at accelerations up to 2.4 m/s2. Compared to the baseline, our approach reduces sliding distance by 72.45% and eliminates tip-overs (0% vs. 13.9%), proving robust adaptability in complex scenarios.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item9'>[9]</a>
+      <a href ="/abs/2604.06943" title="Abstract" id="2604.06943">
+        arXiv:2604.06943
+      </a>
+      
+        [<a href="/pdf/2604.06943" title="Download PDF" id="pdf-2604.06943" aria-labelledby="pdf-2604.06943">pdf</a>, <a href="https://arxiv.org/html/2604.06943v1" title="View HTML" id="html-2604.06943" aria-labelledby="html-2604.06943" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06943" title="Other formats" id="oth-2604.06943" aria-labelledby="oth-2604.06943">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Sustainable Transfer Learning for Adaptive Robot Skills
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Abuibaid,+K">Khalil Abuibaid</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hegiste,+V">Vinit Hegiste</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gafur,+N">Nigora Gafur</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wagner,+A">Achim Wagner</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ruskowski,+M">Martin Ruskowski</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Published in RAAD 2025 (Springer). 7 pages, 5 figures
+        </div>
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          Advances in Service and Industrial Robotics, RAAD 2025, Springer, 2025, pp. 389-397
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Learning robot skills from scratch is often time-consuming, while reusing data promotes sustainability and improves sample efficiency. This study investigates policy transfer across different robotic platforms, focusing on peg-in-hole task using reinforcement learning (RL). Policy training is carried out on two different robots. Their policies are transferred and evaluated for zero-shot, fine-tuning, and training from scratch. Results indicate that zero-shot transfer leads to lower success rates and relatively longer task execution times, while fine-tuning significantly improves performance with fewer training time-steps. These findings highlight that policy transfer with adaptation techniques improves sample efficiency and generalization, reducing the need for extensive retraining and supporting sustainable robotic learning.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item10'>[10]</a>
+      <a href ="/abs/2604.06949" title="Abstract" id="2604.06949">
+        arXiv:2604.06949
+      </a>
+      
+        [<a href="/pdf/2604.06949" title="Download PDF" id="pdf-2604.06949" aria-labelledby="pdf-2604.06949">pdf</a>, <a href="https://arxiv.org/html/2604.06949v1" title="View HTML" id="html-2604.06949" aria-labelledby="html-2604.06949" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06949" title="Other formats" id="oth-2604.06949" aria-labelledby="oth-2604.06949">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Learning-Based Strategy for Composite Robot Assembly Skill Adaptation
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Abuibaid,+K">Khalil Abuibaid</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sidorenko,+A">Aleksandr Sidorenko</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wagner,+A">Achim Wagner</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ruskowski,+M">Martin Ruskowski</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Accepted at RAAD 2026 (Springer). 6 pages, 4 figures
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Contact-rich robotic skills remain challenging for industrial robots due to tight geometric tolerances, frictional variability, and uncertain contact dynamics, particularly when using position-controlled manipulators. This paper presents a reusable and encapsulated skill-based strategy for peg-in-hole assembly, in which adaptation is achieved through Residual Reinforcement Learning (RRL). The assembly process is represented using composite skills with explicit pre-, post-, and invariant conditions, enabling modularity, reusability, and well-defined execution semantics across task variations. Safety and sample efficiency are promoted through RRL by restricting adaptation to residual refinements within each skill during contact-rich interactions, while the overall skill structure and execution flow remain invariant. The proposed approach is evaluated in MuJoCo simulation on a UR5e robot equipped with a Robotiq gripper and trained using SAC and JAX. Results demonstrate that the proposed formulation enables robust execution of assembly skills, highlighting its suitability for industrial automation.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item11'>[11]</a>
+      <a href ="/abs/2604.06972" title="Abstract" id="2604.06972">
+        arXiv:2604.06972
+      </a>
+      
+        [<a href="/pdf/2604.06972" title="Download PDF" id="pdf-2604.06972" aria-labelledby="pdf-2604.06972">pdf</a>, <a href="https://arxiv.org/html/2604.06972v1" title="View HTML" id="html-2604.06972" aria-labelledby="html-2604.06972" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06972" title="Other formats" id="oth-2604.06972" aria-labelledby="oth-2604.06972">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Differentiable Environment-Trajectory Co-Optimization for Safe Multi-Agent Navigation
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gao,+Z">Zhan Gao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fadini,+G">Gabriele Fadini</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Coros,+S">Stelian Coros</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Prorok,+A">Amanda Prorok</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Multiagent Systems (cs.MA)
+        </div>
+
+        <p class='mathjax'>
+          The environment plays a critical role in multi-agent navigation by imposing spatial constraints, rules, and limitations that agents must navigate around. Traditional approaches treat the environment as fixed, without exploring its impact on agents&#39; performance. This work considers environment configurations as decision variables, alongside agent actions, to jointly achieve safe navigation. We formulate a bi-level problem, where the lower-level sub-problem optimizes agent trajectories that minimize navigation cost and the upper-level sub-problem optimizes environment configurations that maximize navigation safety. We develop a differentiable optimization method that iteratively solves the lower-level sub-problem with interior point methods and the upper-level sub-problem with gradient ascent. A key challenge lies in analytically coupling these two levels. We address this by leveraging KKT conditions and the Implicit Function Theorem to compute gradients of agent trajectories w.r.t. environment parameters, enabling differentiation throughout the bi-level structure. Moreover, we propose a novel metric that quantifies navigation safety as a criterion for the upper-level environment optimization, and prove its validity through measure theory. Our experiments validate the effectiveness of the proposed framework in a variety of safety-critical navigation scenarios, inspired from warehouse logistics to urban transportation. The results demonstrate that optimized environments provide navigation guidance, improving both agents&#39; safety and efficiency.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item12'>[12]</a>
+      <a href ="/abs/2604.07034" title="Abstract" id="2604.07034">
+        arXiv:2604.07034
+      </a>
+      
+        [<a href="/pdf/2604.07034" title="Download PDF" id="pdf-2604.07034" aria-labelledby="pdf-2604.07034">pdf</a>, <a href="https://arxiv.org/html/2604.07034v1" title="View HTML" id="html-2604.07034" aria-labelledby="html-2604.07034" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07034" title="Other formats" id="oth-2604.07034" aria-labelledby="oth-2604.07034">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          KITE: Keyframe-Indexed Tokenized Evidence for VLM-Based Robot Failure Analysis
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hosseinzadeh,+M">Mehdi Hosseinzadeh</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wong,+K+H">King Hang Wong</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Dayoub,+F">Feras Dayoub</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          ICRA 2026; Project page: <a href="https://m80hz.github.io/kite/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Computer Vision and Pattern Recognition (cs.CV)
+        </div>
+
+        <p class='mathjax'>
+          We present KITE, a training-free, keyframe-anchored, layout-grounded front-end that converts long robot-execution videos into compact, interpretable tokenized evidence for vision-language models (VLMs). KITE distills each trajectory into a small set of motion-salient keyframes with open-vocabulary detections and pairs each keyframe with a schematic bird&#39;s-eye-view (BEV) representation that encodes relative object layout, axes, timestamps, and detection confidence. These visual cues are serialized with robot-profile and scene-context tokens into a unified prompt, allowing the same front-end to support failure detection, identification, localization, explanation, and correction with an off-the-shelf VLM. On the RoboFAC benchmark, KITE with Qwen2.5-VL substantially improves over vanilla Qwen2.5-VL in the training-free setting, with especially large gains on simulation failure detection, identification, and localization, while remaining competitive with a RoboFAC-tuned baseline. A small QLoRA fine-tune further improves explanation and correction quality. We also report qualitative results on real dual-arm robots, demonstrating the practical applicability of KITE as a structured and interpretable front-end for robot failure analysis. Code and models are released on our project page: <a href="https://m80hz.github.io/kite/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item13'>[13]</a>
+      <a href ="/abs/2604.07038" title="Abstract" id="2604.07038">
+        arXiv:2604.07038
+      </a>
+      
+        [<a href="/pdf/2604.07038" title="Download PDF" id="pdf-2604.07038" aria-labelledby="pdf-2604.07038">pdf</a>, <a href="https://arxiv.org/html/2604.07038v1" title="View HTML" id="html-2604.07038" aria-labelledby="html-2604.07038" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07038" title="Other formats" id="oth-2604.07038" aria-labelledby="oth-2604.07038">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Exploring the proprioceptive potential of joint receptors using a biomimetic robotic joint
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Miki,+A">Akihiro Miki</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hasegawa,+S">Shun Hasegawa</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yuzaki,+S">Sota Yuzaki</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sahara,+Y">Yuta Sahara</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ribayashi,+Y">Yoshimoto Ribayashi</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kawaharazuka,+K">Kento Kawaharazuka</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Okada,+K">Kei Okada</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          26 pages including supplementary materials (17 pages main text), 6 main figures and 7 supplementary figures. Published in Scientific Reports
+        </div>
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          Scientific Reports, 16, Article number: 4724 (2026)
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Neurons and Cognition (q-bio.NC)
+        </div>
+
+        <p class='mathjax'>
+          In neuroscience, joint receptors have traditionally been viewed as limit detectors, providing positional information only at extreme joint angles, while muscle spindles are considered the primary sensors of joint angle position. However, joint receptors are widely distributed throughout the joint capsule, and their full role in proprioception remains unclear. In this study, we specifically focused on mimicking Type I joint receptors, which respond to slow and sustained movements, and quantified their proprioceptive potential using a biomimetic joint developed with robotics technology. Results showed that Type I-like joint receptors alone enabled proprioceptive sensing with an average error of less than 2 degrees in both bending and twisting motions. These findings suggest that joint receptors may play a greater role in proprioception than previously recognized and that the relative contributions of muscle spindles and joint receptors are differentially weighted within neural networks during development and evolution. Furthermore, this work may prompt new discussions on the differential proprioceptive deficits observed between the elbows and knees in patients with hereditary sensory and autonomic neuropathy type III. Together, these findings highlight the potential of biomimetics-based robotic approaches for advancing interdisciplinary research bridging neuroscience, medicine, and robotics.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item14'>[14]</a>
+      <a href ="/abs/2604.07039" title="Abstract" id="2604.07039">
+        arXiv:2604.07039
+      </a>
+      
+        [<a href="/pdf/2604.07039" title="Download PDF" id="pdf-2604.07039" aria-labelledby="pdf-2604.07039">pdf</a>, <a href="https://arxiv.org/html/2604.07039v1" title="View HTML" id="html-2604.07039" aria-labelledby="html-2604.07039" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07039" title="Other formats" id="oth-2604.07039" aria-labelledby="oth-2604.07039">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          AEROS: A Single-Agent Operating Architecture with Embodied Capability Modules
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Qin,+X">Xue Qin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Luan,+S">Simin Luan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yang,+C">Cong Yang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Li,+Z">Zhijun Li</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Submitted to Engineering Applications of Artificial Intelligence (EAAI). 48 pages, 5 figures, 9 tables
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI)
+        </div>
+
+        <p class='mathjax'>
+          Robotic systems lack a principled abstraction for organizing intelligence, capabilities, and execution in a unified manner. Existing approaches either couple skills within monolithic architectures or decompose functionality into loosely coordinated modules or multiple agents, often without a coherent model of identity and control authority. We argue that a robot should be modeled as a single persistent intelligent subject whose capabilities are extended through installable packages. We formalize this view as AEROS (Agent Execution Runtime Operating System), in which each robot corresponds to one persistent agent and capabilities are provided through Embodied Capability Modules (ECMs). Each ECM encapsulates executable skills, models, and tools, while execution constraints and safety guarantees are enforced by a policy-separated runtime. This separation enables modular extensibility, composable capability execution, and consistent system-level safety. We evaluate a reference implementation in PyBullet simulation with a Franka Panda 7-DOF manipulator across eight experiments covering re-planning, failure recovery, policy enforcement, baseline comparison, cross-task generality, ECM hot-swapping, ablation, and failure boundary analysis. Over 100 randomized trials per condition, AEROS achieves 100% task success across three tasks versus baselines (<a href="http://BehaviorTree.CPP" rel="external noopener nofollow" class="link-external link-http">this http URL</a>-style and ProgPrompt-style at 92--93%, flat pipeline at 67--73%), the policy layer blocks all invalid actions with zero false acceptances, runtime benefits generalize across tasks without task-specific tuning, and ECMs load at runtime with 100% post-swap success.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item15'>[15]</a>
+      <a href ="/abs/2604.07084" title="Abstract" id="2604.07084">
+        arXiv:2604.07084
+      </a>
+      
+        [<a href="/pdf/2604.07084" title="Download PDF" id="pdf-2604.07084" aria-labelledby="pdf-2604.07084">pdf</a>, <a href="https://arxiv.org/html/2604.07084v1" title="View HTML" id="html-2604.07084" aria-labelledby="html-2604.07084" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07084" title="Other formats" id="oth-2604.07084" aria-labelledby="oth-2604.07084">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Flow Motion Policy: Manipulator Motion Planning with Flow Matching Models
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Soleymanzadeh,+D">Davood Soleymanzadeh</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liang,+X">Xiao Liang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zheng,+M">Minghui Zheng</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI)
+        </div>
+
+        <p class='mathjax'>
+          Open-loop end-to-end neural motion planners have recently been proposed to improve motion planning for robotic manipulators. These methods enable planning directly from sensor observations without relying on a privileged collision checker during planning. However, many existing methods generate only a single path for a given workspace across different runs, and do not leverage their open-loop structure for inference-time optimization. To address this limitation, we introduce Flow Motion Policy, an open-loop, end-to-end neural motion planner for robotic manipulators that leverages the stochastic generative formulation of flow matching methods to capture the inherent multi-modality of planning datasets. By modeling a distribution over feasible paths, Flow Motion Policy enables efficient inference-time best-of-$N$ sampling. The method generates multiple end-to-end candidate paths, evaluates their collision status after planning, and executes the first collision-free solution. We benchmark the Flow Motion Policy against representative sampling-based and neural motion planning methods. Evaluation results demonstrate that Flow Motion Policy improves planning success and efficiency, highlighting the effectiveness of stochastic generative policies for end-to-end motion planning and inference-time optimization. Experimental evaluation videos are available via this \href{<a href="https://zh.engr.tamu.edu/wp-content/uploads/sites/310/2026/03/FMP-Website.mp4" rel="external noopener nofollow" class="link-external link-https">this https URL</a>}{link}.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item16'>[16]</a>
+      <a href ="/abs/2604.07105" title="Abstract" id="2604.07105">
+        arXiv:2604.07105
+      </a>
+      
+        [<a href="/pdf/2604.07105" title="Download PDF" id="pdf-2604.07105" aria-labelledby="pdf-2604.07105">pdf</a>, <a href="https://arxiv.org/html/2604.07105v1" title="View HTML" id="html-2604.07105" aria-labelledby="html-2604.07105" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07105" title="Other formats" id="oth-2604.07105" aria-labelledby="oth-2604.07105">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Genie Sim PanoRecon: Fast Immersive Scene Generation from Single-View Panorama
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Li,+Z">Zhijun Li</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Su,+Y">Yongxin Su</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yang,+D">Di Yang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+J">Jichao Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xing,+Z">Zheyuan Xing</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+Q">Qian Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yao,+M">Maoqing Yao</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          We present Genie Sim PanoRecon, a feed-forward Gaussian-splatting pipeline that delivers high-fidelity, low-cost 3D scenes for robotic manipulation simulation. The panorama input is decomposed into six non-overlapping cube-map faces, processed in parallel, and seamlessly reassembled. To guarantee geometric consistency across views, we devise a depth-aware fusion strategy coupled with a training-free depth-injection module that steers the monocular feed-forward network to generate coherent 3D Gaussians. The whole system reconstructs photo-realistic scenes in seconds and has been integrated into Genie Sim - a LLM-driven simulation platform for embodied synthetic data generation and evaluation - to provide scalable backgrounds for manipulation tasks. For code details, please refer to: <a href="https://github.com/AgibotTech/genie_sim/tree/main/source/geniesim_world" rel="external noopener nofollow" class="link-external link-https">this https URL</a>.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item17'>[17]</a>
+      <a href ="/abs/2604.07126" title="Abstract" id="2604.07126">
+        arXiv:2604.07126
+      </a>
+      
+        [<a href="/pdf/2604.07126" title="Download PDF" id="pdf-2604.07126" aria-labelledby="pdf-2604.07126">pdf</a>, <a href="https://arxiv.org/html/2604.07126v1" title="View HTML" id="html-2604.07126" aria-labelledby="html-2604.07126" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07126" title="Other formats" id="oth-2604.07126" aria-labelledby="oth-2604.07126">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Self-Discovered Intention-aware Transformer for Multi-modal Vehicle Trajectory Prediction
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+D">Diyi Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Niu,+Z">Zihan Niu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xu,+T">Tu Xu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sun,+L">Lishan Sun</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          5 pages, 2 figures
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Machine Learning (cs.LG)
+        </div>
+
+        <p class='mathjax'>
+          Predicting vehicle trajectories plays an important role in autonomous driving and ITS applications. Although multiple deep learning algorithms are devised to predict vehicle trajectories, their reliant on specific graph structure (e.g., Graph Neural Network) or explicit intention labeling limit their flexibilities. In this study, we propose a pure Transformer-based network with multiple modals considering their neighboring vehicles. Two separate tracks are employed. One track focuses on predicting the trajectories while the other focuses on predicting the likelihood of each intention considering neighboring vehicles. Study finds that the two track design can increase the performance by separating spatial module from the trajectory generating module. Also, we find the the model can learn an ordered group of trajectories by predicting residual offsets among K trajectories.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item18'>[18]</a>
+      <a href ="/abs/2604.07151" title="Abstract" id="2604.07151">
+        arXiv:2604.07151
+      </a>
+      
+        [<a href="/pdf/2604.07151" title="Download PDF" id="pdf-2604.07151" aria-labelledby="pdf-2604.07151">pdf</a>, <a href="https://arxiv.org/html/2604.07151v1" title="View HTML" id="html-2604.07151" aria-labelledby="html-2604.07151" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07151" title="Other formats" id="oth-2604.07151" aria-labelledby="oth-2604.07151">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          An RTK-SLAM Dataset for Absolute Accuracy Evaluation in GNSS-Degraded Environments
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+W">Wei Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ress,+V">Vincent Ress</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Skuddis,+D">David Skuddis</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Soergel,+U">Uwe Soergel</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Haala,+N">Norbert Haala</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Accepted by ISPRS congress 2026
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Computer Vision and Pattern Recognition (cs.CV)
+        </div>
+
+        <p class='mathjax'>
+          RTK-SLAM systems integrate simultaneous localization and mapping (SLAM) with real-time kinematic (RTK) GNSS positioning, promising both relative consistency and globally referenced coordinates for efficient georeferenced surveying. A critical and underappreciated issue is that the standard evaluation metric, Absolute Trajectory Error (ATE), first fits an optimal rigid-body transformation between the estimated trajectory and reference before computing errors. This so-called SE(3) alignment absorbs global drift and systematic errors, making trajectories appear more accurate than they are in practice, and is unsuitable for evaluating the global accuracy of RTK-SLAM. We present a geodetically referenced dataset and evaluation methodology that expose this gap. A key design principle is that the RTK receiver is used solely as a system input, while ground truth is established independently via a geodetic total station. This separation is absent from all existing datasets, where GNSS typically serves as (part of) the ground truth. The dataset is collected with a handheld RTK-SLAM device, comprising two scenes. We evaluate LiDAR-inertial, visual-inertial, and LiDAR-visual-inertial RTK-SLAM systems alongside standalone RTK, reporting direct global accuracy and SE(3)-aligned relative accuracy to make the gap explicit. Results show that SE(3) alignment can underestimate absolute positioning error by up to 76\%. RTK-SLAM achieves centimeter-level absolute accuracy in open-sky conditions and maintains decimeter-level global accuracy indoors, where standalone RTK degrades to tens of meters. The dataset, calibration files, and evaluation scripts are publicly available at <a href="https://rtk-slam-dataset.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item19'>[19]</a>
+      <a href ="/abs/2604.07224" title="Abstract" id="2604.07224">
+        arXiv:2604.07224
+      </a>
+      
+        [<a href="/pdf/2604.07224" title="Download PDF" id="pdf-2604.07224" aria-labelledby="pdf-2604.07224">pdf</a>, <a href="https://arxiv.org/html/2604.07224v1" title="View HTML" id="html-2604.07224" aria-labelledby="html-2604.07224" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07224" title="Other formats" id="oth-2604.07224" aria-labelledby="oth-2604.07224">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Robust Quadruped Locomotion via Evolutionary Reinforcement Learning
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=McAteer,+B">Brian McAteer</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mason,+K">Karl Mason</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          10 pages, 3 figures. Accepted to the 11th International Conference on Control and Robotics Engineering (ICCRE 2026), Kyoto, Japan, May, 2026, <a href="http://www.iccre.org" rel="external noopener nofollow" class="link-external link-http">this http URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Deep reinforcement learning has recently achieved strong results in quadrupedal locomotion, yet policies trained in simulation often fail to transfer when the environment changes. Evolutionary reinforcement learning aims to address this limitation by combining gradient-based policy optimisation with population-driven exploration. This work evaluates four methods on a simulated walking task: DDPG, TD3, and two Cross-Entropy-based variants CEM-DDPG and CEM-TD3. All agents are trained on flat terrain and later tested both on this domain and on a rough terrain not encountered during training. TD3 performs best among the standard deep RL baselines on flat ground with a mean reward of 5927.26, while CEM-TD3 achieves the highest rewards overall during training and evaluation 17611.41. Under the rough-terrain transfer test, performance of the deep RL methods drops sharply. DDPG achieves -1016.32 and TD3 achieves -99.73, whereas the evolutionary variants retain much of their capability. CEM-TD3 records the strongest transfer performance with a mean reward of 19574.33. These findings suggest that incorporating evolutionary search can reduce overfitting and improve policy robustness in locomotion tasks, particularly when deployment conditions differ from those seen during training.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item20'>[20]</a>
+      <a href ="/abs/2604.07286" title="Abstract" id="2604.07286">
+        arXiv:2604.07286
+      </a>
+      
+        [<a href="/pdf/2604.07286" title="Download PDF" id="pdf-2604.07286" aria-labelledby="pdf-2604.07286">pdf</a>, <a href="https://arxiv.org/html/2604.07286v1" title="View HTML" id="html-2604.07286" aria-labelledby="html-2604.07286" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07286" title="Other formats" id="oth-2604.07286" aria-labelledby="oth-2604.07286">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          CADENCE: Context-Adaptive Depth Estimation for Navigation and Computational Efficiency
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Johnsen,+T+K">Timothy K Johnsen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Levorato,+M">Marco Levorato</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          7 pages, 7 figures, Accepted for publication at IEEE World AI IoT Congress (AIIoT) 2026
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Machine Learning (cs.LG)
+        </div>
+
+        <p class='mathjax'>
+          Autonomous vehicles deployed in remote environments typically rely on embedded processors, compact batteries, and lightweight sensors. These hardware limitations conflict with the need to derive robust representations of the environment, which often requires executing computationally intensive deep neural networks for perception. To address this challenge, we present CADENCE, an adaptive system that dynamically scales the computational complexity of a slimmable monocular depth estimation network in response to navigation needs and environmental context. By closing the loop between perception fidelity and actuation requirements, CADENCE ensures high-precision computing is only used when mission-critical. We conduct evaluations on our released open-source testbed that integrates Microsoft AirSim with an NVIDIA Jetson Orin Nano. As compared to a state-of-the-art static approach, CADENCE decreases sensor acquisitions, power consumption, and inference latency by 9.67%, 16.1%, and 74.8%, respectively. The results demonstrate an overall reduction in energy expenditure by 75.0%, along with an increase in navigation accuracy by 7.43%.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item21'>[21]</a>
+      <a href ="/abs/2604.07303" title="Abstract" id="2604.07303">
+        arXiv:2604.07303
+      </a>
+      
+        [<a href="/pdf/2604.07303" title="Download PDF" id="pdf-2604.07303" aria-labelledby="pdf-2604.07303">pdf</a>, <a href="https://arxiv.org/html/2604.07303v1" title="View HTML" id="html-2604.07303" aria-labelledby="html-2604.07303" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07303" title="Other formats" id="oth-2604.07303" aria-labelledby="oth-2604.07303">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Robots that learn to evaluate models of collective behavior
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hocke,+M">Mathis Hocke</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gerken,+A">Andreas Gerken</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bierbach,+D">David Bierbach</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Krause,+J">Jens Krause</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Landgraf,+T">Tim Landgraf</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Understanding and modeling animal behavior is essential for studying collective motion, decision-making, and bio-inspired robotics. Yet, evaluating the accuracy of behavioral models still often relies on offline comparisons to static trajectory statistics. Here we introduce a reinforcement-learning-based framework that uses a biomimetic robotic fish (RoboFish) to evaluate computational models of live fish behavior through closed-loop interaction. We trained policies in simulation using four distinct fish models-a simple constant-follow baseline, two rule-based models, and a biologically grounded convolutional neural network model-and transferred these policies to the real RoboFish setup, where they interacted with live fish. Policies were trained to guide a simulated fish to goal locations, enabling us to quantify how the response of real fish differs from the simulated fish&#39;s response. We evaluate the fish models by quantifying the sim-to-real gaps, defined as the Wasserstein distance between simulated and real distributions of behavioral metrics such as goal-reaching performance, inter-individual distances, wall interactions, and alignment. The neural network-based fish model exhibited the smallest gap across goal-reaching performance and most other metrics, indicating higher behavioral fidelity than conventional rule-based models under this benchmark. More importantly, this separation shows that the proposed evaluation can quantitatively distinguish candidate models under matched closed-loop conditions. Our work demonstrates how learning-based robotic experiments can uncover deficiencies in behavioral models and provides a general framework for evaluating animal behavior models through embodied interaction.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item22'>[22]</a>
+      <a href ="/abs/2604.07331" title="Abstract" id="2604.07331">
+        arXiv:2604.07331
+      </a>
+      
+        [<a href="/pdf/2604.07331" title="Download PDF" id="pdf-2604.07331" aria-labelledby="pdf-2604.07331">pdf</a>, <a href="https://arxiv.org/html/2604.07331v1" title="View HTML" id="html-2604.07331" aria-labelledby="html-2604.07331" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07331" title="Other formats" id="oth-2604.07331" aria-labelledby="oth-2604.07331">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          RoSHI: A Versatile Robot-oriented Suit for Human Data In-the-Wild
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mao,+W+M">Wenjing Margaret Mao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ng,+J">Jefferson Ng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hu,+L">Luyang Hu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gehrig,+D">Daniel Gehrig</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Loquercio,+A">Antonio Loquercio</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          8 pages, 4 figures. *Equal contribution by first three authors. Project webpage: <a href="https://roshi-mocap.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Computer Vision and Pattern Recognition (cs.CV)
+        </div>
+
+        <p class='mathjax'>
+          Scaling up robot learning will likely require human data containing rich and long-horizon interactions in the wild. Existing approaches for collecting such data trade off portability, robustness to occlusion, and global consistency. We introduce RoSHI, a hybrid wearable that fuses low-cost sparse IMUs with the Project Aria glasses to estimate the full 3D pose and body shape of the wearer in a metric global coordinate frame from egocentric perception. This system is motivated by the complementarity of the two sensors: IMUs provide robustness to occlusions and high-speed motions, while egocentric SLAM anchors long-horizon motion and stabilizes upper body pose. We collect a dataset of agile activities to evaluate RoSHI. On this dataset, we generally outperform other egocentric baselines and perform comparably to a state-of-the-art exocentric baseline (SAM3D). Finally, we demonstrate that the motion data recorded from our system are suitable for real-world humanoid policy learning. For videos, data and more, visit the project webpage: <a href="https://roshi-mocap.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item23'>[23]</a>
+      <a href ="/abs/2604.07335" title="Abstract" id="2604.07335">
+        arXiv:2604.07335
+      </a>
+      
+        [<a href="/pdf/2604.07335" title="Download PDF" id="pdf-2604.07335" aria-labelledby="pdf-2604.07335">pdf</a>, <a href="https://arxiv.org/html/2604.07335v1" title="View HTML" id="html-2604.07335" aria-labelledby="html-2604.07335" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07335" title="Other formats" id="oth-2604.07335" aria-labelledby="oth-2604.07335">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          TAMEn: Tactile-Aware Manipulation Engine for Closed-Loop Data Collection in Contact-Rich Tasks
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wu,+L">Longyan Wu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ren,+J">Jieji Ren</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Jiang,+C">Chenghang Jiang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhou,+J">Junxi Zhou</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Peng,+S">Shijia Peng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Huang,+R">Ran Huang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gu,+G">Guoying Gu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+L">Li Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Li,+H">Hongyang Li</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Handheld paradigms offer an efficient and intuitive way for collecting large-scale demonstration of robot manipulation. However, achieving contact-rich bimanual manipulation through these methods remains a pivotal challenge, which is substantially hindered by hardware adaptability and data efficacy. Prior hardware designs remain gripper-specific and often face a trade-off between tracking precision and portability. Furthermore, the lack of online feasibility checking during demonstration leads to poor replayability. More importantly, existing handheld setups struggle to collect interactive recovery data during robot execution, lacking the authentic tactile information necessary for robust policy refinement. To bridge these gaps, we present TAMEn, a tactile-aware manipulation engine for closed-loop data collection in contact-rich tasks. Our system features a cross-morphology wearable interface that enables rapid adaptation across heterogeneous grippers. To balance data quality and environmental diversity, we implement a dual-modal acquisition pipeline: a precision mode leveraging motion capture for high-fidelity demonstrations, and a portable mode utilizing VR-based tracking for in-the-wild acquisition and tactile-visualized recovery teleoperation. Building on this hardware, we unify large-scale tactile pretraining, task-specific bimanual demonstrations, and human-in-the-loop recovery data into a pyramid-structured data regime, enabling closed-loop policy refinement. Experiments show that our feasibility-aware pipeline significantly improves demonstration replayability, and that the proposed visuo-tactile learning framework increases task success rates from 34% to 75% across diverse bimanual manipulation tasks. We further open-source the hardware and dataset to facilitate reproducibility and support research in visuo-tactile manipulation.
+        </p>
+      </div>
+    </dd>
+</dl>
+
+      <dl id='articles'>
+    <h3>Cross submissions (showing 5 of 5 entries)</h3>
+
+
+    <dt>
+      <a name='item24'>[24]</a>
+      <a href ="/abs/2604.06629" title="Abstract" id="2604.06629">
+        arXiv:2604.06629
+      </a>
+          (cross-list from cs.MA)
+
+        [<a href="/pdf/2604.06629" title="Download PDF" id="pdf-2604.06629" aria-labelledby="pdf-2604.06629">pdf</a>, <a href="https://arxiv.org/html/2604.06629v1" title="View HTML" id="html-2604.06629" aria-labelledby="html-2604.06629" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06629" title="Other formats" id="oth-2604.06629" aria-labelledby="oth-2604.06629">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Logical Robots: Declarative Multi-Agent Programming in Logica
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Skvortsov,+E">Evgeny Skvortsov</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xia,+Y">Yilin Xia</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Garg,+O">Ojaswa Garg</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bowers,+S">Shawn Bowers</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lud%C3%A4scher,+B">Bertram Ludäscher</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          International Conference on Autonomous Agents and Multiagent Systems (AAMAS), May 25-29, 2026. Paphos, Cyprus
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Multiagent Systems (cs.MA)</span>; Artificial Intelligence (cs.AI); Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          We present Logical Robots, an interactive multi-agent simulation platform where autonomous robot behavior is specified declaratively in the logic programming language Logica. Robot behavior is defined by logical predicates that map observations from simulated radar arrays and shared memory to desired motor outputs. This approach allows low-level reactive control and high-level planning to coexist within a single programming environment, providing a coherent framework for exploring multi-agent robot behavior.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item25'>[25]</a>
+      <a href ="/abs/2604.06722" title="Abstract" id="2604.06722">
+        arXiv:2604.06722
+      </a>
+          (cross-list from cs.CY)
+
+        [<a href="/pdf/2604.06722" title="Download PDF" id="pdf-2604.06722" aria-labelledby="pdf-2604.06722">pdf</a>, <a href="https://arxiv.org/html/2604.06722v1" title="View HTML" id="html-2604.06722" aria-labelledby="html-2604.06722" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06722" title="Other formats" id="oth-2604.06722" aria-labelledby="oth-2604.06722">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Infrastructure First: Enabling Embodied AI for Science in the Global South
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+S">Shaoshan Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Tang,+J">Jie Tang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hassan,+M+S">Marwa S. Hassan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sharkawy,+M+H">Mohamed H. Sharkawy</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fouda,+M+M+G">Moustafa M. G. Fouda</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Shang,+T">Tiewei Shang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+Z">Zixin Wang</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Computers and Society (cs.CY)</span>; Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          Embodied AI for Science (EAI4S) brings intelligence into the laboratory by uniting perception, reasoning, and robotic action to autonomously run experiments in the physical world. For the Global South, this shift is not about adopting advanced automation for its own sake, but about overcoming a fundamental capacity constraint: too few hands to run too many experiments. By enabling continuous, reliable experimentation under limits of manpower, power, and connectivity, EAI4S turns automation from a luxury into essential scientific infrastructure. The main obstacle, however, is not algorithmic capability. It is infrastructure. Open-source AI and foundation models have narrowed the knowledge gap, but EAI4S depends on dependable edge compute, energy-efficient hardware, modular robotic systems, localized data pipelines, and open standards. Without these foundations, even the most capable models remain trapped in well-resourced laboratories. This article argues for an infrastructure-first approach to EAI4S and outlines the practical requirements for deploying embodied intelligence at scale, offering a concrete pathway for Global South institutions to translate AI advances into sustained scientific capacity and competitive research output.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item26'>[26]</a>
+      <a href ="/abs/2604.06830" title="Abstract" id="2604.06830">
+        arXiv:2604.06830
+      </a>
+          (cross-list from cs.CV)
+
+        [<a href="/pdf/2604.06830" title="Download PDF" id="pdf-2604.06830" aria-labelledby="pdf-2604.06830">pdf</a>, <a href="https://arxiv.org/html/2604.06830v1" title="View HTML" id="html-2604.06830" aria-labelledby="html-2604.06830" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.06830" title="Other formats" id="oth-2604.06830" aria-labelledby="oth-2604.06830">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          VGGT-SLAM++
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mandal,+A">Avilasha Mandal</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kumar,+R">Rajesh Kumar</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Harithas,+S+S">Sudarshan Sunil Harithas</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Arora,+C">Chetan Arora</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          8 pages (main paper) + supplementary material. Accepted at CVPR 2026 Workshop (VOCVALC)
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Computer Vision and Pattern Recognition (cs.CV)</span>; Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          We introduce VGGT-SLAM++, a complete visual SLAM system that leverages the geometry-rich outputs of the Visual Geometry Grounded Transformer (VGGT). The system comprises a visual odometry (front-end) fusing the VGGT feed-forward transformer and a Sim(3) solution, a Digital Elevation Map (DEM)-based graph construction module, and a back-end that jointly enable accurate large-scale mapping with bounded memory. While prior transformer-based SLAM pipelines such as VGGT-SLAM rely primarily on sparse loop closures or global Sim(3) manifold constraints - allowing short-horizon pose drift - VGGT-SLAM++ restores high-cadence local bundle adjustment (LBA) through a spatially corrective back-end. For each VGGT submap, we construct a dense planar-canonical DEM, partition it into patches, and compute their DINOv2 embeddings to integrate the submap into a covisibility graph. Spatial neighbors are retrieved using a Visual Place Recognition (VPR) module within the covisibility window, triggering frequent local optimization that stabilizes trajectories. Across standard SLAM benchmarks, VGGT-SLAM++ achieves state-of-the-art accuracy, substantially reducing short-term drift, accelerating graph convergence, and maintaining global consistency with compact DEM tiles and sublinear retrieval.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item27'>[27]</a>
+      <a href ="/abs/2604.06876" title="Abstract" id="2604.06876">
+        arXiv:2604.06876
+      </a>
+          (cross-list from cs.DC)
+
+        [<a href="/pdf/2604.06876" title="Download PDF" id="pdf-2604.06876" aria-labelledby="pdf-2604.06876">pdf</a>, <a href="/format/2604.06876" title="Other formats" id="oth-2604.06876" aria-labelledby="oth-2604.06876">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Exploiting Aggregate Programming in a Multi-Robot Service Prototype
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Audrito,+G">Giorgio Audrito</a> (Dipartimento di Informatica, Universita&#39; di Torino), <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Basso,+A">Andrea Basso</a> (MITO Technology), <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bortoluzzi,+D">Daniele Bortoluzzi</a> (Dipartimento di Informatica, Universita&#39; di Torino), <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Damiani,+F">Ferruccio Damiani</a> (Dipartimento di Informatica, Universita&#39; di Torino), <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Scarso,+G">Giordano Scarso</a> (Dipartimento di Informatica, Universita&#39; di Torino), <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Torta,+G">Gianluca Torta</a> (Dipartimento di Informatica, Universita&#39; di Torino)</div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          In Proceedings PLACES 2026, <a href="https://arxiv.org/abs/2604.05737" data-arxiv-id="2604.05737" class="link-https">arXiv:2604.05737</a>
+        </div>
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          EPTCS 444, 2026, pp. 45-57
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Distributed, Parallel, and Cluster Computing (cs.DC)</span>; Multiagent Systems (cs.MA); Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          Multi-robot systems are becoming increasingly relevant within diverse application domains, such as healthcare, exploration, and rescue missions. However, building such systems is still a significant challenge, since it adds the complexities of the physical nature of robots and their environments to those inherent in coordinating any distributed (multi-agent) system. Aggregate Programming (AP) has recently emerged as a promising approach to engineering resilient, distributed systems with proximity-based communication, and is notably supported by practical frameworks.  In this paper we present a prototype of a multi-robot service system, which adopts AP for the design and implementation of its coordination software. The prototype has been validated both with simulations, and with tests in a University library.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item28'>[28]</a>
+      <a href ="/abs/2604.07348" title="Abstract" id="2604.07348">
+        arXiv:2604.07348
+      </a>
+          (cross-list from cs.CV)
+
+        [<a href="/pdf/2604.07348" title="Download PDF" id="pdf-2604.07348" aria-labelledby="pdf-2604.07348">pdf</a>, <a href="https://arxiv.org/html/2604.07348v1" title="View HTML" id="html-2604.07348" aria-labelledby="html-2604.07348" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.07348" title="Other formats" id="oth-2604.07348" aria-labelledby="oth-2604.07348">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          MoRight: Motion Control Done Right
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+S">Shaowei Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ren,+X">Xuanchi Ren</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Shen,+T">Tianchang Shen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ling,+H">Huan Ling</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gupta,+S">Saurabh Gupta</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+S">Shenlong Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fidler,+S">Sanja Fidler</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gao,+J">Jun Gao</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Project Page: <a href="https://research.nvidia.com/labs/sil/projects/moright" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Computer Vision and Pattern Recognition (cs.CV)</span>; Artificial Intelligence (cs.AI); Graphics (cs.GR); Machine Learning (cs.LG); Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          Generating motion-controlled videos--where user-specified actions drive physically plausible scene dynamics under freely chosen viewpoints--demands two capabilities: (1) disentangled motion control, allowing users to separately control the object motion and adjust camera viewpoint; and (2) motion causality, ensuring that user-driven actions trigger coherent reactions from other objects rather than merely displacing pixels. Existing methods fall short on both fronts: they entangle camera and object motion into a single tracking signal and treat motion as kinematic displacement without modeling causal relationships between object motion. We introduce MoRight, a unified framework that addresses both limitations through disentangled motion modeling. Object motion is specified in a canonical static-view and transferred to an arbitrary target camera viewpoint via temporal cross-view attention, enabling disentangled camera and object control. We further decompose motion into active (user-driven) and passive (consequence) components, training the model to learn motion causality from data. At inference, users can either supply active motion and MoRight predicts consequences (forward reasoning), or specify desired passive outcomes and MoRight recovers plausible driving actions (inverse reasoning), all while freely adjusting the camera viewpoint. Experiments on three benchmarks demonstrate state-of-the-art performance in generation quality, motion controllability, and interaction awareness.
+        </p>
+      </div>
+    </dd>
+</dl>
+
+      <dl id='articles'>
+    <h3>Replacement submissions (showing 19 of 19 entries)</h3>
+
+
+    <dt>
+      <a name='item29'>[29]</a>
+      <a href ="/abs/2309.08780" title="Abstract" id="2309.08780">
+        arXiv:2309.08780
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2309.08780" title="Download PDF" id="pdf-2309.08780" aria-labelledby="pdf-2309.08780">pdf</a>, <a href="https://arxiv.org/html/2309.08780v2" title="View HTML" id="html-2309.08780" aria-labelledby="html-2309.08780" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2309.08780" title="Other formats" id="oth-2309.08780" aria-labelledby="oth-2309.08780">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          STERN: Simultaneous Trajectory Estimation and Relative Navigation for Autonomous Underwater Proximity Operations
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Espinoza,+A+T">Aldo Terán Espinoza</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Espinoza,+A+T">Antonio Terán Espinoza</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Folkesson,+J">John Folkesson</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Deutsch,+C">Clemens Deutsch</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Rolleberg,+N">Niklas Rolleberg</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sigray,+P">Peter Sigray</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kuttenkeuler,+J">Jakob Kuttenkeuler</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          v2 updated after revision. Article contains 24 pages and 18 figures. Published in the IEEE Journal of Oceanic Engineering, available at: <a href="https://doi.org/10.1109/JOE.2025.3624470" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          IEEE Journal of Oceanic Engineering, vol. 51, no. 1, pp. 293-316, Jan. 2026
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Due to the challenges regarding the limits of their endurance and autonomous capabilities, underwater docking for autonomous underwater vehicles (AUVs) has become a topic of interest for many academic and commercial applications. Herein, we take on the problem of relative navigation for the generalized version of the docking operation, which we address as proximity operations. Proximity operations typically involve only two actors, a chaser and a target. We leverage the similarities to proximity operations (prox-ops) from spacecraft robotic missions to frame the diverse docking scenarios with a set of phases the chaser undergoes on the way to its target. We emphasize the versatility on the use of factor graphs as a generalized representation to model the underlying simultaneous trajectory estimation and relative navigation (STERN) problem that arises with any prox-ops scenario, regardless of the sensor suite or the agents&#39; dynamic constraints. To emphasize the flexibility of factor graphs as the modeling foundation for arbitrary underwater prox-ops, we compile a list of state-of-the-art research in the field and represent the different scenario using the same factor graph representation. We detail the procedure required to model, design, and implement factor graph-based estimators by addressing a long-distance acoustic homing scenario of an AUV to a moving mothership using datasets from simulated and real-world deployments; an analysis of these results is provided to shed light on the flexibility and limitations of the dynamic assumptions of the moving target. A description of our front- and back-end is also presented together with a timing breakdown of all processes to show its potential deployment on a real-time system.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item30'>[30]</a>
+      <a href ="/abs/2505.06182" title="Abstract" id="2505.06182">
+        arXiv:2505.06182
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2505.06182" title="Download PDF" id="pdf-2505.06182" aria-labelledby="pdf-2505.06182">pdf</a>, <a href="https://arxiv.org/html/2505.06182v5" title="View HTML" id="html-2505.06182" aria-labelledby="html-2505.06182" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2505.06182" title="Other formats" id="oth-2505.06182" aria-labelledby="oth-2505.06182">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Apple: Toward General Active Perception via Reinforcement Learning
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Schneider,+T">Tim Schneider</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=de+Farias,+C">Cristiana de Farias</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Calandra,+R">Roberto Calandra</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+L">Liming Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Peters,+J">Jan Peters</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          27 pages; 21 figures; accepted at the Fourteenth International Conference on Learning Representations (ICLR 2026)
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Machine Learning (cs.LG)
+        </div>
+
+        <p class='mathjax'>
+          Active perception is a fundamental skill that enables us humans to deal with uncertainty in our inherently partially observable environment. For senses such as touch, where the information is sparse and local, active perception becomes crucial. In recent years, active perception has emerged as an important research domain in robotics. However, current methods are often bound to specific tasks or make strong assumptions, which limit their generality. To address this gap, this work introduces APPLE (Active Perception Policy Learning) - a novel framework that leverages reinforcement learning (RL) to address a range of different active perception problems. APPLE jointly trains a transformer-based perception module and decision-making policy with a unified optimization objective, learning how to actively gather information. By design, APPLE is not limited to a specific task and can, in principle, be applied to a wide range of active perception problems. We evaluate two variants of APPLE across different tasks, including tactile exploration problems from the Tactile MNIST benchmark. Experiments demonstrate the efficacy of APPLE, achieving high accuracies on both regression and classification tasks. These findings underscore the potential of APPLE as a versatile and general framework for advancing active perception in robotics. Project page: <a href="https://timschneider42.github.io/apple" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item31'>[31]</a>
+      <a href ="/abs/2508.04691" title="Abstract" id="2508.04691">
+        arXiv:2508.04691
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2508.04691" title="Download PDF" id="pdf-2508.04691" aria-labelledby="pdf-2508.04691">pdf</a>, <a href="https://arxiv.org/html/2508.04691v2" title="View HTML" id="html-2508.04691" aria-labelledby="html-2508.04691" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2508.04691" title="Other formats" id="oth-2508.04691" aria-labelledby="oth-2508.04691">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Before Humans Join the Team: Diagnosing Coordination Failures in Healthcare Robot Team Simulation
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Bai,+Y">Yuanchen Bai</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ding,+Z">Zijian Ding</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wen,+S">Shaoyue Wen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chang,+X">Xiang Chang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Taylor,+A">Angelique Taylor</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Revised version incorporating new analysis and restructuring
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Multiagent Systems (cs.MA)
+        </div>
+
+        <p class='mathjax'>
+          As humans move toward collaborating with coordinated robot teams, understanding how these teams coordinate and fail is essential for building trust and ensuring safety. However, exposing human collaborators to coordination failures during early-stage development is costly and risky, particularly in high-stakes domains such as healthcare. We adopt an agent-simulation approach in which all team roles, including the supervisory manager, are instantiated as LLM agents, allowing us to diagnose coordination failures before humans join the team. Using a controllable healthcare scenario, we conduct two studies with different hierarchical configurations to analyze coordination behaviors and failure patterns. Our findings reveal that team structure, rather than contextual knowledge or model capability, constitutes the primary bottleneck for coordination, and expose a tension between reasoning autonomy and system stability. By surfacing these failures in simulation, we prepare the groundwork for safe human integration. These findings inform the design of resilient robot teams with implications for process-level evaluation, transparent coordination protocols, and structured human integration. Supplementary materials, including codes, task agent setup, trace outputs, and annotated examples of coordination failures and reasoning behaviors, are available at: <a href="https://byc-sophie.github.io/mas-to-mars/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item32'>[32]</a>
+      <a href ="/abs/2510.11539" title="Abstract" id="2510.11539">
+        arXiv:2510.11539
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2510.11539" title="Download PDF" id="pdf-2510.11539" aria-labelledby="pdf-2510.11539">pdf</a>, <a href="https://arxiv.org/html/2510.11539v4" title="View HTML" id="html-2510.11539" aria-labelledby="html-2510.11539" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2510.11539" title="Other formats" id="oth-2510.11539" aria-labelledby="oth-2510.11539">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Simultaneous Calibration of Noise Covariance and Kinematics for State Estimation of Legged Robots via Bi-level Optimization
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cheng,+D">Denglin Cheng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kang,+J">Jiarong Kang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xiong,+X">Xiaobin Xiong</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Optimization and Control (math.OC)
+        </div>
+
+        <p class='mathjax'>
+          Accurate state estimation is critical for legged and aerial robots operating in dynamic, uncertain environments. A key challenge lies in specifying process and measurement noise covariances, which are typically unknown or manually tuned. In this work, we introduce a bi-level optimization framework that jointly calibrates covariance matrices and kinematic parameters in an estimator-in-the-loop manner. The upper level treats noise covariances and model parameters as optimization variables, while the lower level executes a full-information estimator. Differentiating through the estimator allows direct optimization of trajectory-level objectives, resulting in accurate and consistent state estimates. We validate our approach on quadrupedal and humanoid robots, demonstrating significantly improved estimation accuracy and uncertainty calibration compared to hand-tuned baselines. Our method unifies state estimation, sensor, and kinematics calibration into a principled, data-driven framework applicable across diverse robotic platforms.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item33'>[33]</a>
+      <a href ="/abs/2510.14063" title="Abstract" id="2510.14063">
+        arXiv:2510.14063
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2510.14063" title="Download PDF" id="pdf-2510.14063" aria-labelledby="pdf-2510.14063">pdf</a>, <a href="https://arxiv.org/html/2510.14063v2" title="View HTML" id="html-2510.14063" aria-labelledby="html-2510.14063" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2510.14063" title="Other formats" id="oth-2510.14063" aria-labelledby="oth-2510.14063">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Adaptive Obstacle-Aware Task Assignment and Planning for Heterogeneous Robot Teaming
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Li,+N">Nan Li</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ren,+J">Jiming Ren</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Miller,+H">Haris Miller</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Coogan,+S">Samuel Coogan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Feigh,+K+M">Karen M. Feigh</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhao,+Y">Ye Zhao</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          24 pages, 19 figures, 5 tables
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Multi-Agent Task Assignment and Planning (MATP) has attracted growing attention but remains challenging in terms of scalability, spatial reasoning, and adaptability in obstacle-rich environments. To address these challenges, we propose OATH - Adaptive Obstacle-Aware Task Assignment and Planning for Heterogeneous Robot Teaming - which advances MATP by introducing a novel obstacle-aware strategy for task assignment. First, we develop an adaptive Halton sequence map, the first known application of Halton sampling with obstacle-aware adaptation in MATP, which adjusts sampling density based on obstacle distribution. Second, we propose a cluster-auction-selection framework that integrates obstacle-aware clustering with weighted auctions and intra-cluster task selection. These mechanisms jointly enable effective coordination among heterogeneous robots while maintaining scalability and suboptimal allocation performance. In addition, our framework leverages an LLM to interpret human instructions and directly guide the planner in real time. We validate OATH in both NVIDIA Isaac Sim and real-world hardware experiments using TurtleBot platforms, demonstrating substantial improvements in task assignment quality, scalability, adaptability to dynamic changes, and overall execution performance compared to state-of-the-art MATP baselines. A project website is available at <a href="https://llm-oath.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item34'>[34]</a>
+      <a href ="/abs/2511.08019" title="Abstract" id="2511.08019">
+        arXiv:2511.08019
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2511.08019" title="Download PDF" id="pdf-2511.08019" aria-labelledby="pdf-2511.08019">pdf</a>, <a href="https://arxiv.org/html/2511.08019v4" title="View HTML" id="html-2511.08019" aria-labelledby="html-2511.08019" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2511.08019" title="Other formats" id="oth-2511.08019" aria-labelledby="oth-2511.08019">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Model Predictive Control via Probabilistic Inference: A Tutorial and Survey
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Honda,+K">Kohei Honda</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          41 pages, 7 figures
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Systems and Control (eess.SY)
+        </div>
+
+        <p class='mathjax'>
+          This paper presents a tutorial and survey on Probabilistic Inference-based Model Predictive Control (PI-MPC). PI-MPC reformulates finite-horizon optimal control as inference over an optimal control distribution expressed as a Boltzmann distribution weighted by a control prior, and generates actions through variational inference. In the tutorial part, we derive this formulation and explain action generation via variational inference, highlighting Model Predictive Path Integral (MPPI) control as a representative algorithm with a closed-form sampling update. In the survey part, we organize existing PI-MPC research around key design dimensions, including prior design, multi-modality, constraint handling, scalability, hardware acceleration, and theoretical analysis. This paper provides a unified conceptual perspective on PI-MPC and a practical entry point for researchers and practitioners in robotics and other control applications.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item35'>[35]</a>
+      <a href ="/abs/2511.18525" title="Abstract" id="2511.18525">
+        arXiv:2511.18525
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2511.18525" title="Download PDF" id="pdf-2511.18525" aria-labelledby="pdf-2511.18525">pdf</a>, <a href="https://arxiv.org/html/2511.18525v2" title="View HTML" id="html-2511.18525" aria-labelledby="html-2511.18525" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2511.18525" title="Other formats" id="oth-2511.18525" aria-labelledby="oth-2511.18525">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Splatblox: Traversability-Aware Gaussian Splatting for Outdoor Robot Navigation
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chopra,+S">Samarth Chopra</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liang,+J">Jing Liang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Seneviratne,+G">Gershom Seneviratne</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lee,+Y">Yonghan Lee</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Choi,+J">Jaehoon Choi</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=An,+J">Jianyu An</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cheng,+S">Stephen Cheng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Manocha,+D">Dinesh Manocha</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Computer Vision and Pattern Recognition (cs.CV)
+        </div>
+
+        <p class='mathjax'>
+          We present Splatblox, a real-time system for autonomous navigation in outdoor environments with dense vegetation, irregular obstacles, and complex terrain. Our method fuses segmented RGB images and LiDAR point clouds using Gaussian Splatting to construct a traversability-aware Euclidean Signed Distance Field (ESDF) that jointly encodes geometry and semantics. Updated online, this field enables semantic reasoning to distinguish traversable vegetation (e.g., tall grass) from rigid obstacles (e.g., trees), while LiDAR ensures 360-degree geometric coverage for extended planning horizons. We validate Splatblox on a quadruped robot and demonstrate transfer to a wheeled platform. In field trials across vegetation-rich scenarios, it outperforms state-of-the-art methods with over 50% higher success rate, 40% fewer freezing incidents, 5% shorter paths, and up to 13% faster time to goal, while supporting long-range missions up to 100 meters. Experiment videos and more details can be found on our project page: <a href="https://splatblox.github.io" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item36'>[36]</a>
+      <a href ="/abs/2512.19576" title="Abstract" id="2512.19576">
+        arXiv:2512.19576
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2512.19576" title="Download PDF" id="pdf-2512.19576" aria-labelledby="pdf-2512.19576">pdf</a>, <a href="https://arxiv.org/html/2512.19576v5" title="View HTML" id="html-2512.19576" aria-labelledby="html-2512.19576" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2512.19576" title="Other formats" id="oth-2512.19576" aria-labelledby="oth-2512.19576">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          LeLaR: The First In-Orbit Demonstration of an AI-Based Satellite Attitude Controller
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Djebko,+K">Kirill Djebko</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Baumann,+T">Tom Baumann</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Dilger,+E">Erik Dilger</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Puppe,+F">Frank Puppe</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Montenegro,+S">Sergio Montenegro</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Accepted for publication in IEEE Access (DOI: <a href="https://doi.org/10.1109/ACCESS.2026.3678816" data-doi="10.1109/ACCESS.2026.3678816" class="link-https link-external" rel="external noopener nofollow">https://doi.org/10.1109/ACCESS.2026.3678816</a>). This is the author&#39;s version which has not been fully edited and content may change prior to final publication. 20 pages, 15 figures, 18 tables. The maneuver telemetry datasets are available in the GitHub repository under <a href="https://github.com/kdjebko/lelar-in-orbit-data" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+        <div class='list-journal-ref'><span class='descriptor'>Journal-ref:</span>
+          IEEE Access, vol. 14, pp. 49348-49367, 2026
+        </div>
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI); Machine Learning (cs.LG); Systems and Control (eess.SY)
+        </div>
+
+        <p class='mathjax'>
+          Attitude control is essential for many satellite missions. Classical controllers, however, are time-consuming to design and sensitive to model uncertainties and variations in operational boundary conditions. Deep Reinforcement Learning (DRL) offers a promising alternative by learning adaptive control strategies through autonomous interaction with a simulation environment. Overcoming the Sim2Real gap, which involves deploying an agent trained in simulation onto the real physical satellite, remains a significant challenge. In this work, we present the first successful in-orbit demonstration of an AI-based attitude controller for inertial pointing maneuvers. The controller was trained entirely in simulation and deployed to the InnoCube 3U nanosatellite, which was developed by the Julius-Maximilians-Universität Würzburg in cooperation with the Technische Universität Berlin, and launched in January 2025. We present the AI agent design, the methodology of the training procedure, the discrepancies between the simulation and the observed behavior of the real satellite, and a comparison of the AI-based attitude controller with the classical PD controller of InnoCube. Steady-state metrics confirm the robust performance of the AI-based controller during repeated in-orbit maneuvers.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item37'>[37]</a>
+      <a href ="/abs/2602.16005" title="Abstract" id="2602.16005">
+        arXiv:2602.16005
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2602.16005" title="Download PDF" id="pdf-2602.16005" aria-labelledby="pdf-2602.16005">pdf</a>, <a href="https://arxiv.org/html/2602.16005v2" title="View HTML" id="html-2602.16005" aria-labelledby="html-2602.16005" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2602.16005" title="Other formats" id="oth-2602.16005" aria-labelledby="oth-2602.16005">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          ODYN: An All-Shifted Non-Interior-Point Method for Quadratic Programming in Robotics and AI
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Rojas,+J">Jose Rojas</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Papatheodorou,+A">Aristotelis Papatheodorou</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Martinez,+S">Sergi Martinez</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Patrizi,+A">Andrea Patrizi</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Havoutis,+I">Ioannis Havoutis</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mastalli,+C">Carlos Mastalli</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          20 pages, 12 figures, under-review
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Artificial Intelligence (cs.AI)
+        </div>
+
+        <p class='mathjax'>
+          We introduce ODYN, a novel all-shifted primal-dual non-interior-point quadratic programming (QP) solver designed to efficiently handle challenging dense and sparse QPs. ODYN combines all-shifted nonlinear complementarity problem (NCP) functions with proximal method of multipliers to robustly address ill-conditioned and degenerate problems, without requiring linear independence of the constraints. It exhibits strong warm-start performance and is well suited to both general-purpose optimization, and robotics and AI applications, including model-based control, estimation, and kernel-based learning methods. We provide an open-source implementation and benchmark ODYN on the Maros-Mészáros test set, demonstrating state-of-the-art convergence performance in small-to-high-scale problems. The results highlight ODYN&#39;s superior warm-starting capabilities, which are critical in sequential and real-time settings common in robotics and AI. These advantages are further demonstrated by deploying ODYN as the backend of an SQP-based predictive control framework (OdynSQP), as the implicitly differentiable optimization layer for deep learning (ODYNLayer), and the optimizer of a contact-dynamics simulation (ODYNSim).
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item38'>[38]</a>
+      <a href ="/abs/2604.02387" title="Abstract" id="2604.02387">
+        arXiv:2604.02387
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.02387" title="Download PDF" id="pdf-2604.02387" aria-labelledby="pdf-2604.02387">pdf</a>, <a href="https://arxiv.org/html/2604.02387v2" title="View HTML" id="html-2604.02387" aria-labelledby="html-2604.02387" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.02387" title="Other formats" id="oth-2604.02387" aria-labelledby="oth-2604.02387">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          A Dynamic Toolkit for Transmission Characteristics of Precision Reducers with Explicit Contact Geometry
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Miao,+J">Jiacheng Miao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+C">Chao Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+Q">Qiliang Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Guan,+Y">Yunhui Guan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=He,+W">Weidong He</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          21 pages, 8 figures
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Precision reducers are critical components in robotic systems, directly affecting the motion accuracy and dynamic performance of humanoid robots, quadruped robots, collaborative robots, industrial robots, and SCARA robots. This paper presents a dynamic toolkit for analyzing the transmission characteristics of precision reducers with explicit contact geometry. A unified framework is proposed to address the challenges in modeling accurate contact behaviors, evaluating gear stiffness, and predicting system vibrations. By integrating advanced contact theories and numerical solving methods, the proposed toolkit offers higher precision and computational efficiency compared to traditional dynamics software. The toolkit is designed with a modular, scriptable architecture that supports rapid reconfiguration across diverse reducer topologies. Numerical validation against published benchmarks confirms the accuracy of the proposed approach.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item39'>[39]</a>
+      <a href ="/abs/2604.02643" title="Abstract" id="2604.02643">
+        arXiv:2604.02643
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.02643" title="Download PDF" id="pdf-2604.02643" aria-labelledby="pdf-2604.02643">pdf</a>, <a href="https://arxiv.org/html/2604.02643v2" title="View HTML" id="html-2604.02643" aria-labelledby="html-2604.02643" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.02643" title="Other formats" id="oth-2604.02643" aria-labelledby="oth-2604.02643">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Differentiable SpaTiaL: Symbolic Learning and Reasoning with Geometric Temporal Logic for Manipulation Tasks
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Luo,+L">Licheng Luo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liang,+K">Kaier Liang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Vasile,+C">Cristian-Ioan Vasile</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cai,+M">Mingyu Cai</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Code available at: <a href="https://github.com/plen1lune/DiffSpaTiaL" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Executing complex manipulation in cluttered environments requires satisfying coupled geometric and temporal constraints. Although Spatio-Temporal Logic (SpaTiaL) offers a principled specification framework, its use in gradient-based optimization is limited by non-differentiable geometric operations. Existing differentiable temporal logics focus on the robot&#39;s internal state and neglect interactive object-environment relations, while spatial logic approaches that capture such interactions rely on discrete geometry engines that break the computational graph and preclude exact gradient propagation. To overcome this limitation, we propose Differentiable SpaTiaL, a fully tensorized toolbox that constructs smooth, autograd-compatible geometric primitives directly over polygonal sets. To the best of our knowledge, this is the first end-to-end differentiable symbolic spatio-temporal logic toolbox. By analytically deriving differentiable relaxations of key spatial predicates--including signed distance, intersection, containment, and directional relations--we enable an end-to-end differentiable mapping from high-level semantic specifications to low-level geometric configurations, without invoking external discrete solvers. This fully differentiable formulation unlocks two core capabilities: (i) massively parallel trajectory optimization under rigorous spatio-temporal constraints, and (ii) direct learning of spatial logic parameters from demonstrations via backpropagation. Experimental results validate the effectiveness and scalability of the proposed framework.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item40'>[40]</a>
+      <a href ="/abs/2604.04221" title="Abstract" id="2604.04221">
+        arXiv:2604.04221
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.04221" title="Download PDF" id="pdf-2604.04221" aria-labelledby="pdf-2604.04221">pdf</a>, <a href="https://arxiv.org/html/2604.04221v2" title="View HTML" id="html-2604.04221" aria-labelledby="html-2604.04221" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.04221" title="Other formats" id="oth-2604.04221" aria-labelledby="oth-2604.04221">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          RK-MPC: Residual Koopman Model Predictive Control for Quadruped Locomotion in Offroad Environments
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Narayanan,+S+S+K+S">Sriram S. K. S. Narayanan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Vaidya,+U">Umesh Vaidya</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          This paper presents Residual Koopman MPC (RK-MPC), a Koopman-based, data-driven model predictive control framework for quadruped locomotion that improves prediction fidelity while preserving real-time tractability. RK-MPC augments a nominal template model with a compact linear residual predictor learned from data in lifted coordinates, enabling systematic correction of model mismatch induced by contact variability and terrain disturbances with provable bounds on multi-step prediction error. The learned residual model is embedded within a convex quadratic-program MPC formulation, yielding a receding-horizon controller that runs onboard at 500 Hz and retains the structure and constraint-handling advantages of optimization-based control. We evaluate RK-MPC in both Gazebo simulation and Unitree Go1 hardware experiments, demonstrating reliable blind locomotion across contact disturbances, multiple gait schedules, and challenging off-road terrains including grass, gravel, snow, and ice. We further compare against Koopman/EDMD baselines using alternative observable dictionaries, including monomial and $SE(3)$-structured bases, and show that the residual correction improves multi-step prediction and closed-loop performance while reducing sensitivity to the choice of observables. Overall, RK-MPC provides a practical, hardware-validated pathway for data-driven predictive control of quadrupeds in unstructured environments. See <a href="https://sriram-2502.github.io/rk-mpc" rel="external noopener nofollow" class="link-external link-https">this https URL</a> for implementation videos.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item41'>[41]</a>
+      <a href ="/abs/2604.05351" title="Abstract" id="2604.05351">
+        arXiv:2604.05351
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.05351" title="Download PDF" id="pdf-2604.05351" aria-labelledby="pdf-2604.05351">pdf</a>, <a href="https://arxiv.org/html/2604.05351v2" title="View HTML" id="html-2604.05351" aria-labelledby="html-2604.05351" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.05351" title="Other formats" id="oth-2604.05351" aria-labelledby="oth-2604.05351">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          AnyImageNav: Any-View Geometry for Precise Last-Meter Image-Goal Navigation
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Deng,+Y">Yijie Deng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Yuan,+S">Shuaihang Yuan</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fang,+Y">Yi Fang</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>; Computer Vision and Pattern Recognition (cs.CV)
+        </div>
+
+        <p class='mathjax'>
+          Image Goal Navigation (ImageNav) is evaluated by a coarse success criterion, the agent must stop within 1m of the target, which is sufficient for finding objects but falls short for downstream tasks such as grasping that require precise positioning. We introduce AnyImageNav, a training-free system that pushes ImageNav toward this more demanding setting. Our key insight is that the goal image can be treated as a geometric query: any photo of an object, a hallway, or a room corner can be registered to the agent&#39;s observations via dense pixel-level correspondences, enabling recovery of the exact 6-DoF camera pose. Our method realizes this through a semantic-to-geometric cascade: a semantic relevance signal guides exploration and acts as a proximity gate, invoking a 3D multi-view foundation model only when the current view is highly relevant to the goal image; the model then self-certifies its registration in a loop for an accurate recovered pose. Our method sets state-of-the-art navigation success rates on Gibson (93.1%) and HM3D (82.6%), and achieves pose recovery that prior methods do not provide: a position error of 0.27m and heading error of 3.41 degrees on Gibson, and 0.21m / 1.23 degrees on HM3D, a 5-10x improvement over adapted baselines.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item42'>[42]</a>
+      <a href ="/abs/2604.05672" title="Abstract" id="2604.05672">
+        arXiv:2604.05672
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.05672" title="Download PDF" id="pdf-2604.05672" aria-labelledby="pdf-2604.05672">pdf</a>, <a href="https://arxiv.org/html/2604.05672v2" title="View HTML" id="html-2604.05672" aria-labelledby="html-2604.05672" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.05672" title="Other formats" id="oth-2604.05672" aria-labelledby="oth-2604.05672">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          A1: A Fully Transparent Open-Source, Adaptive and Efficient Truncated Vision-Language-Action Model
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+K">Kaidong Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+J">Jian Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xu,+R">Rongtao Xu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Sun,+Y">Yu Sun</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xue,+S">Shuoshuo Xue</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wen,+Y">Youpeng Wen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Guo,+X">Xiaoyu Guo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Guo,+M">Minghao Guo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liufu,+W">Weijia Liufu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zihou,+L">Liu Zihou</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Ji,+K">Kangyi Ji</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+Y">Yangsong Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhu,+J">Jiarun Zhu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+J">Jingzhi Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Li,+Z">Zihang Li</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+R">Ruiyi Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Cao,+M">Meng Cao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhang,+J">Jingming Zhang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zhao,+S">Shen Zhao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chang,+X">Xiaojun Chang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Zheng,+F">Feng Zheng</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Laptev,+I">Ivan Laptev</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liang,+X">Xiaodan Liang</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Vision-Language-Action (VLA) models have emerged as a powerful paradigm for open-world robot manipulation, but their practical deployment is often constrained by cost: billion-scale VLM backbones and iterative diffusion/flow-based action heads incur high latency and compute, making real-time control expensive on commodity hardware. We present A1, a fully open-source and transparent VLA framework designed for low-cost, high-throughput inference without sacrificing manipulation success; Our approach leverages pretrained VLMs that provide implicit affordance priors for action generation. We release the full training stack (training code, data/data-processing pipeline, intermediate checkpoints, and evaluation scripts) to enable end-to-end reproducibility. Beyond optimizing the VLM alone, A1 targets the full inference pipeline by introducing a budget-aware adaptive inference scheme that jointly accelerates the backbone and the action head. Specifically, we monitor action consistency across intermediate VLM layers to trigger early termination, and propose Inter-Layer Truncated Flow Matching that warm-starts denoising across layers, enabling accurate actions with substantially fewer effective denoising iterations. Across simulation benchmarks (LIBERO, VLABench) and real robots (Franka, AgiBot), A1 achieves state-of-the-art success rates while significantly reducing inference cost (e.g., up to 72% lower per-episode latency for flow-matching inference and up to 76.6% backbone computation reduction with minor performance degradation). On RoboChallenge, A1 achieves an average success rate of 29.00%, outperforming baselines including pi0(28.33%), X-VLA (21.33%), and RDT-1B (15.00%).
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item43'>[43]</a>
+      <a href ="/abs/2604.05828" title="Abstract" id="2604.05828">
+        arXiv:2604.05828
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2604.05828" title="Download PDF" id="pdf-2604.05828" aria-labelledby="pdf-2604.05828">pdf</a>, <a href="https://arxiv.org/html/2604.05828v2" title="View HTML" id="html-2604.05828" aria-labelledby="html-2604.05828" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2604.05828" title="Other formats" id="oth-2604.05828" aria-labelledby="oth-2604.05828">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Precise Aggressive Aerial Maneuvers with Sensorimotor Policies
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wu,+T">Tianyue Wu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xu,+G">Guangtong Xu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wang,+Z">Zihan Wang</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lin,+J">Junxiao Lin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+T">Tianyang Chen</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wu,+Y">Yuze Wu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Han,+Z">Zhichao Han</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+Z">Zhiyang Liu</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gao,+F">Fei Gao</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          This manuscript was submitted in June 2025. The first revision was submitted in November 2025. The second revision was submitted in February 2026. The first two authors contributed equally to this work
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Robotics (cs.RO)</span>
+        </div>
+
+        <p class='mathjax'>
+          Precise aggressive maneuvers with lightweight onboard sensors remains a key bottleneck in fully exploiting the maneuverability of drones. Such maneuvers are critical for expanding the systems&#39; accessible area by navigating through narrow openings in the environment. Among the most relevant problems, a representative one is aggressive traversal through narrow gaps with quadrotors under SE(3) constraints, which require the quadrotors to leverage a momentary tilted attitude and the asymmetry of the airframe to navigate through gaps. In this paper, we achieve such maneuvers by developing sensorimotor policies directly mapping onboard vision and proprioception into low-level control commands. The policies are trained using reinforcement learning (RL) with end-to-end policy distillation in simulation. We mitigate the fundamental hardness of model-free RL&#39;s exploration on the restricted solution space with an initialization strategy leveraging trajectories generated by a model-based planner. Careful sim-to-real design allows the policy to control a quadrotor through narrow gaps with low clearances and high repeatability. For instance, the proposed method enables a quadrotor to navigate a rectangular gap at a 5 cm clearance, tilted at up to 90-degree orientation, without knowledge of the gap&#39;s position or orientation. Without training on dynamic gaps, the policy can reactively servo the quadrotor to traverse through a moving gap. The proposed method is also validated by training and deploying policies on challenging tracks of narrow gaps placed closely. The flexibility of the policy learning method is demonstrated by developing policies for geometrically diverse gaps, without relying on manually defined traversal poses and visual features.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item44'>[44]</a>
+      <a href ="/abs/2503.16548" title="Abstract" id="2503.16548">
+        arXiv:2503.16548
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2503.16548" title="Download PDF" id="pdf-2503.16548" aria-labelledby="pdf-2503.16548">pdf</a>, <a href="https://arxiv.org/html/2503.16548v2" title="View HTML" id="html-2503.16548" aria-labelledby="html-2503.16548" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2503.16548" title="Other formats" id="oth-2503.16548" aria-labelledby="oth-2503.16548">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          SemanticScanpath: Combining Gaze and Speech for Situated Human-Robot Interaction Using LLMs
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Menendez,+E">Elisabeth Menendez</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gienger,+M">Michael Gienger</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Mart%C3%ADnez,+S">Santiago Martínez</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Balaguer,+C">Carlos Balaguer</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Belardinelli,+A">Anna Belardinelli</a></div>
+
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Human-Computer Interaction (cs.HC)</span>; Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          Large Language Models (LLMs) have substantially improved the conversational capabilities of social robots. Nevertheless, for an intuitive and fluent human-robot interaction, robots should be able to ground the conversation by relating ambiguous or underspecified spoken utterances to the current physical situation and to the intents expressed nonverbally by the user, such as through referential gaze. Here, we propose a representation that integrates speech and gaze to enable LLMs to achieve higher situated awareness and correctly resolve ambiguous requests. Our approach relies on a text-based semantic translation of the scanpath produced by the user, along with the verbal requests. It demonstrates LLMs&#39; capabilities to reason about gaze behavior, robustly ignoring spurious glances or irrelevant objects. We validate the system across multiple tasks and two scenarios, showing its superior generality and accuracy compared to control conditions. We demonstrate an implementation on a robotic platform, closing the loop from request interpretation to execution.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item45'>[45]</a>
+      <a href ="/abs/2510.15510" title="Abstract" id="2510.15510">
+        arXiv:2510.15510
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2510.15510" title="Download PDF" id="pdf-2510.15510" aria-labelledby="pdf-2510.15510">pdf</a>, <a href="https://arxiv.org/html/2510.15510v2" title="View HTML" id="html-2510.15510" aria-labelledby="html-2510.15510" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2510.15510" title="Other formats" id="oth-2510.15510" aria-labelledby="oth-2510.15510">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Exploring Conditions for Diffusion models in Robotic Control
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Shin,+H">Heeseong Shin</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Heo,+B">Byeongho Heo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Han,+D">Dongyoon Han</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kim,+S">Seungryong Kim</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kim,+T">Taekyung Kim</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Accepted to CVPR 2026. Project page: <a href="https://orca-rc.github.io/" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Computer Vision and Pattern Recognition (cs.CV)</span>; Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          While pre-trained visual representations have significantly advanced imitation learning, they are often task-agnostic as they remain frozen during policy learning. In this work, we explore leveraging pre-trained text-to-image diffusion models to obtain task-adaptive visual representations for robotic control, without fine-tuning the model itself. However, we find that naively applying textual conditions - a successful strategy in other vision domains - yields minimal or even negative gains in control tasks. We attribute this to the domain gap between the diffusion model&#39;s training data and robotic control environments, leading us to argue for conditions that consider the specific, dynamic visual information required for control. To this end, we propose ORCA, which introduces learnable task prompts that adapt to the control environment and visual prompts that capture fine-grained, frame-specific details. Through facilitating task-adaptive representations with our newly devised conditions, our approach achieves state-of-the-art performance on various robotic control benchmarks, significantly surpassing prior methods.
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item46'>[46]</a>
+      <a href ="/abs/2510.18034" title="Abstract" id="2510.18034">
+        arXiv:2510.18034
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2510.18034" title="Download PDF" id="pdf-2510.18034" aria-labelledby="pdf-2510.18034">pdf</a>, <a href="https://arxiv.org/html/2510.18034v2" title="View HTML" id="html-2510.18034" aria-labelledby="html-2510.18034" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2510.18034" title="Other formats" id="oth-2510.18034" aria-labelledby="oth-2510.18034">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Can VLMs Unlock Semantic Anomaly Detection? A Framework for Structured Reasoning
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Brusnicki,+R">Roberto Brusnicki</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Pop,+D">David Pop</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Gao,+Y">Yuan Gao</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Piccinini,+M">Mattia Piccinini</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Betz,+J">Johannes Betz</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          8 pages, 5 figures
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Computer Vision and Pattern Recognition (cs.CV)</span>; Artificial Intelligence (cs.AI); Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          Autonomous driving systems remain critically vulnerable to the long-tail of rare, out-of-distribution semantic anomalies. While VLMs have emerged as promising tools for perception, their application in anomaly detection remains largely restricted to prompting proprietary models - limiting reliability, reproducibility, and deployment feasibility. To address this gap, we introduce SAVANT (Semantic Anomaly Verification/Analysis Toolkit), a novel model-agnostic reasoning framework that reformulates anomaly detection as a layered semantic consistency verification. By applying SAVANT&#39;s two-phase pipeline - structured scene description extraction and multi-modal evaluation - existing VLMs achieve significantly higher scores in detecting anomalous driving scenarios from input images. Our approach replaces ad hoc prompting with semantic-aware reasoning, transforming VLM-based detection into a principled decomposition across four semantic domains. We show that across a balanced set of real-world driving scenarios, applying SAVANT improves VLM&#39;s absolute recall by approximately 18.5% compared to prompting baselines. Moreover, this gain enables reliable large-scale annotation: leveraging the best proprietary model within our framework, we automatically labeled around 10,000 real-world images with high confidence. We use the resulting high-quality dataset to fine-tune a 7B open-source model (Qwen2.5-VL) to perform single-shot anomaly detection, achieving 90.8% recall and 93.8% accuracy - surpassing all models evaluated while enabling local deployment at near-zero cost. By coupling structured semantic reasoning with scalable data curation, SAVANT provides a practical solution to data scarcity in semantic anomaly detection for autonomous systems. Supplementary material: <a href="https://SAV4N7.github.io" rel="external noopener nofollow" class="link-external link-https">this https URL</a>
+        </p>
+      </div>
+    </dd>
+    <dt>
+      <a name='item47'>[47]</a>
+      <a href ="/abs/2601.05529" title="Abstract" id="2601.05529">
+        arXiv:2601.05529
+      </a>
+          (replaced)
+
+        [<a href="/pdf/2601.05529" title="Download PDF" id="pdf-2601.05529" aria-labelledby="pdf-2601.05529">pdf</a>, <a href="https://arxiv.org/html/2601.05529v5" title="View HTML" id="html-2601.05529" aria-labelledby="html-2601.05529" rel="noopener noreferrer" target="_blank">html</a>, <a href="/format/2601.05529" title="Other formats" id="oth-2601.05529" aria-labelledby="oth-2601.05529">other</a>]
+    </dt>
+    <dd>
+      <div class='meta'>
+        <div class='list-title mathjax'><span class='descriptor'>Title:</span>
+          Before We Trust Them: Decision-Making Failures in Navigation of Foundation Models
+        </div>
+        <div class='list-authors'><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Han,+J">Jua Han</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Seo,+J">Jaeyoon Seo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Min,+J">Jungbin Min</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Choi,+S">Sieun Choi</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Seo,+H">Huichan Seo</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Kim,+J">Jihie Kim</a>, <a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Oh,+J">Jean Oh</a></div>
+
+        <div class='list-comments mathjax'><span class='descriptor'>Comments:</span>
+          Corrected author order in metadata; manuscript changed
+        </div>
+
+
+        <div class='list-subjects'><span class='descriptor'>Subjects:</span>
+          <span class="primary-subject">Artificial Intelligence (cs.AI)</span>; Robotics (cs.RO)
+        </div>
+
+        <p class='mathjax'>
+          High success rates on navigation-related tasks do not necessarily translate into reliable decision making by foundation models. To examine this gap, we evaluate current models on six diagnostic tasks spanning three settings: reasoning under complete spatial information, reasoning under incomplete spatial information, and reasoning under safety-relevant information. Our results show that the current metrics may not capture critical limitations of the models and indicate good performance, underscoring the need for failure-focused analysis to understand model limitations and guide future progress. In a path-planning setting with unknown cells, GPT-5 achieved a high success rate of 93%; Yet, the failed cases exhibit fundamental limitations of the models, e.g., the lack of structural spatial understanding essential for navigation. We also find that newer models are not always more reliable than their predecessors on this end. In reasoning under safety-relevant information, Gemini-2.5 Flash achieved only 67% on the challenging emergency-evacuation task, underperforming Gemini-2.0 Flash, which reached 100% under the same condition. Across all evaluations, models exhibited structural collapse, hallucinated reasoning, constraint violations, and unsafe decisions. These findings show that foundation models still exhibit substantial failures in navigation-related decision making and require fine-grained evaluation before they can be trusted.
+        </p>
+      </div>
+    </dd>
+</dl>
+
+
+
+
+      <div class='paging'>Total of 47 entries 
+    </div>
+    <div class='morefewer'>Showing up to 2000 entries per page:
+          <a href=/list/cs.RO/new?skip=0&amp;show=1000 rel="nofollow">
+      fewer</a>
+ |
+          <span style="color: #454545">more</span>
+ |
+          <span style="color: #454545">all</span>
+
+    </div>
+
+</div>
+</div>      </div>
+    </main>
+
+    <footer style="clear: both;">
+      <div class="columns is-desktop" role="navigation" aria-label="Secondary" style="margin: -0.75em -0.75em 0.75em -0.75em">
+        <!-- Macro-Column 1 -->
+        <div class="column" style="padding: 0;">
+          <div class="columns">
+            <div class="column">
+              <ul style="list-style: none; line-height: 2;">
+                <li><a href="https://info.arxiv.org/about">About</a></li>
+                <li><a href="https://info.arxiv.org/help">Help</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul style="list-style: none; line-height: 2;">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon filter-black" role="presentation"><title>contact arXiv</title><desc>Click here to contact arXiv</desc><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+                  <a href="https://info.arxiv.org/help/contact.html"> Contact</a>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon filter-black" role="presentation"><title>subscribe to arXiv mailings</title><desc>Click here to subscribe</desc><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+                  <a href="https://info.arxiv.org/help/subscribe"> Subscribe</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- End Macro-Column 1 -->
+        <!-- Macro-Column 2 -->
+        <div class="column" style="padding: 0;">
+          <div class="columns">
+            <div class="column">
+              <ul style="list-style: none; line-height: 2;">
+                <li><a href="https://info.arxiv.org/help/license/index.html">Copyright</a></li>
+                <li><a href="https://info.arxiv.org/help/policies/privacy_policy.html">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div class="column sorry-app-links">
+              <ul style="list-style: none; line-height: 2;">
+                <li><a href="https://info.arxiv.org/help/web_accessibility.html">Web Accessibility Assistance</a></li>
+                <li>
+                  <p class="help">
+                    <a class="a11y-main-link" href="https://status.arxiv.org" target="_blank">arXiv Operational Status <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" class="icon filter-dark_grey" role="presentation"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a><br>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> <!-- end MetaColumn 2 -->
+        <!-- End Macro-Column 2 -->
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/base/1.0.1/js/member_acknowledgement.js"></script>
+
+</body>
+
+</html>

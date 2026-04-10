@@ -2,7 +2,7 @@
 layout: note
 title: "fast-slow decomposition pattern emerges across inference, planning, and world modeling"
 date: 2026-04-05
-sources: ["2603.14498", "2604.01681", "2604.01577", "2604.03208", "2604.04502"]
+sources: ["2603.14498", "2604.01681", "2604.01577", "2604.03208", "2604.04502", "2604.05672"]
 type: pattern
 ---
 
