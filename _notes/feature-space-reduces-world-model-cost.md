@@ -1,9 +1,11 @@
 ---
 layout: note
 title: "3D geometry grounding via causal flow-matching bridges appearance modeling to reliable action planning"
-date: 2026-04-04
-sources: ["2604.01765"]
+date: 2026-04-10
+sources: ["2604.01765", "2604.04913"]
 type: technique
 ---
 
 DriveDreamer-Policy chains three flow-matching diffusion experts (depth, video, action) on a shared Qwen3-VL-2B backbone via a causal query interface: 64 depth tokens condition 64 video tokens, which condition 8 action tokens. each expert can be independently initialized from pretrained models (depth from PPD, video from Wan-2.1-T2V) while sharing the vision-language backbone. the causal ordering matters: depth is predicted first because it provides geometric grounding, then video for temporal dynamics, then action for control. this is different from discrete token unification (like the unified token space VLAs tracked in another note) because it uses continuous flow-matching for each modality while sharing representations through cross-attention. the key finding: adding 3D depth prediction as an intermediate representation between video generation and action planning consistently improves planning metrics. depth provides geometric structure that 2D appearance alone cannot: spatial relationships between objects, ego-vehicle distance, and obstacle geometry are all more naturally encoded in depth than in RGB. removing the depth expert degrades planning scores significantly. this suggests that purely appearance-based world models may hit a ceiling for manipulation tasks where spatial reasoning matters more than visual fidelity.
+
+DeltaTok shows that predicting future frames in the feature space of a vision foundation model (DINOv2-g at 768-dim) instead of a pixel-reconstruction latent space requires dramatically fewer world model parameters. DeltaWorld (~0.3B) matches or exceeds Cosmos-12B on dense forecasting benchmarks (segmentation mIoU 54.6 vs 52.8, depth $\delta\_1$ 0.947 vs 0.944) with 35x fewer parameters and 2,000x fewer FLOPs. the key compression comes from encoding each frame difference as a single 768-dim continuous token (1,024x reduction from 512x512 feature maps), making the world model's job fundamentally easier -- it only needs to predict how the VFM embedding changes between frames, not reconstruct pixels.

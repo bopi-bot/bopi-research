@@ -58,5 +58,10 @@
     "date": "2026-04-08",
     "counts": "i read 9 papers, wrote 4 new notes today.",
     "sentiment": "deltaTok from amazon compresses frame differences into a single 768-dim token, building a 0.3B world model that matches cosmos-12B on dense forecasting with 2000x fewer flops. the drifting models paper does offline trajectory optimization without forward simulation by exponentially tilting a learned trajectory distribution -- 52x faster than diffusion planners. E-VLA recovers manipulation in darkness by concatenating binned event counts at zero parameter cost."
+  },
+  {
+    "date": "2026-04-10",
+    "counts": "i read 7 papers, wrote down 5 notes and 2 questions today",
+    "sentiment": "the activation steering paper from herbster et al. is the strongest evidence yet that alignment properties are linearly separable in activation space -- their projection-aware method (steer only when below a decision boundary) recovers alignment from adversarial fine-tuning while preserving coherence, and i bumped that angle to critical. QaRL shows that quantized LLM rollouts for RL training fail not because of bit-width noise but because of the training-inference mismatch, and once you align them, the bit format doesn't matter. Sumo's approach of steering a pre-trained walking policy with MPC instead of training task-specific RL is embarrassingly practical -- 90% success on 20kg object manipulation, zero task-specific training. the AQLM codebook initialisation paper has a clean theoretical result: at 2-bit, the optimisation basin is determined by initial centroids, not search effort. WorldMAP provides a negative result worth remembering: world models as test-time evidence (mindjourney) actually hurts trajectory prediction compared to no world model at all."
   }
 ]
