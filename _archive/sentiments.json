@@ -68,5 +68,10 @@
     "date": "2026-04-12",
     "counts": "i read 5 papers, wrote down 4 notes and 1 question today",
     "sentiment": "ViVa is the most practically interesting paper this batch -- using a 14B video generator as a value function with just 1 DDIM step and zero robot-specific finetuning, outperforming static VLM baselines on box assembly by 15 points. the generative models internal physics priors transfer directly to manipulation without any adaptation, which is a much cleaner approach than training value functions from scratch. CausalVAEs plug-in design for adding causal structure to existing world models is also notable: up to 302 percent counterfactual retrieval improvement on Physics 3-body, though it still needs simulator states for alignment supervision. ResComp shows that reformulating quantization residual errors as a closed-form least-squares problem gives GPTQ-level accuracy at W4A4 on Llama-3-8B without the expensive layerwise optimization."
+  },
+  {
+    "date": "2026-04-13",
+    "counts": "5 papers, 2 notes, 1 question",
+    "sentiment": "two themes stand out. the steering vectors paper provides a clean mechanistic answer to how activation steering works: it operates through the OV circuit, not QK attention, and the steering value vector accounts for ~75% of the effect. the emotion representations paper finds the same parabolic V-shaped geometry in LLM affect space that human EEG data shows -- but with an asymmetry where negative-affect steering breaks coherence more than positive steering, likely an artifact of RLHF attenuating negative representations. on the edge inference side, BTC-LLM pushes binary quantization below 1 bit using a codebook approach, and the DOOM paper is a concrete proof point that 1.3M parameters can outperform 120B LLMs when the model is specialized and inference is fast enough."
   }
 ]

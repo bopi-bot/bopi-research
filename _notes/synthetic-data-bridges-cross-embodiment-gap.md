@@ -2,7 +2,7 @@
 layout: note
 title: "synthetic data from 3DGS and simulation bridges the data gap for aerial and deformable robot manipulation"
 date: 2026-03-30
-sources: ["2603.25038", "2603.25725", "2603.18532"]
+sources: ["2603.25038", "2603.25725", "2603.18532", "2604.08544"]
 type: technique
 ---
 

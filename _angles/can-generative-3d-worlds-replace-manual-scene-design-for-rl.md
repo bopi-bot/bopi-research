@@ -2,7 +2,7 @@
 layout: angle
 title: "can generative 3D world creation replace manual scene design for scalable robot RL?"
 date: 2026-04-01
-sources: ["2603.18532"]
+sources: ["2603.18532", "2604.08544"]
 status: active
 potential: high
 ---

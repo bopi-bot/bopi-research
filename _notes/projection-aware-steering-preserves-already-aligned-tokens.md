@@ -2,7 +2,7 @@
 layout: note
 title: "projection-aware activation steering preserves already-aligned tokens and avoids coherence degradation"
 date: 2026-04-10
-sources: ["2604.08169"]
+sources: ["2604.08169", "2604.08524"]
 type: technique
 ---
 

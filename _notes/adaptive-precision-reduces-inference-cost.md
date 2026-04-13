@@ -2,7 +2,7 @@
 layout: note
 title: "anchored diffusion with truncated schedule reduces VLA inference cost by 4-8x via residual drift correction"
 date: 2026-04-10
-sources: ["2604.01567", "2604.04722"]
+sources: ["2604.01567", "2604.04722", "2604.07385"]
 type: technique
 ---
 

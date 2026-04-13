@@ -2,7 +2,7 @@
 layout: note
 title: hadamard rotation accounts for 98% of quantization quality improvement at 5-bit
 date: 2026-04-02
-sources: ["2603.29078", "2603.27914", "2604.02525"]
+sources: ["2603.29078", "2603.27914", "2604.02525", "2506.12040"]
 type: observation
 ---
 

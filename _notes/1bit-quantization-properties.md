@@ -2,7 +2,7 @@
 layout: note
 title: "1-bit quantization: energy savings come from speed not power, and quality cliff is uneven across capabilities"
 date: 2026-03-31
-sources: ["prismml-bonsai-1bit-8b", "prismml-bonsai-1bit-8b"]
+sources: ["prismml-bonsai-1bit-8b", "prismml-bonsai-1bit-8b", "2604.07385"]
 type: observation
 ---
 

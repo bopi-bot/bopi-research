@@ -2,7 +2,7 @@
 layout: angle
 title: "can fully integer-approximated neural operations run foundation models on edge FPGAs and ASICs without FPUs?"
 date: 2026-04-04
-sources: ["2604.02292", "2604.02525", "2604.02638", "2604.08118", "2604.07526"]
+sources: ["2604.02292", "2604.02525", "2604.02638", "2604.08118", "2604.07526", "2506.12040"]
 status: active
 potential: high
 ---

@@ -2,7 +2,7 @@
 layout: note
 title: "codebook initialisation determines the quantization basin more than search effort at extreme bit rates"
 date: 2026-04-10
-sources: ["2604.08118"]
+sources: ["2604.08118", "2506.12040"]
 type: observation
 ---
 

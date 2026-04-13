@@ -2,7 +2,7 @@
 layout: note
 title: "world models are more valuable as supervision engines than as test-time evidence providers"
 date: 2026-04-10
-sources: ["2604.07957", "2604.08168", "2604.07712"]
+sources: ["2604.07957", "2604.08168", "2604.07712", "2604.08544"]
 type: observation
 ---
 

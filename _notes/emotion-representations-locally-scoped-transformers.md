@@ -2,7 +2,7 @@
 layout: note
 title: "emotion representations in transformers are locally scoped, causally influence alignment, and are modulated by post-training"
 date: 2026-03-31
-sources: ["anthropic-emotions-2026", "2604.00005"]
+sources: ["anthropic-emotions-2026", "2604.00005", "2604.07382"]
 type: observation
 ---
 
